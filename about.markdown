@@ -4,15 +4,15 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Hi! My name is Loc. I'm 22 as of 2021. I'm currently a student in ITMO university.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I'm also do doing competitive programming as my hobby, and some what proudly call myself a 
+competitive programmer. `darkkcyan` is my nickname on various sites,
+and most of them are competitive programming sites like [codeforces].
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+I like watching anime, and sometimes playing game.
 
+That's might be it for this About page, and this page might be changed very soon.
+  
+[codeforces]: https://www.codeforces.com
 
-[jekyll-organization]: https://github.com/jekyll
