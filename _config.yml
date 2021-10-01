@@ -46,8 +46,11 @@ minima:
   social_links:
     github: quangloc99
     facebook: TQLoc
-disqus:
-  shortname: darkkcyanblog
+
+# Currently disable because of the ads
+# disqus: 
+  # shortname: darkkcyanblog 
+      
 show_excerpts: true
 # Exclude from processing.
 # The following items will not be processed, by default.
