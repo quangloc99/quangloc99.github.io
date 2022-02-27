@@ -1,8 +1,9 @@
 ---
 layout: post
 title: "A guide to test-generation with Polygon and Testlib"
-date: 2021-10-01 11:44:00 +0300
+date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
+prepdir: embed-contents/2022-02-19-a-guide-to-test-generation-with-polygon-and-testlib
 ---
 
 {% include mathjax.html %}
@@ -45,8 +46,8 @@ array equal to zero by applying a certain number of operations, and `NO`
 otherwise.
 
 #### Example
-##### Input
-```
+{%include customhighlight.html caption="Input" 
+content="
 4
 3
 1 2 1
@@ -56,11 +57,55 @@ otherwise.
 1 3 1 3 1
 4
 5 2 1 10
-```
-##### Output
-```
+"%}
+
+{%include customhighlight.html caption="Output"
+content="
 YES
 YES
 NO
 YES
-```
+" %}
+
+## Validator
+
+A validator is a program that checks if the input follows the specified format
+and constraints as in the statement. This post does not focus on test
+validation. But we should as well go through it. Firstly, the validator is very
+easy to write. And secondly, by pointing out whether a test follows the
+constraints, the validator helps detect some bugs with the generator.
+
+Without further a due, here is the validator. It is simple for this problem, so
+I won't go into details here.
+
+{%include customhighlight.html dir=page.prepdir file="validator.cpp"
+  caption="validator.cpp" ext="cpp"
+%}
+
+Wrting validation tests is also important in order to ensure its correctness. How
+do I write validation tests? For each of the `read` statements, as well as
+`ensuref` statements, I add two tests for them -- one with a value lower than
+the lower bound, and one with a value higher than the upper bound.
+
+Below are the my validation tests.
+- The first two are for testing the value of
+`test-count`.
+- The next two are for testing the value of `n`.
+- And the following two are for the value of `a`.
+- The next test is to test a very small test.
+- The next test is for testing the `ensuref` statement, that is, ensuring if the
+  sum of `n` does not exceed $30000$.
+- And finally I add another small random test.
+
+Remember that on Polygon, there is an option for separting tests using `===` (3
+equal signs). And also note about the must be an empty last line.
+
+{% include customhighlight.html dir=page.prepdir file="validation-test.txt"
+  caption="9 validation tests"
+%}
+
+{% include customhighlight.html dir=page.prepdir
+  file="validation-test-verdicts.txt"
+  caption="Verdicts for validation tests"
+%}
+
