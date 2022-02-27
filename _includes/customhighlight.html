@@ -1,0 +1,23 @@
+
+{% if include.caption %}
+<div class="highlight caption"><pre>
+{{include.caption }}
+</pre></div>
+{% endif %}
+
+{% if include.content %}
+{% assign include_content = {{include.content}} %}
+  {% if include.noStrip | default : false %}
+```{{ include.ext }}
+{{ include_content }}
+```
+  {% else %}
+```{{ include.ext }}
+{{ include_content | strip }}
+```
+  {% endif %}
+{% else %}
+```{{ include.ext }}
+{% include_relative {{include.dir}}/{{include.file}} %}
+```
+{% endif %}

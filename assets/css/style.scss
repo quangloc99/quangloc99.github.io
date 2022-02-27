@@ -1,0 +1,18 @@
+---
+---
+
+@import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
+@import "minima/initialize";
+
+.highlight.caption {
+  filter: invert(1);
+  /* padding: 2px; */
+  margin-bottom: 0;
+  border-radius: 0px;
+  display: block;
+  font-weight: bold;
+}
+
+.highlight.caption > pre {
+  margin-bottom: 0;
+}
