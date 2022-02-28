@@ -82,12 +82,12 @@ I won't go into details here.
   caption="validator.cpp" ext="cpp"
 %}
 
-Wrting validation tests is also important in order to ensure its correctness. How
+Writing validation tests is also important in order to ensure its correctness. How
 do I write validation tests? For each of the `read` statements, as well as
-`ensuref` statements, I add two tests for them -- one with a value lower than
+`ensuref` statements, I add two tests for it -- one with a value lower than
 the lower bound, and one with a value higher than the upper bound.
 
-Below are the my validation tests.
+Below are my validation tests.
 - The first two are for testing the value of
 `test-count`.
 - The next two are for testing the value of `n`.
@@ -95,9 +95,9 @@ Below are the my validation tests.
 - The next test is to test a very small test.
 - The next test is for testing the `ensuref` statement, that is, ensuring if the
   sum of `n` does not exceed $30000$.
-- And finally I add another small random test.
+- And finally, I add another small random test.
 
-Remember that on Polygon, there is an option for separting tests using `===` (3
+Remember that on Polygon, there is an option for separating tests using `===` (3
 equal signs). And also note about the must be an empty last line.
 
 {% include customhighlight.html dir=page.prepdir file="validation-test.txt"
