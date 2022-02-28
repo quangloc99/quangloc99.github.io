@@ -1,0 +1,53 @@
+.highlight.caption {
+    display: block;
+    filter: invert(1);
+    /* padding: 2px; */
+    margin-bottom: 0;
+    border-radius: 0px;
+    display: block;
+    font-weight: bold;
+}
+
+.highlight.caption > label {
+    cursor: pointer;
+}
+
+.highlight.caption > label, .highlight.caption > label > pre {
+    margin-bottom: 0;
+}
+
+.collapse-checkbox-wrapper {
+    display: none;
+}
+.collapse-label pre::before {
+    content: ' ';
+    display: inline-block;
+
+    width: 0px;
+    height: 0px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid currentColor;
+
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: rotate(90deg) translateX(-3px);
+
+    transition: transform .2s ease-out;
+}
+
+.collapse-label.collapse pre::before {
+    transform: translateY(-2px);
+}
+
+.collapsible {
+    transition: height ease-in-out 0.25s 0s;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.collapsible.collapse {
+    height: 0px !important;
+}
+
+

@@ -1,23 +1,63 @@
+{%- capture include_content -%}
+    {%- if include.content -%}
+        {%- if include.noStrip | default : false -%}
+            {{ include.content }}
+        {%- else -%}
+            {{ include.content | strip }}
+        {%- endif -%}
+    {%- else -%}
+        {%- include_relative {{include.dir}}/{{include.file}} -%}
+    {%- endif -%}
+{%- endcapture -%}
 
-{% if include.caption %}
-<div class="highlight caption"><pre>
-{{include.caption }}
-</pre></div>
-{% endif %}
+{%- capture collapseCheckboxId -%}
+collapse-checkbox-{%-increment collapseCheckboxCounter -%}
+{%- endcapture -%}
 
-{% if include.content %}
-{% assign include_content = {{include.content}} %}
-  {% if include.noStrip | default : false %}
-```{{ include.ext }}
+{% comment %}making a wrapper because kramdown will wrap input inside a p tag{% endcomment %}
+<div class="collapse-checkbox-wrapper">
+    <input type="checkbox" class="collapse-checkbox" 
+           id="{{ collapseCheckboxId }}" autocomplete="off"
+          {% if include.collapsed | default: false -%} checked {%- endif -%}
+    />
+</div>
+
+<div class="highlight caption collapse-label">
+<label for="{{collapseCheckboxId}}">
+    <pre>{{include.caption}}</pre>
+</label>
+</div>
+    
+```{{include.ext}}
 {{ include_content }}
 ```
-  {% else %}
-```{{ include.ext }}
-{{ include_content | strip }}
-```
-  {% endif %}
-{% else %}
-```{{ include.ext }}
-{% include_relative {{include.dir}}/{{include.file}} %}
-```
+
+{%-capture includedCnt -%} {%- increment includedCounter -%} {%-endcapture%}
+{% if includedCnt == "0" %}
+<script>
+    window.addEventListener("load", () => {
+        const elms = document.querySelectorAll(".collapse-checkbox");
+        Array.from(elms).forEach(elm => {
+            const wrapper = elm.parentElement;
+            if (!wrapper) return;
+            const labelElm = wrapper.nextElementSibling;
+            if (!labelElm) return; 
+            const collapsibleElm = labelElm.nextElementSibling;
+            if (!collapsibleElm) return; 
+            collapsibleElm.classList.add("collapsible");
+            collapsibleElm.style.height = collapsibleElm.offsetHeight + "px";
+            function update() {
+                if (elm.checked) {
+                    labelElm.classList.add("collapse");
+                    collapsibleElm.classList.add("collapse");
+                } else {
+                    labelElm.classList.remove("collapse");
+                    collapsibleElm.classList.remove("collapse");
+                }
+            }
+            update();
+            elm.addEventListener("change", update);
+        });
+    });
+</script>
 {% endif %}

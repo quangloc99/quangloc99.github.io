@@ -104,12 +104,12 @@ Remember that on Polygon, there is an option for separating tests using `===` (3
 equal signs). And also note about the must be an empty last line.
 
 {% include customhighlight.html dir=page.prepdir file="validation-test.txt"
-  caption="9 validation tests"
+  caption="9 validation tests" collapsed=true
 %}
 
 {% include customhighlight.html dir=page.prepdir
   file="validation-test-verdicts.txt"
-  caption="Verdicts for validation tests"
+  caption="Verdicts for validation tests" collapsed=true
 %}
 
 If you notice, there are test that does not follow the format, like in the
@@ -141,7 +141,7 @@ Here is the full solution, quoted from the editorial.
 Because it is very short, here is the solution in Python.
 
 {% include customhighlight.html caption="solution.py"
-  dir=page.prepdir file="solution.py" ext="py"
+  dir=page.prepdir file="solution.py" ext="py" collapsed=true
 %}
 
 #### Very stupid, correct solution
@@ -158,7 +158,7 @@ recursion, but to make it a little faster, we can also use _memorization_ --
 that is, storing all visited states.
 
 {% include customhighlight.html caption="brute-force.cpp"
-  dir=page.prepdir file="brute-force.cpp" ext="cpp"
+  dir=page.prepdir file="brute-force.cpp" ext="cpp" collapsed=true
 %}
 
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
