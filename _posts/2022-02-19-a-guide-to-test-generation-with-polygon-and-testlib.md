@@ -4,6 +4,7 @@ title: "A guide to test-generation with Polygon and Testlib"
 date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
 prepdir: embed-contents/2022-02-19-a-guide-to-test-generation-with-polygon-and-testlib
+assetdir: /assets/2022-02-19-a-guide-to-test-generation-with-polygon-and-testlib
 ---
 
 {% include mathjax.html %}
@@ -110,6 +111,13 @@ equal signs). And also note about the must be an empty last line.
   file="validation-test-verdicts.txt"
   caption="Verdicts for validation tests"
 %}
+
+If you notice, there are test that does not follow the format, like in the
+second test I only put the number of test cases there. But here I wanted to test
+the constraints only, and we can consider the validator correct when it produce
+the correct verdict and **error message**.
+
+![Validation test result]({{ page.assetdir }}/validation-test-result.png)
 
 ### Solutions
 #### Model solution
