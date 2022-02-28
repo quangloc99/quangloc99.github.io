@@ -3,8 +3,8 @@ layout: post
 title: "A guide to test-generation with Polygon and Testlib"
 date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
-prepdir: embed-contents/2022-02-19-a-guide-to-test-generation-with-polygon-and-testlib
-assetdir: /assets/2022-02-19-a-guide-to-test-generation-with-polygon-and-testlib
+prepdir: embed-contents/2022-02-19-test-generation-guide
+assetdir: /assets/2022-02-19-test-generation-guide
 ---
 
 {% include mathjax.html %}
@@ -115,7 +115,8 @@ equal signs). And also note about the must be an empty last line.
 If you notice, there are test that does not follow the format, like in the
 second test I only put the number of test cases there. But here I wanted to test
 the constraints only, and we can consider the validator correct when it produce
-the correct verdict and **error message**.
+the correct verdict and **error message**. For testing the input formats, we
+already have two tests, but more can be added.
 
 ![Validation test result]({{ page.assetdir }}/validation-test-result.png)
 
