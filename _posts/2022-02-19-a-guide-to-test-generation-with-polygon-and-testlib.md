@@ -67,8 +67,10 @@ NO
 YES
 " %}
 
-## Validator
+## Before test generation
+### Validator
 
+After preparing the statement, the easiest thing to do is to write a validator.
 A validator is a program that checks if the input follows the specified format
 and constraints as in the statement. This post does not focus on test
 validation. But we should as well go through it. Firstly, the validator is very
@@ -109,3 +111,45 @@ equal signs). And also note about the must be an empty last line.
   caption="Verdicts for validation tests"
 %}
 
+### Solutions
+#### Model solution
+A model solution is required in order to generate the output for the tests. 
+Arccording to the [editorial][CF1442-editorial], the solution is quite short.
+Here is the full solution, quoted from the editorial.
+
+> The problem sounds like this -- check that there are increasing and decreasing
+> arrays, the element-wise sum of which is equal to the given array.
+> 
+> This problem can be solved greedily. Let's maximize each element of the
+> decreasing array (let's call this array $a$, and the increasing one $b$).
+> Suppose initial array is $v$ and we have solved the problem on a prefix of
+> length $i - 1$. Then, for the element $a[i]$, $a[i] \le a[i - 1]$ and $v[i] -
+> a[i] \ge b[i - 1]$ must be fulfilled. Rewriting the second inequality and
+> combining with the first one, we get $a[i] \le \min (a[i - 1], v[i] - b[i -
+> 1])$. It is clear that taking $a[i] = \min (a[i - 1], v[i] - b[i - 1])$ is the
+> best by construction.
+
+Because it is very short, here is the solution in Python.
+
+{% include customhighlight.html caption="solution.py"
+  dir=page.prepdir file="solution.py" ext="py"
+%}
+
+#### Very stupid, correct solution
+But when preparing a problem, we don't have the tests yet. How can we ensure
+that the model solution is correct? One way to do that is to test it against
+another solution with a _high chance_ of being correct. Such a solution must
+have correctness proven using no math, but our intuition only. I'm talking about
+a **brute force** solution.
+
+In this problem, brute force can be done with **simulation** -- we simply try
+all possible ways to decrease the input array, and when we have all $0$, we can
+conclude that there is an answer. Such simulation can be implemented with
+recursion, but to make it a little faster, we can also use _memorization_ --
+that is, storing all visited states.
+
+{% include customhighlight.html caption="brute-force.cpp"
+  dir=page.prepdir file="brute-force.cpp" ext="cpp"
+%}
+
+[CF1442-editorial]: https://codeforces.com/blog/entry/84298
