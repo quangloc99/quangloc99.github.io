@@ -9,17 +9,16 @@
 }
 
 .highlight.caption > label {
-    cursor: pointer;
-}
-
-.highlight.caption > label, .highlight.caption > label > pre {
+    display: block;
+    @extend pre;
     margin-bottom: 0;
+    cursor: pointer;
 }
 
 .collapse-checkbox-wrapper {
     display: none;
 }
-.collapse-label pre::before {
+.collapse-label label::before {
     content: ' ';
     display: inline-block;
 
@@ -36,7 +35,7 @@
     transition: transform .2s ease-out;
 }
 
-.collapse-label.collapse pre::before {
+.collapse-label.collapse label::before {
     transform: translateY(-2px);
 }
 
