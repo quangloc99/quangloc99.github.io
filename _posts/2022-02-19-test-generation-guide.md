@@ -285,13 +285,78 @@ Here is the generator with the above idea.
 
 Let's run it
 {%include customhighlight.html caption="gen-v1 example"
-  dir=page.prepdir file="gen-v1-example.sh.out" 
+  dir=page.prepdir file="gen-v1-example.sh.out" ext="sh"
 %}
 
 Here the first two tests are `YES` and the rest are `NO`. I purposely choose a
 larger range so the test that should not be `YES` will be more likely to produce
 the `NO` answer.
 
+### Small enhancements
+`gen-v1.cpp` is already an ok generator, and it can be used right away.
+But there are several enhancements we can add to it:
+- It can sometimes produce arrays with very small lengths and sometimes an array
+  with dominant length. Array with small length like $2$ always has the answer
+  `YES`. This can be fixed by adding an option for minimum length for the
+  arrays, so the length can be distributed more evenly.
+- Now all of the `YES` tests are all at the beginning, and the `NO` tests are at
+  the end. That is fine for a human to debug, but not fine for testing
+  solutions. To overcome this, we can add an option to tell the generator do we
+  want shuffled cases or not.
+- Above I said we can _partially_ solve the value range problem. It is partial
+  because it is harder to hit the maximum value using the above algorithm. A way
+  to fix this is to _pad_ all of the elements with a constant, that is,
+  increase all of them by a random constant. To make it hit the maximum
+  value, we can use `rnd.wnext` to make that constant more likely to have
+  extreme value. Also note that we should only increase, but not decrease,
+  because some `YES` tests after decrement will become `NO.
+- Sometimes we don't want a fixed number of `YES` tests, but more often we want
+  the number of `YES` tests to be proportional to the total test cases. We can
+  change the `yes-count` option to be a ratio. I use _percentages_ for this
+  since working with integers is easier.
+- Actually, why do we need to specify the `yes-count` parameter? I mean, the
+  good old 50% is enough for most cases, right? Let's make `50` the default
+  percentages for the number of `YES` tests.
+  
+That is a number of small enhancements that I can think of. We will add more
+thing to it later. For now let's add these enhancements to our generator.
+
+{% include customhighlight.html caption="gen-v2.cpp"
+  dir=page.prepdir file="gen-v2.cpp" ext="cpp"
+%}
+
+
+
+Here are some example:
+
+{%include customhighlight.html
+  caption="gen-v2 example. Using the `min-n` option"
+  dir=page.prepdir file="gen-v2-example1.sh.out" ext="sh" collapsed=true
+%}
+
+With `min-n` option, we can see that the array lengths are distributed
+evenly. Point 1 is good!
+
+{%include customhighlight.html
+  caption="gen-v2 example. Using the `padding-bias` option for hitting maximum value"
+  dir=page.prepdir file="gen-v2-example2.sh.out" ext="sh" collapsed=true
+%}
+
+In this example, most of the array has hit the max value (which is $200$). This
+is because of the nature of randomization. This is good though because we wanted
+the test to be random, not being in only one fixed shape.
+
+{%include customhighlight.html
+  caption="gen-v2 example. Using `yes-percent`, `no-shuffle-cases` and `padding-bias = -30` "
+  dir=page.prepdir file="gen-v2-example3.sh.out" ext="sh" collapsed=true
+%}
+
+Using `padding-bias -30` means we wanted that the as close to $0$ as possible,
+so the final array can be almost the same as without padding. The first three
+test cases are having expected results. The $5$-th test case though is
+a bit different. That is also because of our algorithm: we only guarantee
+that all `YES` tests will have `YES` results, while that is not the case for the
+`NO` tests.
 
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
 [generator-with-testlib]: https://codeforces.com/blog/entry/18291

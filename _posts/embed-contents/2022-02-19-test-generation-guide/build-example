@@ -1,0 +1,6 @@
+./run-script.sh ./gen-totally-random-example.sh build
+./run-script.sh ./gen-v1-example.sh build
+./run-script.sh ./gen-v2-example1.sh build
+./run-script.sh ./gen-v2-example2.sh build
+./run-script.sh ./gen-v2-example3.sh build
+

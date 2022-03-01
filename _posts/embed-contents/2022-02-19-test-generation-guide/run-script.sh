@@ -5,6 +5,6 @@ if [[ -n "$1"  ]]; then
     cd $2
 fi
 while read line; do
-    echo "> $line"
+    echo "\$ $line"
     eval $line
 done < $curDir/$scriptFile > $curDir/$scriptFile.out
