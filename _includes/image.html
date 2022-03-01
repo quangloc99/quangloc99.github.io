@@ -1,0 +1,16 @@
+<figure style="text-align: center; display: block;">
+    {% if include.url %}
+    <a href="{{ include.url }}">
+    {% endif %}
+    <img
+        src="{{ include.dir }}/{{ include.file }}"
+        alt="{{ include.alt }}"
+        style="margin: 0 auto"
+    >
+    {% if include.url %}
+    </a>
+    {% endif %}
+    {% if include.caption %}
+        <figcaption>{{ include.caption }}</figcaption>
+    {% endif %}
+</figure>
