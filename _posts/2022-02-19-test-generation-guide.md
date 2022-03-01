@@ -4,7 +4,7 @@ title: "A guide to test-generation with Polygon and Testlib"
 date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
 prepdir: embed-contents/2022-02-19-test-generation-guide
-assetdir: /assets/2022-02-19-test-generation-guide
+assetsdir: /assets/2022-02-19-test-generation-guide
 ---
 
 {% include mathjax.html %}
@@ -118,7 +118,18 @@ the constraints only, and we can consider the validator correct when it produce
 the correct verdict and **error message**. For testing the input formats, we
 already have two tests, but more can be added.
 
-![Validation test result]({{ page.assetdir }}/validation-test-result.png)
+{% include image.html alt="validation-test-result"
+  caption="Validation test result"
+  dir=page.assetsdir file="validation-test-result.png"
+%}
+
+### Checker
+Each test of this problem has a fixed answer, therefore we can use a standard
+checker. For this problem, the checker `std::nyesno.cpp` is enough.
+
+`std::nyesno.cpp` will check for zero or more `yes`/`no` tokens in the output
+file, case insensitive.
+
 
 ### Solutions
 #### Model solution
@@ -140,8 +151,12 @@ Here is the full solution, quoted from the editorial.
 
 Because it is very short, here is the solution in Python.
 
-{% include customhighlight.html caption="solution.py"
+{% include customhighlight.html caption="py_solution.py"
   dir=page.prepdir file="solution.py" ext="py" collapsed=true
+%}
+
+{% include customhighlight.html caption="solution.cpp"
+  dir=page.prepdir file="solution.cpp" ext="cpp" collapsed=true
 %}
 
 #### Very stupid, correct solution
@@ -161,4 +176,124 @@ that is, storing all visited states.
   dir=page.prepdir file="brute-force.cpp" ext="cpp" collapsed=true
 %}
 
+## And now the main part.
+Before writing our very first generator, it is worth pointing out which
+functionalities we are going to use. For RNG (random number generation), [this
+post][generator-with-testlib] already covered some of them. There is also
+[opts][testlib-opts] which allows us to pass parameters to the generator in a
+readable way so a generator can be effectively reused.
+
+The above posts are already old, and new functions are being added.
+Noticeably:
+- `rnd.partition(size, sum, [min_part=1])` is a part of RNG. It will generate a
+  vector of the given size, the sum of whose elements must equal the second
+  parameter, and elements must not be lower than `min_part`.
+- `has_opt(key)` is a part of `opts`, which allows us to check if there is an
+  opts with the name `key`.
+  
+The list of features also lies in [testlib.h] source code. I highly recommend
+checking out the list, and also reading some of the functions. There are other
+functions, but I will cover them when we get there.
+
+### Our first generator
+
+Let's generate a _totally_ random array. The point of this generator is to make
+a _stress_ with the model and brute-force solution. Not every array will produce
+the result `YES`, and it seems really unlikely for a random array. But with a
+small enough range, surely we can hit `YES`.
+
+> A _stress_ is a feature on Polygon that allows running some solutions with a
+> generator. Polygon will generate tests using that generator and run those
+> solutions repeatedly for a set time, with a set memory and time limit. The
+> point of stress is to **check the correctness** or **find a wrong test**
+> that kills a solution.
+
+We still need to specify a few things for this generator. They are the number of
+test cases, the array length, and the array element value range. For the first
+two, instead of a fixed array length, we can specify the sum of the length. And
+with a given test case count, we can split the length of all cases using
+`rnd.partition`. With that, we have the following generator.
+
+{% include customhighlight.html caption="gen-totally-random.cpp"
+  dir=page.prepdir file="gen-totally-random.cpp" ext="cpp"
+%}
+
+Let's run it locally to generate a test with 5 test cases, the sum of length is
+20, and the value range is from 1 to 5.
+
+{% include customhighlight.html caption="gen-totally-random example"
+  dir=page.prepdir file="gen-totally-random-example.sh.out"
+%}
+
+It's looking good so far. We are ready to add a stress on Polygon.
+
+{% include image.html alt="stress-against-brute-force"
+  caption="Stress against brute-force solution"
+  dir=page.assetsdir file="stress1.png"
+  %}
+
+Here the script pattern is
+
+    gen-totally-random -test-count [1..10] -sum-n 20 -min-a 1 -max-a 5
+
+Polygon also supports minimal random parameters generation. Here I wanted the
+`test-count` to be a random number between $1$ and $10$. A fixed `sum-n` and
+a randomized `test-count` are good to randomize the test cases `n` without
+worrying about the constraints.
+
+I put the time limit to the max so the brute-force solution can have more time
+to run.
+
+Stress can help us find a counter test. For example, if we lower the time
+limit, the brute-force solution will have TLE verdict.
+
+{% include image.html alt="finding-counter-test-with-stress"
+  caption="Finding a counting test with stress"
+  dir=page.assetsdir file="stress2-finding-counter-test.png"
+%}
+
+The counter test is also in the form of a command. It still has the same
+form as the script pattern, except for the last parameter. The last
+parameter is a random hash that Polygon generates to change the random
+seed of RNG for each test. Using testlib.h, the seed of a generator is
+registered by calling `registerGen` and the seed is unique for a unique set of
+flags/parameters.
+
+### Making `YES` tests
+As discussed before, a random array is unlikely to have an answer `YES`, and we
+need to fix that. How about we _don't_ generate the array, but the _increasing
+array_ $a$ and _decreasing array_ $b$ as in the editorial, then summing them up?
+Doing so will guarantee to have the answer `YES` because that is what the
+problem **is asking** the participant to do.
+
+For this algorithm, there are some problems when reusing the code from
+`gen-totally-random.cpp`
+- We can not use `min-a` and `max-a` for this algorithm.
+- That are only `YES` tests, how about the `NO` tests?
+
+The first problem can be _partially_ solved by adding the value for
+arrays $a$ and $b$ separately. For the second problem, we are going to generate
+arrays $a$ and $b$ now, so let's also add an option to generate them randomly
+instead of sorted. There should also be an option to sepecify how many of them
+are `YES`, and how many are `NO`.
+
+Here is the generator with the above idea.
+
+{%include customhighlight.html caption="gen-v1.cpp"
+  dir=page.prepdir file="gen-v1.cpp" ext="cpp"
+%}
+
+Let's run it
+{%include customhighlight.html caption="gen-v1 example"
+  dir=page.prepdir file="gen-v1-example.sh.out" 
+%}
+
+Here the first two tests are `YES` and the rest are `NO`. I purposely choose a
+larger range so the test that should not be `YES` will be more likely to produce
+the `NO` answer.
+
+
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
+[generator-with-testlib]: https://codeforces.com/blog/entry/18291
+[testlib-opts]: https://codeforces.com/blog/entry/72702
+[testlib.h]: https://github.com/MikeMirzayanov/testlib/blob/master/testlib.h
