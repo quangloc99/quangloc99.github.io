@@ -248,7 +248,7 @@ Stress can help us find a counter test. For example, if we lower the time
 limit, the brute-force solution will have TLE verdict.
 
 {% include image.html alt="finding-counter-test-with-stress"
-  caption="Finding a counting test with stress"
+  caption="Finding a countertest with stress"
   dir=page.assetsdir file="stress2-finding-counter-test.png"
 %}
 
@@ -293,7 +293,7 @@ larger range so the test that should not be `YES` will be more likely to produce
 the `NO` answer.
 
 ### Small enhancements
-`gen-v1.cpp` is already an ok generator, and it can be used right away.
+`gen-v1.cpp` is already an ok generator, and it and it is good on its own.
 But there are several enhancements we can add to it:
 - It can sometimes produce arrays with very small lengths and sometimes an array
   with dominant length. Array with small length like $2$ always has the answer
@@ -327,7 +327,7 @@ thing to it later. For now let's add these enhancements to our generator.
 
 
 
-Here are some example:
+Here are some examples:
 
 {%include customhighlight.html
   caption="gen-v2 example. Using the `min-n` option"
