@@ -4,12 +4,19 @@
 cp plot-test.py build
 export IMAGE_OUT_DIR="../../../../assets/2022-02-19-test-generation-guide"
 
-./run-script.sh ./gen-totally-random-example.sh build
-./run-script.sh ./gen-v1-example.sh build
-./run-script.sh ./gen-v2-example1.sh build
-./run-script.sh ./gen-v2-example2.sh build
-./run-script.sh ./gen-v2-example3.sh build
+scriptFile=$1
+curDir=`pwd`
+outDir="$curDir/out"
+mkdir -p $outDir
 
-./run-script.sh ./big-gen-v2-test-for-plotting.sh build
+for script in `ls ./example-scripts`; do
+    echo "Running $script"
+    cd build
+    while read line; do
+        echo "\$ $line"
+        eval $line
+    done < ../example-scripts/$script > $outDir/$script.out
+    cd ..
+done
 
 unset IMAGE_OUT_DIR
