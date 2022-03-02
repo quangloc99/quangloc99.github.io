@@ -9,6 +9,7 @@ add_executable(validator validator.cpp)
 add_executable(gen-totally-random gen-totally-random.cpp)
 add_executable(gen-v1 gen-v1.cpp)
 add_executable(gen-v2 gen-v2.cpp)
+add_executable(gen-v3 gen-v3.cpp)
 
 # The following is used to comple all code fragments in my blogs
 add_executable(all-fragments all-fragments.cpp) 

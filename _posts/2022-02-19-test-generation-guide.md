@@ -5,6 +5,7 @@ date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
 prepdir: embed-contents/2022-02-19-test-generation-guide
 assetsdir: /assets/2022-02-19-test-generation-guide
+wrapCode: true
 ---
 
 {% include mathjax.html %}
@@ -514,6 +515,69 @@ numbers to it. Also, we should pass this option as _percentages_.
   caption="struct RandomArrayGenerator: adding noises" ext="cpp"
   dir=page.prepdir file="random-array-v6.fragment.cpp" %}
 
+#### Checking the result
+Here is the generator with the new way to generate array.
+
+{% include customhighlight.html caption="gen-v3.cpp"
+  dir=page.prepdir file="gen-v3.cpp" ext="cpp" collapsed=true %}
+  
+First thing to test is if an increasing array is generated as expected by making
+$b$ an array with all $0$.
+
+{% include customhighlight.html caption="gen-v3 test increasing array
+generation"
+  dir=page.prepdir file="out/gen-v3-test-increasing.sh.out" ext="sh" %}
+  
+{% include image.html caption="gen-v3 increasing arrays plots"
+  alt="gen-v3-increasing-arrays-plots"
+  dir=page.assetsdir file="gen-v3-test-increasing.png" %}
+  
+Here we can see the patterns is indeed as intended: there are plains, there are
+some smooth curves (but not linears). And they branch differently! I'll say this
+is an OK result.
+
+Now let's do see for an $a$ with the above parameters, and $b$ with only `min-b`
+and `max-b`
+
+{% include customhighlight.html caption="gen-v3 test with linear $b$"
+  dir=page.prepdir file="out/gen-v3-test-linear-b.sh.out" ext="sh" %}
+  
+{% include image.html caption="gen-v3 test linear $b$ plots"
+  alt="gen-v3-linear-b-plots"
+  dir=page.assetsdir file="gen-v3-test-linear-b.png" %}
+  
+This is still kinda _expectable_, since $b$ is linear, so adding it still
+make things transform _linearly_ but I really not expecting that kind of shape.
+
+Now for this test: $a$ and $b$ has the same flag. Here I don't use
+`value-bias` in order to make both arrays having _linear_ shape.  
+
+{% include customhighlight.html caption="gen-v3 test both arrays"
+  dir=page.prepdir file="out/gen-v3-test-both.sh.out" ext="sh" %}
+  
+{% include image.html caption="gen-v3 test both arrays plots"
+  alt="gen-v3-test-both-arrays-plots"
+  dir=page.assetsdir file="gen-v3-test-both.png" %}
+  
+And look at that! That is still far more _interesting_ than what `gen-v2` has
+done!
+
+Here are some more plottings!
+
+{% include customhighlight.html caption="gen-v3 test both arrays"
+  dir=page.prepdir file="out/gen-v3-examples.sh.out" ext="sh" collapsed=true %}
+  
+{% include image.html caption="gen-v3 example 1 plot"
+  alt="gen-v3-example-1-plot"
+  dir=page.assetsdir file="gen-v3-example1.png" %}
+{% include image.html caption="gen-v3 example 2 plot"
+  alt="gen-v3-example-2-plot"
+  dir=page.assetsdir file="gen-v3-example2.png" %}
+{% include image.html caption="gen-v3 example 3 plot"
+  alt="gen-v3-example-3-plot"
+  dir=page.assetsdir file="gen-v3-example3.png" %}
+  
+And I admit it, I don't know plotting random things is this addicting!
 
 
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
