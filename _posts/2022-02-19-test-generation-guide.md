@@ -516,12 +516,12 @@ numbers to it. Also, we should pass this option as _percentages_.
   dir=page.prepdir file="random-array-v6.fragment.cpp" %}
 
 #### Checking the result
-Here is the generator with the new way to generate array.
+Here is the generator with the new way to generate the array.
 
 {% include customhighlight.html caption="gen-v3.cpp"
   dir=page.prepdir file="gen-v3.cpp" ext="cpp" collapsed=true %}
   
-First thing to test is if an increasing array is generated as expected by making
+The first thing to test is if an increasing array is generated as expected by making
 $b$ an array with all $0$.
 
 {% include customhighlight.html caption="gen-v3 test increasing array
@@ -532,11 +532,11 @@ generation"
   alt="gen-v3-increasing-arrays-plots"
   dir=page.assetsdir file="gen-v3-test-increasing.png" %}
   
-Here we can see the patterns is indeed as intended: there are plains, there are
-some smooth curves (but not linears). And they branch differently! I'll say this
+Here we can see the patterns are indeed intended: there are plains, there are
+some smooth curves (but not linear). And they branch differently! I'll say this
 is an OK result.
 
-Now let's do see for an $a$ with the above parameters, and $b$ with only `min-b`
+Now let's do see for an $a$ with the above parameters and $b$ with only `min-b`
 and `max-b`
 
 {% include customhighlight.html caption="gen-v3 test with linear $b$"
@@ -546,11 +546,11 @@ and `max-b`
   alt="gen-v3-linear-b-plots"
   dir=page.assetsdir file="gen-v3-test-linear-b.png" %}
   
-This is still kinda _expectable_, since $b$ is linear, so adding it still
-make things transform _linearly_ but I really not expecting that kind of shape.
+This is still kinda _expectable_ since $b$ is linear, so adding it still
+makes things transform _linearly_ but I not expecting that kind of shape.
 
-Now for this test: $a$ and $b$ has the same flag. Here I don't use
-`value-bias` in order to make both arrays having _linear_ shape.  
+Now for this test: $a$ and $b$ have the same flag. Here I don't use
+`value-bias` to make both arrays have _linear_ shapes.  
 
 {% include customhighlight.html caption="gen-v3 test both arrays"
   dir=page.prepdir file="out/gen-v3-test-both.sh.out" ext="sh" %}
@@ -564,7 +564,7 @@ done!
 
 Here are some more plottings!
 
-{% include customhighlight.html caption="gen-v3 test both arrays"
+{% include customhighlight.html caption="gen-v3 examples"
   dir=page.prepdir file="out/gen-v3-examples.sh.out" ext="sh" collapsed=true %}
   
 {% include image.html caption="gen-v3 example 1 plot"
