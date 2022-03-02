@@ -1,0 +1,2 @@
+./gen-v2 -test-count 5 -sum-n 30000 -min-n 6000 -yes-percent 100 -min-a 1 -max-a 10000 -min-b 1 -max-b 10000 -padding-bias -1000 > test.txt
+python3 plot-test.py test.txt big-gen-v2-test-for-plotting.png

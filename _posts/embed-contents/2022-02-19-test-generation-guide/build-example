@@ -1,6 +1,15 @@
+# Since I use cmake, everything is in the build folder.
+# For readability, everything will be execute there instead.
+
+cp plot-test.py build
+export IMAGE_OUT_DIR="../../../../assets/2022-02-19-test-generation-guide"
+
 ./run-script.sh ./gen-totally-random-example.sh build
 ./run-script.sh ./gen-v1-example.sh build
 ./run-script.sh ./gen-v2-example1.sh build
 ./run-script.sh ./gen-v2-example2.sh build
 ./run-script.sh ./gen-v2-example3.sh build
 
+./run-script.sh ./big-gen-v2-test-for-plotting.sh build
+
+unset IMAGE_OUT_DIR
