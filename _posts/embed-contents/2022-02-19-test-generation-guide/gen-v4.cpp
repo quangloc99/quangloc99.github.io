@@ -13,6 +13,7 @@ struct RandomArrayGenerator {
     int min_value, max_value, value_bias;
     int value_count, picking_bias;
     int noise_percent;
+    bool do_sort;
     
     RandomArrayGenerator() = default;
     
@@ -37,7 +38,11 @@ struct RandomArrayGenerator {
         for (int i = 0; i < noise_count; ++i) {
             res.push_back(gen_random_val());
         }
-        shuffle(res.begin(), res.end());
+        if (do_sort) {
+            sort(res.begin(), res.end());
+        } else {
+            shuffle(res.begin(), res.end());
+        }
         return res;
     }
     
@@ -49,7 +54,20 @@ struct RandomArrayGenerator {
         res.value_count = get_opt(name + "-limited-value", 0);
         res.picking_bias = get_opt(name + "-picking-bias", 0);
         res.noise_percent = get_opt(name + "-noise-percent", 0);
+        res.do_sort = get_opt(name + "-sorted", false);
         return res;
+    }
+};
+
+// a solver that solve the input but does not care about number being negative.
+struct Solver {
+    vector<int> inc, dec;
+    Solver(const vector<int>& a): inc(a.size()), dec(a.size()) {
+        dec[0] = a[0];
+        for (int i = 1; i < (int)a.size(); ++i) {
+            dec[i] = min(dec[i - 1], a[i] - inc[i - 1]);
+            inc[i] = a[i] - dec[i];
+        }
     }
 };
 
@@ -71,8 +89,9 @@ int main(int argc, char** argv) {
     auto gen_a = RandomArrayGenerator::from_opt("a");
     auto gen_b = RandomArrayGenerator::from_opt("b");
     
-    // max value for the final array. It is needed for value padding
+    // max and min value for the final array. It is needed for value padding
     int max_val = get_opt("max-val", gen_a.max_value + gen_b.max_value);
+    int min_val = get_opt("min-val", 1);
     // the bias parameter to use with rnd.wnext
     int padding_bias = get_opt("padding-bias", 0);
     
@@ -83,17 +102,30 @@ int main(int argc, char** argv) {
         bool is_yes_test = i < yes_count;
         auto a = gen_a.generate(n);
         auto b = gen_b.generate(n);
-        if (is_yes_test) {
-            sort(a.begin(), a.end());
-            sort(b.rbegin(), b.rend());
-        }
-        for (int i = 0; i < n; ++i) a[i] += b[i];
-        int max_elm = *max_element(a.begin(), a.end());
-        int max_padding = max_val - max_elm;
-        int padding = rnd.wnext(0, max_padding, padding_bias);
-        for (auto& i: a) i += padding;
+        reverse(b.begin(), b.end());
+        vector<int> v(n);
+        for (int i = 0; i < n; ++i) v[i] = a[i] + b[i];
         
-        cases.push_back(a);
+        Solver optimal(v);
+        
+        // Calculate the padding. Note that padding can be negative.
+        auto [min_elm, max_elm] = minmax_element(v.begin(), v.end());
+        int max_padding = max_val - *max_elm;
+        int min_padding = min_val - *min_elm;
+        
+        int min_dec = *min_element(optimal.dec.begin(), optimal.dec.end());
+        if (is_yes_test) {
+            min_padding = max(min_padding, -min_dec);
+        } else {
+            max_padding = min(max_padding, -min_dec - 1);
+        }
+        
+        // side question: what if min_dec > maxdec?
+        ensuref(min_padding <= max_padding, "min_padding = must not be greater than max_padding, but found min_padding = %d, max_padding = %d", min_padding, max_padding);
+        int padding = rnd.wnext(min_padding, max_padding, padding_bias);
+        for (auto& i: v) i += padding;
+        
+        cases.push_back(v);
     }
     
     if (!no_shuffle_cases) {
@@ -108,3 +140,4 @@ int main(int argc, char** argv) {
     
     return 0;
 }
+

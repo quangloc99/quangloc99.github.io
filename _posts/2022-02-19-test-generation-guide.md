@@ -223,7 +223,7 @@ Let's run it locally to generate a test with 5 test cases, the sum of length is
 20, and the value range is from 1 to 5.
 
 {% include customhighlight.html caption="gen-totally-random example"
-  dir=page.prepdir file="out/gen-totally-random-example.sh.out"
+  dir=page.prepdir file="out/gen-totally-random-example.sh.out" ext="sh"
 %}
 
 It's looking good so far. We are ready to add a stress on Polygon.
@@ -328,7 +328,7 @@ That is a number of small enhancements that I can think of. We will add more
 thing to it later. For now let's add these enhancements to our generator.
 
 {% include customhighlight.html caption="gen-v2.cpp"
-  dir=page.prepdir file="gen-v2.cpp" ext="cpp"
+  dir=page.prepdir file="gen-v2.cpp" ext="cpp" collapsed=true
 %}
 
 
@@ -521,6 +521,7 @@ numbers to it. Also, we should pass this option as _percentages_.
   dir=page.prepdir file="random-array-v6.fragment.cpp" %}
 
 #### Checking the result
+{: #checking-the-result }
 Here is the generator with the new way to generate the array.
 
 {% include customhighlight.html caption="gen-v3.cpp"
@@ -583,6 +584,130 @@ Here are some more plottings!
   dir=page.assetsdir file="gen-v3-example3.png" %}
   
 And I admit it, I don't know plotting random things is this addicting!
+
+### Making **more interesting** `NO` tests
+Till this point, we only paid attention to the `YES` tests. The outputs for the
+`NO` tests are still complete chaos. We want the `NO` tests should be as
+_interesting_ as the `YES` tests. That is, the plotting should still contain the
+curves and plains.
+
+To understand how to make the tests, let's look at how the algorithm handles the
+`NO` case. It tries to maximize elements of the decreasing array, and if there
+is a negative element, the result is `NO`. With this idea, we can do the
+following:
+- Generate a `YES` test.
+- Try to find the optimal decreasing array.
+- Decrease all of the elements of the test so that the optimal decreasing array
+  will contain a negative element.
+
+
+We can implement this algorithm by adjusting the padding part. So the padding
+value now has two ranges: a range that will generate a `NO` test, and a range
+for a `YES` test. This way, we can even make an unsorted array to have the
+result `YES` just by padding. Now we do the following changes:
+- Add an option to sort the array. Well actually, let's add 2, one for $a$, one
+  for $b$. This can even be done within `RandomArrayGenerator`.
+- Determine the correct range for the `YES` tests and `NO` tests, then pick the
+  correct range.
+  
+With these changes, we can also archive _chaotic_ `YES` tests as bi-product!
+
+{% include customhighlight.html caption="New property `do_sort` and `-sorted`
+option for RandomArrayGenerator" ext="cpp"
+  dir=page.prepdir file="adjust-random-array-generator-for-no-tests.fragment.cpp"
+  %}
+  
+And here is the adjustments for generating the array inside `main`. We must also
+include our `solver` here, but we don't need to care about the number being
+negative.
+
+{% include customhighlight.html caption="Adjustment inside `main`"
+  dir=page.prepdir file="adjust-main-for-no-tests.fragment.cpp" ext="cpp" %}
+  
+And here is the full code for our new generator.
+
+{% include customhighlight.html caption="gen-v4.cpp"
+  dir=page.prepdir file="gen-v4.cpp" ext="cpp" collapsed=true %}
+  
+#### Plotting _interesting_ `NO` tests
+
+The following test is from the last example of the section [Making **more
+interesting** `YES` tests. Checking the result](#checking-the-result) with small
+changes. I set `padding-bias` to $0$ to see how the algorithm choose the
+padding. I also add `-no-shuffle-cases` so all the `YES` tests are in the front.
+And finally, remember to add `-a-sorted` and `-b-sorted`!
+
+{% include customhighlight.html caption="gen-v4 plotting for `NO` tests"
+  dir=page.prepdir file="out/gen-v4-test-for-no-tests.sh.out" ext="sh" %}
+
+{% include image.html caption="gen-v4 plotting for `NO` tests"
+  alt="gen-v4-plotting-for-no-tests"
+  dir=page.assetsdir file="gen-v4-test-for-no-tests.png" %}
+
+The `NO` tests (the last 3 tests) are indeed having the shapes that we wanted.
+The only noticeable difference is in the _height_ of the elements. The `NO`
+tests seem to be lower than the `YES` tests because the padding range for `NO`
+is lower than the range of `YES`.
+
+Let's now plot the test with high and low `padding-bias`.
+
+{% include customhighlight.html caption="gen-v4 plotting for `NO` tests with
+extreme `padding-bias`"
+  dir=page.prepdir file="out/gen-v4-test-for-no-tests-extreme-padding-bias.sh.out" ext="sh"
+  collapsed=true %}
+
+{% include image.html caption="gen-v4 plotting for `NO` tests with a high
+`padding-bias`"
+  alt="gen-v4-for-no-tests-with-a-high-padding-bias"
+  dir=page.assetsdir file="gen-v4-test-for-no-tests-high-padding-bias.png" %}
+  
+{% include image.html caption="gen-v4 plotting for `NO` tests with a low   
+`padding-bias`"
+  alt="gen-v4-for-no-tests-with-a-low-padding-bias"
+  dir=page.assetsdir file="gen-v4-test-for-no-tests-low-padding-bias.png" %}
+  
+Yes, they are still separated by height in a same test, but a `NO` test with a
+_high_ `padding-bias` is now not **distinguishable** by eyes from a `YES` test
+with a _low_ `padding-bias`, which we may call **strong tests** :)).
+
+#### Plotting _chaotic_ `YES` tests.
+As a bi-product of our generator, _chaotic_ `YES` tests might also be a good
+candidate for **strong tests**. Let's remove the `sorted` flags and all other
+flags that influence the value distribution. So we are only looking at the
+linear case for now. Also because it is chaotic, let's plot for a small length
+first, with a lower range of value, from $1$ to $100$ only. Also, I _purposely_
+make the maximum value high (which is $30000$). Let's see what happens.
+
+{% include customhighlight.html
+  caption="gen-v4 with _chaotic_ YES tests"
+  dir=page.prepdir file="out/gen-v4-test-for-chaotic-yes-tests.sh.out" ext="sh"
+  %}
+
+{% include image.html 
+  dir=page.assetsdir file="gen-v4-test-for-chaotic-yes-tests.png" %}
+
+It worked! But something is kinda off. All of the `YES` tests are _way_ above
+the `NO` tests. There is no `padding-bias`, but all of the elements in the `YES`
+tests are very close to the maximum value. This might be because the raw minimum
+value of the decreasing array is too low. And indeed, in the following test, by
+lowering the maximum value, we will have an error for the `YES` tests, but no
+error at all for the `NO` tests.
+
+{% include customhighlight.html
+  caption="gen-v4 _chaotic_ YES tests failed :("
+  dir=page.prepdir file="out/gen-v4-test-for-chaotic-yes-tests-error.sh.out"
+  ext="sh" %}
+  
+We have the error message even with this range. With a wider range of variation,
+the padding will be higher than this! A reasonable padding value will not come
+from this chaos, but from an algorithm like our original algorithm, that is,
+generate the arrays $a$ and $b$ first. Besides, the above test is not
+interesting at all, since the values vary in a very small range. And this can be
+done with our `gen-v2` generator! Therefore we should **remove** this _feature_.
+So now in all `YES` tests, we must sort $a$ and $b$. For sorting in `NO` tests,
+we should change the option`a-sorted` and `b-sorted` into `a-sorted-in-no` and
+`b-sorted-in-no`.
+
 
 
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298

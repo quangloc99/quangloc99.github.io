@@ -43,6 +43,22 @@ namespace random_array_v6 {
 #include "./random-array-v6.fragment.cpp"
 }
 
+namespace adjustment_for_no_tests {
+#include "./adjust-random-array-generator-for-no-tests.fragment.cpp"
+    int test_count;
+    int sum_n;
+    int min_n ;
+    
+    int yes_percent;
+    int yes_count;
+    
+    bool no_shuffle_cases;
+    int padding_bias;
+    vector<int> lengths;
+    vector<vector<int>> cases;
+#include "adjust-main-for-no-tests.fragment.cpp"
+}
+
 
 int main() {
     // nothing

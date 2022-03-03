@@ -54,7 +54,6 @@ int main(int argc, char** argv) {
             sort(b.rbegin(), b.rend());
         }
         for (int i = 0; i < n; ++i) a[i] += b[i];
-        // Calculate the padding. Note that padding can be negative.
         int max_elm = *max_element(a.begin(), a.end());
         int max_padding = max_val - max_elm;
         int padding = rnd.wnext(0, max_padding, padding_bias);

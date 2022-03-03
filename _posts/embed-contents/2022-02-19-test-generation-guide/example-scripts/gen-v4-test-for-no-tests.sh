@@ -1,0 +1,3 @@
+./gen-v4 -no-shuffle-cases -test-count 6 -sum-n 30000 -min-n 5000 -yes-percent 50 -padding-bias 0 -a-sorted -min-a 1 -max-a 10000 -a-limited-value 10 -a-value-bias 5 -a-picking-bias 5 -a-noise-percent 10    -b-sorted -min-b 1 -max-b 10000 -b-limited-value 10 -b-picking-bias -5 -b-noise-percent 10 > test.txt
+./solution < test.txt
+python3 plot-test.py test.txt gen-v4-test-for-no-tests.png

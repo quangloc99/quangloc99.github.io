@@ -18,11 +18,12 @@ with open(test_filename, 'r') as f:
     for testcase in range(1, ntest + 1):
         n = int(f.readline())
         a = list(map(int, f.readline().split()))
-        plt.plot(a, label=f"case {testcase} (n = {n})")
+        plt.plot(a, label=f"case {testcase}")
         max_val = max(max_val, *a)
 p10 = 10 ** int(math.log10(max_val))
 ceiling = int(max_val * 1.1)
-yticks = [i for i in range(0, ceiling, p10 // 10)]
+step = p10 // 10 * 2
+yticks = [i for i in range(0, ceiling + step, step)]
 plt.xlabel("position $i$")
 plt.ylabel("value $a_i$")
 plt.yticks(yticks)

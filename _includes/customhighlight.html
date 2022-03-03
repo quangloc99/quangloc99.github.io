@@ -29,9 +29,11 @@ collapse-checkbox-{%-increment collapseCheckboxCounter -%}
 ```{{include.ext}}
 {{ include_content }}
 ```
+{:
 {% if (include.wrap or page.wrapCode) -%}
-{: .wrap-code }
+.wrap-code
 {%- endif -%}
+}
 
 {%-capture includedCnt -%} {%- increment includedCounter -%} {%-endcapture%}
 {% if includedCnt == "0" %}
