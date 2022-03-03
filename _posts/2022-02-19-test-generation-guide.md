@@ -267,6 +267,11 @@ array_ $a$ and _decreasing array_ $b$ as in the editorial, then summing them up?
 Doing so will guarantee to have the answer `YES` because that is what the
 problem **is asking** the participant to do.
 
+> Side note: in the editorial, the name of the _increasing array_ is actually
+> $b$ and the _decreasing_ one is $a$. While making this blog, I have their
+> names wrong. In my defense, making $a$ the increasing array is more natural
+> than the other way around. So I'll keep it this way.
+
 For this algorithm, there are some problems when reusing the code from
 `gen-totally-random.cpp`
 - We can not use `min-a` and `max-a` for this algorithm.
