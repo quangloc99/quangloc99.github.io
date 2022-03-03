@@ -13,11 +13,11 @@ struct RandomArrayGenerator {
     int min_value, max_value, value_bias;
     int value_count, picking_bias;
     int noise_percent;
-    bool do_sort;
+    bool do_sort_in_no_test;
     
     RandomArrayGenerator() = default;
     
-    vector<int> generate(int size) {
+    vector<int> generate(int size, bool for_yes_test) {
         function<int()> gen_random_val = [&]() {
             return rnd.wnext(min_value, max_value, value_bias);
         };
@@ -38,7 +38,7 @@ struct RandomArrayGenerator {
         for (int i = 0; i < noise_count; ++i) {
             res.push_back(gen_random_val());
         }
-        if (do_sort) {
+        if (for_yes_test or do_sort_in_no_test) {
             sort(res.begin(), res.end());
         } else {
             shuffle(res.begin(), res.end());
@@ -54,7 +54,7 @@ struct RandomArrayGenerator {
         res.value_count = get_opt(name + "-limited-value", 0);
         res.picking_bias = get_opt(name + "-picking-bias", 0);
         res.noise_percent = get_opt(name + "-noise-percent", 0);
-        res.do_sort = get_opt(name + "-sorted", false);
+        res.do_sort_in_no_test = get_opt(name + "-sorted-in-no", false);
         return res;
     }
 };
@@ -100,8 +100,8 @@ int main(int argc, char** argv) {
     for (int i = 0; i < test_count; ++i) {
         int n = lengths[i];
         bool is_yes_test = i < yes_count;
-        auto a = gen_a.generate(n);
-        auto b = gen_b.generate(n);
+        auto a = gen_a.generate(n, is_yes_test);
+        auto b = gen_b.generate(n, is_yes_test);
         reverse(b.begin(), b.end());
         vector<int> v(n);
         for (int i = 0; i < n; ++i) v[i] = a[i] + b[i];

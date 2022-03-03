@@ -653,7 +653,8 @@ Let's now plot the test with high and low `padding-bias`.
 
 {% include customhighlight.html caption="gen-v4 plotting for `NO` tests with
 extreme `padding-bias`"
-  dir=page.prepdir file="out/gen-v4-test-for-no-tests-extreme-padding-bias.sh.out" ext="sh"
+  dir=page.prepdir
+  file="out/gen-v4-test-for-no-tests-extreme-padding-bias.sh.out" ext="sh"
   collapsed=true %}
 
 {% include image.html caption="gen-v4 plotting for `NO` tests with a high
@@ -708,9 +709,340 @@ So now in all `YES` tests, we must sort $a$ and $b$. For sorting in `NO` tests,
 we should change the option`a-sorted` and `b-sorted` into `a-sorted-in-no` and
 `b-sorted-in-no`.
 
+Here is the final version of the generator after changing the flags from
+`-sorted` to `-sorted-in-no`.
+
+{% include customhighlight.html caption="gen-v4.1.cpp"
+  dir=page.prepdir file="gen-v4.1.cpp" ext="cpp" collapsed=true %}
+
+### Generate the tests
+OMG! Finally, we can now generate tests. So much time was spent on making that
+generator! But that is worth it because we wanted our test to be _strong,
+diverse, and interesting_. But how do we generate tests with so many options in
+the generator? Do we copy and paste and change them by hand? That will be very
+painful though. Luckily, Polygon supports a way to generate the generating
+command as well!
+
+
+#### Working with FreeMarker
+A test generation script is a file that contains commands (the generator name
+with its flags) for generating the tests. Polygon supports [FreeMarker] as a
+template engine to write the test generation more easily. A [template engine][template-engine], as
+it sounds, is a tool that takes a template and data, and combines them to
+produce text output. Sometimes there is no need for the data if the template
+does not depend on that.
+
+[FreeMarker] is very powerful. It can act as a programming language on its own.
+This post will not go into details about FreeMarker. There is a brief manual
+about [FreeMarker] right on the Tests page on Polygon, showing the usage of:
+- the [assignment tag](https://freemarker.apache.org/docs/ref_directive_assign.html)
+- the [list tag](https://freemarker.apache.org/docs/ref_directive_list.html)
+- the [ability to do
+  arithmetic](https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_arit)
+
+Besides that, there are also:
+- [sequences](https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_direct_seuqence),
+  which are the same as dynamic arrays
+- [hashes](https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_direct_hash),
+  which are the same as dictionaries
+- [branching](https://freemarker.apache.org/docs/ref_directive_if.html) (if, elseif, else)
+- [functions](https://freemarker.apache.org/docs/ref_directive_function.html)
+- and more...
+
+This post won't go into details about FreeMarker, and you don't really need to
+know much about FreeMarker to generate test. But knowing them is an advantage
+and I highly recommend taking a look at them first.
+
+#### Writing the script
+##### Parts of a command
+Before generating the tests, we should divide the flags into some groups, since
+we are having **A LOT** of flags. Here is one way to group them.
+
+1. `-test-count`, `-sum-n`, `-min-n`, and `-yes-percent`. The first three
+   control the length of the array. More often we are going to left
+   `-yes-percent` to be blank (its default value is 50), but for the big test,
+   we must address it explicitly.
+2. `-min-val`, `-max-val` and `-padding-bias`. They control the padding in
+   general.
+3. `-min-*`, `-max-*`, `-*-value-bias`, `-*-limited-value`, `-*-picking-bias`,
+   `-*-noise-percent`, `-*-sorted-in-no`, where `*` is `a` and `b`. These
+   control the $a$ and $b$ array generation.
+   
+After that we can decide which values for which group. For example, the first
+group can be a list with the following values.
+
+{%- capture script_length_group_sequence -%}{% raw %}
+<#assign length_group = [
+  "-test-count 200 -sum-n 3000 -min-n 10",
+  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 25",
+  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 75",
+  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 0",
+  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 100",
+  "-test-count 20 -sum-n 3000 -min-n 100",
+  "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 0",
+  "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 100"
+] >
+{% endraw %}{%- endcapture -%}
+
+{% include customhighlight.html ext="freemarker" content=script_length_group_sequence
+  caption="Declare length_group as a sequence"
+%}
+
+That is what I have done for the past problems. But more logically, it should be
+declare as a _hash_, because having a name is more meaningful, and we can do
+more thing with that information later :).
+{%- capture script_length_group_hash -%}{% raw %}
+<#assign length_group = {
+  "small-length-0-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 0",
+  "small-length-25-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 25",
+  "small-length-50-yes": "-test-count 200 -sum-n 3000 -min-n 10",
+  "small-length-75-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 75",
+  "small-length-100-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 100",
+  "medium-length": "-test-count 20 -sum-n 3000 -min-n 100",
+  "big-length-no": "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 0",
+  "big-length-yes": "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 100"
+} >
+
+{% endraw %}{%- endcapture -%}
+{% include customhighlight.html content=script_length_group_hash
+  caption="Declare length_group as a hash"
+%}
+
+We can do the same with the second group.
+{%capture script_padding_group_hash %}{% raw %}
+<#assign padding_group = {
+  "no-influence": "",
+  "max-padding-only": "-max-val 30000",
+  "max-padding-with-high-bias": "-max-val 30000 -padding-bias 15",
+  "max-padding-with-low-bias": "-max-val 30000 -padding-bias -15"
+} >
+{% endraw %}{%- endcapture -%}
+{% include customhighlight.html content=script_padding_group_hash
+  caption="Declare padding_group as a hash"
+%}
+
+
+For the third group, we have a little problem. The group should be defined for
+$a$ and $b$ separately. Luckily, we can use _function_.
+
+{%- capture script_gen_array_group_hash -%}{% raw %}
+<#function gen_array_group name>
+  <#assign 
+    min="-min-${name}" max="-max-${name}" valueBias="-${name}-value-bias"
+    limitedValue="-${name}-limited-value" pickingBias="-${name}-picking-bias"
+    noisePercent="-${name}-noise-percent" sortedInNo="-${name}-sorted-in-no=1"
+  >
+  <#return {
+    "range-10": "${min} 1 ${max} 10 ${sortedInNo}",
+    "range-100": "${min} 1 ${max} 100 ${sortedInNo}",
+    "range-10000": "${min} 1 ${max} 10000 ${sortedInNo}",
+    "range-10000-no-sort": "${min} 1 ${max} 10000",
+    "range-10000-curve-up": "${min} 1 ${max} 10000 ${valueBias} 10 ${sortedInNo}",
+    "range-10000-curve-down": "${min} 1 ${max} 10000 ${valueBias} -10 ${sortedInNo}",
+    "range-10000-lim-val-10": "${min} 1 ${max} 10000 ${limitedValue} 10 ${sortedInNo}",
+    "range-10000-lim-val-10-curve-up": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} 10 ${sortedInNo}",
+    "range-10000-lim-val-10-curve-down": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
+    "range-10000-lim-val-100": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${sortedInNo}",
+    "range-10000-lim-val-100-uneven": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
+  } >
+</#function>
+<#assign gen_a_group = gen_array_group("a") >
+<#assign gen_b_group = gen_array_group("b") >
+{% endraw %}{%- endcapture -%}
+{% include customhighlight.html content=script_gen_array_group_hash
+  caption="Declare gen_a_group and gen_b_group as a hash"
+%}
+
+#### Putting all the parts together
+This part is simple: we just loop through each group and then put every part
+into one command. Or is it?
+{%capture script_generation_loop %} {% raw %}
+<#list length_group as length_part, length>
+  <#list padding_group as padding_part, padding>
+    <#list gen_a_group as gen_a_part, gen_a>
+    <#list gen_b_group as gen_b_part, gen_b>
+      gen-v4.1 ${length} ${padding} ${gen_a} ${gen_b} > $
+    </#list>
+    </#list>
+  </#list>
+</#list>
+{% endraw %} {% endcapture %}
+
+{% include customhighlight.html content=script_generation_loop
+  caption="Tests generation loop"
+%}
+
+
+Let's see the number of parts in each group:
+- `length-group`: 8 parts.
+- `padding-group`: 4 parts.
+- `gen_a_group` and `gen_b_group`: 11 parts each.
+
+So If we connect all of them into one, we will have $8 \times 4 \times 11^2 =
+3872$ tests! We don't have that much time to test with that number of tests, let
+alone generate them! So before actually putting them together, we must _prune_
+some tests first!
+
+#### Test pruning by sacrificing parts
+Objectively, all of the parts that I have introduced above are all
+_interesting_. But sometimes they are a lot, and not all tests cases need to be
+visited for a strong test set.
+
+For the `length_group`, we don't really need that many cases for adjusting the
+`YES` tests count. It is nice to have different ratios in different tests, but
+that is not the point of the test. We only need to test if the solution can
+distinguish the `YES` and `NO` cases. So we can just put 50 percent there. This
+also means the `-yes-percent` flag has little meaning, but it is always fine to
+write a general generator.
+
+There is also a waste to separate `YES` and `NO` tests with big lengths. Let's
+merge them into one, that is, let's make it 2 test cases and $50\%$ `YES` tests.
+To compensate for the loss of the maximum length tests, we can add a few big
+tests outside the loop.
+
+{%- capture script_length_group_hash_pruned -%}{% raw %}
+<#assign length_group = {
+  "small-length": "-test-count 200 -sum-n 3000 -min-n 10",
+  "medium-length": "-test-count 20 -sum-n 3000 -min-n 100",
+  "big-length-no": "-test-count 2 -sum-n 3000 -min-n 1300"
+} >
+{% endraw %}{%- endcapture -%}
+{% include customhighlight.html content=script_length_group_hash_pruned
+  caption="Pruned length_group" collapsed=true
+%}
+
+For `padding_group`, having max value but no bias at all has the same impact as
+no influence. So we can remove `max-padding-only` part.
+
+{%capture script_padding_group_hash_pruned %}{% raw %}
+<#assign padding_group = {
+  "no-influence": "",
+  "max-padding-with-high-bias": "-max-val 30000 -padding-bias 15",
+  "max-padding-with-low-bias": "-max-val 30000 -padding-bias -15"
+} >
+{% endraw %}{%- endcapture -%}
+{% include customhighlight.html content=script_padding_group_hash_pruned
+  caption="Pruned padding_group" collapsed=true
+%}
+
+For `gen_a_group` and `gen_b_group`:
+- We can remove `range-100`. If we already have `range-10` and `range-1000`, then
+  `range-100` has very little impact.
+- We can also remove `range-10000-lim-val-100`. With the same reason: we already
+  have `range-10000-lim-val-10` and `range-10000-lim-val-100-uneven`, so
+  `range-10000-lim-val-100` might have less impact. 
+- Let's remove `range-10000-curve-down` and `range-10000-lim-val-10-curve-up`. There
+  are 2 pairs of (`-curve-up`, `-curve-down`), so I think it is fine to remove one
+  side of each pair.
+  
+{%- capture script_gen_array_group_hash_pruned -%}{% raw %}
+<#function gen_array_group name>
+  <#assign 
+    min="-min-${name}" max="-max-${name}" valueBias="-${name}-value-bias"
+    limitedValue="-${name}-limited-value" pickingBias="-${name}-picking-bias"
+    noisePercent="-${name}-noise-percent" sortedInNo="-${name}-sorted-in-no=1"
+  >
+  <#return {
+    "range-10": "${min} 1 ${max} 10 ${sortedInNo}",
+    "range-10000": "${min} 1 ${max} 10000 ${sortedInNo}",
+    "range-10000-no-sort": "${min} 1 ${max} 10000",
+    "range-10000-curve-up": "${min} 1 ${max} 10000 ${valueBias} 10 ${sortedInNo}",
+    "range-10000-lim-val-10": "${min} 1 ${max} 10000 ${limitedValue} 10 ${sortedInNo}",
+    "range-10000-lim-val-10-curve-down": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
+    "range-10000-lim-val-100-uneven": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
+  } >
+</#function>
+<#assign gen_a_group = gen_array_group("a") >
+<#assign gen_b_group = gen_array_group("b") >
+{% endraw %}{%- endcapture -%}
+{% include customhighlight.html content=script_gen_array_group_hash_pruned
+  caption="Pruned gen_a_group and gen_b_group" collapsed=true
+%}
+
+The number of tests has been reduced to around $3 \times 3 \times 7^2 = 441$,
+which is still a lot.
+
+#### Test pruning by condition
+There are also combinations that have a small impact:
+- For small and medium-size tests, let's just test them with random values (no
+  bias or limited value), since the distribution still looks random with such
+  sizes.
+- Let's make the pairs or parts made from `gen_a_group` and `gen_b_group` unordered.
+  For example, the pairs (`range-10`, `range-10000-no-sort`) and
+  (`range-10000-no-sort`, `range-10`) can be considered the same! That is because,
+  for a part pair, we can reverse the array to get the reverse part.
+  
+Here is the full generation script.
+{% capture script_full %}{% raw %}
+<#assign length_group = {
+  "small-length": "-test-count 200 -sum-n 3000 -min-n 10",
+  "medium-length": "-test-count 20 -sum-n 3000 -min-n 100",
+  "big-length-no": "-test-count 2 -sum-n 3000 -min-n 1300"
+} >
+<#assign padding_group = {
+  "no-influence": "",
+  "max-padding-with-high-bias": "-max-val 30000 -padding-bias 15",
+  "max-padding-with-low-bias": "-max-val 30000 -padding-bias -15"
+} >
+<#function gen_array_group name>
+  <#assign 
+    min="-min-${name}" max="-max-${name}" valueBias="-${name}-value-bias"
+    limitedValue="-${name}-limited-value" pickingBias="-${name}-picking-bias"
+    noisePercent="-${name}-noise-percent" sortedInNo="-${name}-sorted-in-no=1"
+  >
+  <#return {
+    "range-10": "${min} 1 ${max} 10 ${sortedInNo}",
+    "range-10000": "${min} 1 ${max} 10000 ${sortedInNo}",
+    "range-10000-no-sort": "${min} 1 ${max} 10000",
+    "range-10000-curve-up": "${min} 1 ${max} 10000 ${valueBias} 10 ${sortedInNo}",
+    "range-10000-lim-val-10": "${min} 1 ${max} 10000 ${limitedValue} 10 ${sortedInNo}",
+    "range-10000-lim-val-10-curve-down": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
+    "range-10000-lim-val-100-uneven": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
+  } >
+</#function>
+<#assign gen_a_group = gen_array_group("a") >
+<#assign gen_b_group = gen_array_group("b") >
+<#list length_group as length_part, length>
+  <#list padding_group as padding_part, padding>
+    <#assign used_a_part = {} >
+    <#list gen_a_group as gen_a_part, gen_a>
+      <#assign used_a_part = used_a_part + {gen_a_part: true} >
+      <#list gen_b_group as gen_b_part, gen_b>
+        <#if !(used_a_part[gen_b_part]??) >
+          <#continue>
+        </#if>
+        <#if length_part == "small-length" || length_part == "medium-length">
+          <#if padding_part != "no-influence">
+            <#continue>
+          </#if>
+          <#if gen_a_part != "range-10" && gen_a_part != "range-10000">
+            <#continue>
+          </#if>
+          <#if gen_b_part != "range-10" && gen_b_part != "range-10000">
+            <#continue>
+          </#if>
+        </#if>
+        gen-v4.1 ${length} ${padding} ${gen_a} ${gen_b} > $
+      </#list>
+    </#list>
+  </#list>
+</#list>
+<#-- 2 tests with n = 30000 -->
+gen-v4.1 -test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 100 ${padding_group["max-padding-with-low-bias"]} ${gen_a_group["range-10000-lim-val-10"]} ${gen_b_group["range-10000-lim-val-100-uneven"]} > $
+gen-v4.1 -test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 0 ${padding_group["max-padding-with-high-bias"]} ${gen_a_group["range-10000-no-sort"]} ${gen_b_group["range-10000-curve-up"]} > $
+{% endraw %}{% endcapture %}
+
+{% include customhighlight.html content=script_full
+  caption="The full script" collapsed=true
+%}
+
+The script produced $92$ tests, which is more or less _acceptable_ for a problem
+D in a Div2 Codeforces contest.
 
 
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
 [generator-with-testlib]: https://codeforces.com/blog/entry/18291
 [testlib-opts]: https://codeforces.com/blog/entry/72702
 [testlib.h]: https://github.com/MikeMirzayanov/testlib/blob/master/testlib.h
+[FreeMarker]: https://freemarker.apache.org/
+[template-engine]: https://en.wikipedia.org/wiki/Template_processor

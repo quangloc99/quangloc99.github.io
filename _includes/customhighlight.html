@@ -25,15 +25,17 @@ collapse-checkbox-{%-increment collapseCheckboxCounter -%}
 <div class="highlight caption collapse-label">
 <label for="{{collapseCheckboxId}}">{{include.caption}}</label>
 </div>
-    
+
 ```{{include.ext}}
 {{ include_content }}
 ```
-{:
-{% if (include.wrap or page.wrapCode) -%}
-.wrap-code
+{% if include.wrap != nil -%}
+  {%- if include.wrap -%}
+    {: .wrap-code }
+  {%- endif -%}
+{%- elsif page.wrapCode -%}
+  {: .wrap-code }
 {%- endif -%}
-}
 
 {%-capture includedCnt -%} {%- increment includedCounter -%} {%-endcapture%}
 {% if includedCnt == "0" %}
