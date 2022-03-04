@@ -12,6 +12,8 @@ add_executable(gen-v2 gen-v2.cpp)
 add_executable(gen-v3 gen-v3.cpp)
 add_executable(gen-v4 gen-v4.cpp)
 add_executable(gen-v4.1 gen-v4.1.cpp)
+add_executable(gen-pretest gen-pretest.cpp)
+add_executable(gen-pretest-with-func gen-pretest-with-func.cpp)
 
 # The following is used to comple all code fragments in my blogs
 add_executable(all-fragments all-fragments.cpp) 

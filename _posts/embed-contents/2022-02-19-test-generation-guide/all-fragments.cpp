@@ -59,6 +59,27 @@ namespace adjustment_for_no_tests {
 #include "adjust-main-for-no-tests.fragment.cpp"
 }
 
+namespace call_main {
+    namespace GenV41 {
+        int main(int argc, char** argv) {
+            return 0;
+        }
+    };
+#include "call-main.fragment.cpp"
+};
+
+namespace call_main_return_output {
+    namespace GenV41 {
+        int main(int argc, char** argv) {
+            return 0;
+        }
+    };
+#include "call-main-return-output.fragment.cpp"
+};
+
+namespace prepare_opts_from_string {
+#include "prepare-opts-from-string.fragment.cpp"
+};
 
 int main() {
     // nothing

@@ -1040,8 +1040,224 @@ D in a Div2 Codeforces contest.
 
 ### Multitest compression. Making complex tests.
 Again, $92$ is _more or less acceptable_. But looking at the number of tests of
-this problem on Codeforces, there is only $10$! The main reason for this
-differences is because the way we are generating 
+this problem on Codeforces, there is only $10$! How can they generate so few
+tests? Maybe the question should be _how did we end up with so many tests?_ Well
+it is because of the way we are generating the test. All the cases, even though
+really diverse, they still use a same set of options flag. In other words, we
+still don't use the multitest **effectively**.
+
+But how should we design a generator to handle such complexity? Imagine we are
+generating 10 test cases in one test, each of them should be generated with a
+different set of options. The function `opts` in `testlib.h` for now does not
+accept very complex options, and if we wanted to specify more complex options,
+we need _parse_ the argument, which should the library's job, not our!
+
+This is a problem that I think lots of author has met. The solution is either
+writing a more specific generator, or tests concatination. But we are
+programmers, should _code reuse_ be one of one of aim. I have given some
+thoughts for this, and I have come up with two solutions.
+
+#### Multitest compression the _ugly_ way
+We already have a generator, and it is built by extending the previous generator.
+Writing a specific generator required us to decompose it, which is the opposite
+of extension. This section aims to provide a way to actually reuse the generator
+without decomposing it, but with some hacks.
+
+The main idea is to use the power of programming -- we can _simulate_ the command
+calling process. Normally this is possible by creating a new process and call
+the program with the set of flags. But that way is not possible on Polygon,
+therefore we must _simulate_ it.
+
+First we need to somehow call the generator. Well its body is a function named
+`main`, we can rename it to something else and then call it in our main. So that
+will be something like this:
+
+{%include customhighlight.html
+caption="Multitest compression hack: rename the main function with macro"
+ext="cpp"
+content='
+#define main generator
+#include "./gen-v4.1.cpp"
+#undef main
+' %}
+
+This will works, but for example, there might be other function called
+`generator` inside `./gen-v4.1.cpp`, or there might also be a function with the
+name `generator` outside `./gen-v4.1.cpp` that we might want to use. So instead,
+we can wrap it inside a namespace. But before that we must include **all of the
+header** used in `./gen-4.1.cpp`.
+
+{% include customhighlight.html
+caption="Multitest compression hack: wrap generator inside a namespace"
+ext="cpp"
+content='
+// must include these 2 headers first
+#include "testlib.h"
+#include <bits/stdc++.h>
+namespace GenV41 {
+#include "gen-v4.1.cpp"
+}
+' %}
+
+With this we are successfully encapsulate all of the local variable, function
+inside `GenV41` namespace. Now we can call the generator with
+`GenV41::main(...)`. The only down side is, again, that we need to include the headers
+**before** including `gen-v4.1.cpp`, but in this case is totally fine since
+mostly we only use these two headers.
+
+It worths noting that on Polygon, you **can not** include _source files_
+(including your validators and generators), but only _resource files_ (which
+lies `testlib.h`). So you should add `gen-v4.1.cpp` to _resource files_, and
+maybe change its name to `gen-v4.1.inc` (for include). (and maybe inside
+`gen-v4.1.cpp` now only `#include "gen-v4.1.inc"` is needed :))
+
+{% include image.html caption="Polygon File section: resource files and source
+files"
+alt="polygon-file-section-resource-files-and-source-files"
+dir=page.assetsdir file="polygon-files.png" %}
+
+That's the calling function done, but how do we pass the argument more easily.
+Well we can always write a function for it.
+
+{% include customhighlight.html caption="`call_main` function"
+  dir=page.prepdir file="call-main.fragment.cpp" ext="cpp" %}
+
+This function will split a string into parts and getting the arguments that a
+`main` function of a program need. Neat, isn't it?
+
+There are two more parts that need to be done. First thing is to correctly pass the
+arguments and register them with `testlib.h`. And second thing is to capture the
+output. For the first thing, we need to take a look at the `testlib.h` source
+code and see how things are handles.
+[Here](https://github.com/MikeMirzayanov/testlib/blob/f28d52804011c5dca2e62fbe7cff45888579b0e8/testlib.h#L4038) is the link the the function
+`registerGen()`. The full function at the time of writing this blog is the
+following:
+
+{%include customhighlight.html caption="`registerGen()` function"
+ext="cpp" collapsed=true
+content='
+void registerGen(int argc, char * argv[], int randomGeneratorVersion) {
+    if (randomGeneratorVersion < 0 || randomGeneratorVersion > 1)
+        quitf(_fail, "Random generator version is expected to be 0 or 1.");
+    random_t::version = randomGeneratorVersion;
+
+    __testlib_ensuresPreconditions();
+
+    testlibMode = _generator;
+    __testlib_set_binary(stdin);
+    rnd.setSeed(argc, argv);
+
+#if __cplusplus > 199711L || defined(_MSC_VER)
+    prepareOpts(argc, argv);
+#endif
+}
+' %}
+
+We can see that this function does a few stuffs, but there is another function
+that handles the preparation for `opts` separately. Let's take a look at that
+function too (the link to it is
+[here](https://github.com/MikeMirzayanov/testlib/blob/f28d52804011c5dca2e62fbe7cff45888579b0e8/testlib.h#L4810))
+
+{%include customhighlight.html caption="`prepareOpts()` function"
+ext="cpp" collapsed=true
+content='
+void prepareOpts(int argc, char * argv[]) {
+    if (argc <= 0)
+        __testlib_fail("Opts: expected argc>=0 but found " + toString(argc));
+    size_t n = static_cast<size_t>(argc); // NOLINT(hicpp-use-auto,modernize-use-auto)
+    __testlib_opts = std::map<std::string, std::string>();
+    for (size_t index = 1; index < n; index += parseOpt(n, argv, index, __testlib_opts));
+    __testlib_argv = std::vector<std::string>(n);
+    for (size_t index = 0; index < n; index++)
+        __testlib_argv[index] = argv[index];
+}
+' %}
+
+Here it first reset all of the options first, and then parsing the new options.
+So this is the function that we need to use instead of `registerGen()`. And we
+can either change the calling `registerGen()` into `prepareOpts`, or use the
+power of the macro again.
+
+{% include customhighlight.html
+caption="Multitest compression hack: redefine registerGen() for GenV41"
+ext="cpp"
+content='
+// must include these 2 headers first
+#include "testlib.h"
+#include <bits/stdc++.h>
+#define registerGen(argc, argv, rndVer) prepareOpts(argc, argv)
+namespace GenV41 {
+#include "gen-v4.1.inc"
+}
+#undef registerGen
+' %}
+
+Now to get the output from out generator. One solution is to use `freopen` to
+write the output onto another file, and then read it back. But that is not
+convenient for us. So instead we should somehow need to write the output
+somewhere else. After a bit of googling, I find out [this
+solution](https://stackoverflow.com/a/6211644) that write the output of `stdout`
+onto another `ostringstream`. Let's change the `call_main` function to return
+the output of the generator as a stream.
+
+{% include customhighlight.html caption="`call_main`: returns output from the
+generator"
+  dir=page.prepdir file="call-main-return-output.fragment.cpp" ext="cpp" %}
+  
+That's all the part of the hack. Let's try it out by writing a stronger
+_pretest_. This pretest will contains all possible cases for very small
+constraints, and the rest will be randomly generated. The very small constraints
+here will be all arrays with length not exceeding $4$ and the values not
+exceeding $5$.
+
+{% include customhighlight.html caption="gen-pretest.cpp"
+  dir=page.prepdir file="gen-pretest.cpp" ext="cpp" collapsed=true %}
+
+#### Multitest compression the _programmer_ way
+In the previous section, we discussed the case where we don't want to touch the
+source code of the existing generators. But the case of `gen-v4.1.cpp`, our
+generator is very easy to refactor. We only need it to return the `cases` array
+instead of printing out. But we still need to somehow process the options
+passed to the generator. For that we can adjust the function `call_main` a bit,
+and then call it inside the generator.
+
+{% include customhighlight.html caption="`prepare_opts_from_string`. From the
+function `call_main`"
+  dir=page.prepdir file="prepare-opts-from-string.fragment.cpp" ext="cpp" collapsed=true %}
+  
+And here are the adjusted `gen-v4.1.cpp` generator and `gen-pretest` generator.
+
+{% include customhighlight.html caption="gen-v4.1-func.inc"
+  dir=page.prepdir file="gen-v4.1-func.inc" ext="cpp" collapsed=true %}
+  
+{% include customhighlight.html caption="gen-pretest-with-func.cpp"
+  dir=page.prepdir file="gen-pretest-with-func.cpp" ext="cpp" collapsed=true %}
+  
+These code is still not clean though. Here is something that we might do:
+- Wrap `gen-v4.1` in a namespace again. Or even inside a `struct/class`.
+- We should not rely on `opt`. This can be avoid using the [builder
+  pattern][builder-pattern] in OOP.
+- We should put `parepare_opts_with_string` into a new header file, and then
+  include it in `gen-v4.1-func.inc`.
+
+But these will be way _TOO_ much for generating tests. To be able to do these
+things, the problem author must do it _from the start_, and not this late. But
+this is only one solution, and Polygon is really flexible, so there might be
+other solution to this problem as well.
+
+In theory, if there are $30$ test cases in a test, each with length $1000$, it
+is good enough to use the combination of the option for these lengths. If so,
+then we can reduce the test count from about $92 / 30 \approx 3$ tests!
+With multitest compression, even if we don't prune the test with condition, we
+can still generate $441 / 30 \approx 15$, which is very good compared to the
+official test set!
+
+But I won't do that in this post. This post is now _WAY TOO LONG_, and the tests
+are ready to use. There is no need to change that.
+
+Two above generators are added to our test set. 
+
+
 
 
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
@@ -1050,6 +1266,7 @@ differences is because the way we are generating
 [testlib.h]: https://github.com/MikeMirzayanov/testlib/blob/master/testlib.h
 [FreeMarker]: https://freemarker.apache.org/
 [template-engine]: https://en.wikipedia.org/wiki/Template_processor
+[builder-pattern]: https://refactoring.guru/design-patterns/builder
 
 {% comment %}
 vim: wrap
