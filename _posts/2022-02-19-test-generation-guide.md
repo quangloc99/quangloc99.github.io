@@ -600,7 +600,6 @@ following:
 - Decrease all of the elements of the test so that the optimal decreasing array
   will contain a negative element.
 
-
 We can implement this algorithm by adjusting the padding part. So the padding
 value now has two ranges: a range that will generate a `NO` test, and a range
 for a `YES` test. This way, we can even make an unsorted array to have the
@@ -624,7 +623,8 @@ negative.
 {% include customhighlight.html caption="Adjustment inside `main`"
   dir=page.prepdir file="adjust-main-for-no-tests.fragment.cpp" ext="cpp" %}
   
-And here is the full code for our new generator.
+And here is the full code for our new generator. A small note that we 
+don't strictly force `NO` tests as `gen-v3`.
 
 {% include customhighlight.html caption="gen-v4.cpp"
   dir=page.prepdir file="gen-v4.cpp" ext="cpp" collapsed=true %}
@@ -773,14 +773,14 @@ group can be a list with the following values.
 
 {%- capture script_length_group_sequence -%}{% raw %}
 <#assign length_group = [
-  "-test-count 200 -sum-n 3000 -min-n 10",
-  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 25",
-  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 75",
-  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 0",
-  "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 100",
-  "-test-count 20 -sum-n 3000 -min-n 100",
-  "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 0",
-  "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 100"
+  "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 0",
+  "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 25",
+  "-test-count 2000 -sum-n 30000 -min-n 10",
+  "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 75",
+  "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 100",
+  "-test-count 200 -sum-n 30000 -min-n 100",
+  "-test-count 1 -sum-n 30000 -min-n 30000 -yes-percent 0",
+  "-test-count 1 -sum-n 30000 -min-n 30000 -yes-percent 100"
 ] >
 {% endraw %}{%- endcapture -%}
 
@@ -793,14 +793,14 @@ declare as a _hash_, because having a name is more meaningful, and we can do
 more thing with that information later :).
 {%- capture script_length_group_hash -%}{% raw %}
 <#assign length_group = {
-  "small-length-0-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 0",
-  "small-length-25-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 25",
-  "small-length-50-yes": "-test-count 200 -sum-n 3000 -min-n 10",
-  "small-length-75-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 75",
-  "small-length-100-yes": "-test-count 200 -sum-n 3000 -min-n 10 -yes-percent 100",
-  "medium-length": "-test-count 20 -sum-n 3000 -min-n 100",
-  "big-length-no": "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 0",
-  "big-length-yes": "-test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 100"
+  "small-length-0-yes": "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 0",
+  "small-length-25-yes": "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 25",
+  "small-length-50-yes": "-test-count 2000 -sum-n 30000 -min-n 10",
+  "small-length-75-yes": "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 75",
+  "small-length-100-yes": "-test-count 2000 -sum-n 30000 -min-n 10 -yes-percent 100",
+  "medium-length": "-test-count 200 -sum-n 30000 -min-n 100",
+  "big-length-no": "-test-count 1 -sum-n 30000 -min-n 30000 -yes-percent 0",
+  "big-length-yes": "-test-count 1 -sum-n 30000 -min-n 30000 -yes-percent 100"
 } >
 
 {% endraw %}{%- endcapture -%}
@@ -812,15 +812,14 @@ We can do the same with the second group.
 {%capture script_padding_group_hash %}{% raw %}
 <#assign padding_group = {
   "no-influence": "",
-  "max-padding-only": "-max-val 30000",
-  "max-padding-with-high-bias": "-max-val 30000 -padding-bias 15",
-  "max-padding-with-low-bias": "-max-val 30000 -padding-bias -15"
+  "max-padding-only": "-max-val 1000000",
+  "max-padding-with-high-bias": "-max-val 1000000 -padding-bias 15",
+  "max-padding-with-low-bias": "-max-val 1000000 -padding-bias -15"
 } >
 {% endraw %}{%- endcapture -%}
 {% include customhighlight.html content=script_padding_group_hash
   caption="Declare padding_group as a hash"
 %}
-
 
 For the third group, we have a little problem. The group should be defined for
 $a$ and $b$ separately. Luckily, we can use _function_.
@@ -835,15 +834,15 @@ $a$ and $b$ separately. Luckily, we can use _function_.
   <#return {
     "range-10": "${min} 1 ${max} 10 ${sortedInNo}",
     "range-100": "${min} 1 ${max} 100 ${sortedInNo}",
-    "range-10000": "${min} 1 ${max} 10000 ${sortedInNo}",
-    "range-10000-no-sort": "${min} 1 ${max} 10000",
-    "range-10000-curve-up": "${min} 1 ${max} 10000 ${valueBias} 10 ${sortedInNo}",
-    "range-10000-curve-down": "${min} 1 ${max} 10000 ${valueBias} -10 ${sortedInNo}",
-    "range-10000-lim-val-10": "${min} 1 ${max} 10000 ${limitedValue} 10 ${sortedInNo}",
-    "range-10000-lim-val-10-curve-up": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} 10 ${sortedInNo}",
-    "range-10000-lim-val-10-curve-down": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
-    "range-10000-lim-val-100": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${sortedInNo}",
-    "range-10000-lim-val-100-uneven": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
+    "range-300000": "${min} 1 ${max} 30000 ${sortedInNo}",
+    "range-300000-no-sort": "${min} 1 ${max} 300000",
+    "range-300000-curve-up": "${min} 1 ${max} 300000 ${valueBias} 10 ${sortedInNo}",
+    "range-300000-curve-down": "${min} 1 ${max} 300000 ${valueBias} -10 ${sortedInNo}",
+    "range-300000-lim-val-10": "${min} 1 ${max} 300000 ${limitedValue} 10 ${sortedInNo}",
+    "range-300000-lim-val-10-curve-up": "${min} 1 ${max} 300000 ${limitedValue} 100 ${valueBias} 10 ${sortedInNo}",
+    "range-300000-lim-val-10-curve-down": "${min} 1 ${max} 300000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
+    "range-300000-lim-val-100": "${min} 1 ${max} 300000 ${limitedValue} 100 ${noisePercent} 20 ${sortedInNo}",
+    "range-300000-lim-val-100-uneven": "${min} 1 ${max} 300000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
   } >
 </#function>
 <#assign gen_a_group = gen_array_group("a") >
@@ -902,9 +901,9 @@ tests outside the loop.
 
 {%- capture script_length_group_hash_pruned -%}{% raw %}
 <#assign length_group = {
-  "small-length": "-test-count 200 -sum-n 3000 -min-n 10",
-  "medium-length": "-test-count 20 -sum-n 3000 -min-n 100",
-  "big-length-no": "-test-count 2 -sum-n 3000 -min-n 1300"
+  "small-length": "-test-count 2000 -sum-n 30000 -min-n 10",
+  "medium-length": "-test-count 200 -sum-n 30000 -min-n 100",
+  "big-length": "-test-count 2 -sum-n 30000 -min-n 13000"
 } >
 {% endraw %}{%- endcapture -%}
 {% include customhighlight.html content=script_length_group_hash_pruned
@@ -917,8 +916,8 @@ no influence. So we can remove `max-padding-only` part.
 {%capture script_padding_group_hash_pruned %}{% raw %}
 <#assign padding_group = {
   "no-influence": "",
-  "max-padding-with-high-bias": "-max-val 30000 -padding-bias 15",
-  "max-padding-with-low-bias": "-max-val 30000 -padding-bias -15"
+  "max-padding-with-high-bias": "-max-val 1000000 -padding-bias 15",
+  "max-padding-with-low-bias": "-max-val 1000000 -padding-bias -15"
 } >
 {% endraw %}{%- endcapture -%}
 {% include customhighlight.html content=script_padding_group_hash_pruned
@@ -928,10 +927,10 @@ no influence. So we can remove `max-padding-only` part.
 For `gen_a_group` and `gen_b_group`:
 - We can remove `range-100`. If we already have `range-10` and `range-1000`, then
   `range-100` has very little impact.
-- We can also remove `range-10000-lim-val-100`. With the same reason: we already
-  have `range-10000-lim-val-10` and `range-10000-lim-val-100-uneven`, so
-  `range-10000-lim-val-100` might have less impact. 
-- Let's remove `range-10000-curve-down` and `range-10000-lim-val-10-curve-up`. There
+- We can also remove `range-300000-lim-val-100`. With the same reason: we already
+  have `range-300000-lim-val-10` and `range-300000-lim-val-100-uneven`, so
+  `range-300000-lim-val-100` might have less impact. 
+- Let's remove `range-300000-curve-down` and `range-300000-lim-val-10-curve-up`. There
   are 2 pairs of (`-curve-up`, `-curve-down`), so I think it is fine to remove one
   side of each pair.
   
@@ -944,12 +943,12 @@ For `gen_a_group` and `gen_b_group`:
   >
   <#return {
     "range-10": "${min} 1 ${max} 10 ${sortedInNo}",
-    "range-10000": "${min} 1 ${max} 10000 ${sortedInNo}",
-    "range-10000-no-sort": "${min} 1 ${max} 10000",
-    "range-10000-curve-up": "${min} 1 ${max} 10000 ${valueBias} 10 ${sortedInNo}",
-    "range-10000-lim-val-10": "${min} 1 ${max} 10000 ${limitedValue} 10 ${sortedInNo}",
-    "range-10000-lim-val-10-curve-down": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
-    "range-10000-lim-val-100-uneven": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
+    "range-300000": "${min} 1 ${max} 300000 ${sortedInNo}",
+    "range-300000-no-sort": "${min} 1 ${max} 300000",
+    "range-300000-curve-up": "${min} 1 ${max} 300000 ${valueBias} 10 ${sortedInNo}",
+    "range-300000-lim-val-10": "${min} 1 ${max} 300000 ${limitedValue} 10 ${sortedInNo}",
+    "range-300000-lim-val-10-curve-down": "${min} 1 ${max} 300000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
+    "range-300000-lim-val-100-uneven": "${min} 1 ${max} 300000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
   } >
 </#function>
 <#assign gen_a_group = gen_array_group("a") >
@@ -968,21 +967,21 @@ There are also combinations that have a small impact:
   bias or limited value), since the distribution still looks random with such
   sizes.
 - Let's make the pairs or parts made from `gen_a_group` and `gen_b_group` unordered.
-  For example, the pairs (`range-10`, `range-10000-no-sort`) and
-  (`range-10000-no-sort`, `range-10`) can be considered the same! That is because,
+  For example, the pairs (`range-10`, `range-300000-no-sort`) and
+  (`range-300000-no-sort`, `range-10`) can be considered the same! That is because,
   for a part pair, we can reverse the array to get the reverse part.
   
 Here is the full generation script.
 {% capture script_full %}{% raw %}
 <#assign length_group = {
-  "small-length": "-test-count 200 -sum-n 3000 -min-n 10",
-  "medium-length": "-test-count 20 -sum-n 3000 -min-n 100",
-  "big-length-no": "-test-count 2 -sum-n 3000 -min-n 1300"
+  "small-length": "-test-count 2000 -sum-n 30000 -min-n 10",
+  "medium-length": "-test-count 200 -sum-n 30000 -min-n 100",
+  "big-length": "-test-count 2 -sum-n 30000 -min-n 13000"
 } >
 <#assign padding_group = {
   "no-influence": "",
-  "max-padding-with-high-bias": "-max-val 30000 -padding-bias 15",
-  "max-padding-with-low-bias": "-max-val 30000 -padding-bias -15"
+  "max-padding-with-high-bias": "-max-val 1000000 -padding-bias 15",
+  "max-padding-with-low-bias": "-max-val 1000000 -padding-bias -15"
 } >
 <#function gen_array_group name>
   <#assign 
@@ -992,12 +991,12 @@ Here is the full generation script.
   >
   <#return {
     "range-10": "${min} 1 ${max} 10 ${sortedInNo}",
-    "range-10000": "${min} 1 ${max} 10000 ${sortedInNo}",
-    "range-10000-no-sort": "${min} 1 ${max} 10000",
-    "range-10000-curve-up": "${min} 1 ${max} 10000 ${valueBias} 10 ${sortedInNo}",
-    "range-10000-lim-val-10": "${min} 1 ${max} 10000 ${limitedValue} 10 ${sortedInNo}",
-    "range-10000-lim-val-10-curve-down": "${min} 1 ${max} 10000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
-    "range-10000-lim-val-100-uneven": "${min} 1 ${max} 10000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
+    "range-300000": "${min} 1 ${max} 300000 ${sortedInNo}",
+    "range-300000-no-sort": "${min} 1 ${max} 300000",
+    "range-300000-curve-up": "${min} 1 ${max} 300000 ${valueBias} 10 ${sortedInNo}",
+    "range-300000-lim-val-10": "${min} 1 ${max} 300000 ${limitedValue} 10 ${sortedInNo}",
+    "range-300000-lim-val-10-curve-down": "${min} 1 ${max} 300000 ${limitedValue} 100 ${valueBias} -10 ${sortedInNo}",
+    "range-300000-lim-val-100-uneven": "${min} 1 ${max} 300000 ${limitedValue} 100 ${noisePercent} 20 ${pickingBias} 10 ${sortedInNo}"
   } >
 </#function>
 <#assign gen_a_group = gen_array_group("a") >
@@ -1015,10 +1014,10 @@ Here is the full generation script.
           <#if padding_part != "no-influence">
             <#continue>
           </#if>
-          <#if gen_a_part != "range-10" && gen_a_part != "range-10000">
+          <#if gen_a_part != "range-10" && gen_a_part != "range-300000">
             <#continue>
           </#if>
-          <#if gen_b_part != "range-10" && gen_b_part != "range-10000">
+          <#if gen_b_part != "range-10" && gen_b_part != "range-300000">
             <#continue>
           </#if>
         </#if>
@@ -1028,16 +1027,21 @@ Here is the full generation script.
   </#list>
 </#list>
 <#-- 2 tests with n = 30000 -->
-gen-v4.1 -test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 100 ${padding_group["max-padding-with-low-bias"]} ${gen_a_group["range-10000-lim-val-10"]} ${gen_b_group["range-10000-lim-val-100-uneven"]} > $
-gen-v4.1 -test-count 1 -sum-n 3000 -min-n 3000 -yes-percent 0 ${padding_group["max-padding-with-high-bias"]} ${gen_a_group["range-10000-no-sort"]} ${gen_b_group["range-10000-curve-up"]} > $
+gen-v4.1 -test-count 1 -sum-n 30000 -min-n 30000 -yes-percent 100 ${padding_group["max-padding-with-low-bias"]} ${gen_a_group["range-300000-lim-val-10"]} ${gen_b_group["range-300000-lim-val-100-uneven"]} > $
+gen-v4.1 -test-count 1 -sum-n 30000 -min-n 30000 -yes-percent 0 ${padding_group["max-padding-with-high-bias"]} ${gen_a_group["range-300000-no-sort"]} ${gen_b_group["range-300000-curve-up"]} > $
 {% endraw %}{% endcapture %}
 
 {% include customhighlight.html content=script_full
   caption="The full script" collapsed=true
 %}
 
-The script produced $92$ tests, which is more or less _acceptable_ for a problem
+The script produced $92$ tests, which is _more or less acceptable_ for a problem
 D in a Div2 Codeforces contest.
+
+### Multitest compression. Making complex tests.
+Again, $92$ is _more or less acceptable_. But looking at the number of tests of
+this problem on Codeforces, there is only $10$! The main reason for this
+differences is because the way we are generating 
 
 
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
@@ -1046,3 +1050,7 @@ D in a Div2 Codeforces contest.
 [testlib.h]: https://github.com/MikeMirzayanov/testlib/blob/master/testlib.h
 [FreeMarker]: https://freemarker.apache.org/
 [template-engine]: https://en.wikipedia.org/wiki/Template_processor
+
+{% comment %}
+vim: wrap
+{% endcomment %}

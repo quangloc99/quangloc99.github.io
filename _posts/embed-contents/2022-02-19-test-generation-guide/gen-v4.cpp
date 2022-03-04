@@ -113,11 +113,17 @@ int main(int argc, char** argv) {
         int max_padding = max_val - *max_elm;
         int min_padding = min_val - *min_elm;
         
+        // side question: what if min_padding > max_padding?
         int min_dec = *min_element(optimal.dec.begin(), optimal.dec.end());
         if (is_yes_test) {
             min_padding = max(min_padding, -min_dec);
+            // forcing the answer to be YES.
+            ensuref(min_padding <= max_padding, "min_padding must not exceed max_padding, but found min_padding = %d, max_padding = %d", min_padding, max_padding);
         } else {
-            max_padding = min(max_padding, -min_dec - 1);
+            // not forcing the answer to be NO.
+            if (-min_dec - 1 >= min_padding) {
+                max_padding = min(max_padding, -min_dec - 1);
+            }
         }
         
         // side question: what if min_dec > maxdec?
