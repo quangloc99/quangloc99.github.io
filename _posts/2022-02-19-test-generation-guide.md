@@ -3,7 +3,7 @@ layout: post
 title: "A Guide to Test Generation with Polygon and Testlib"
 date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
-prepdir: embed-contents/2022-02-19-test-generation-guide
+prepdir: _embed-contents/2022-02-19-test-generation-guide
 assetsdir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 ---
