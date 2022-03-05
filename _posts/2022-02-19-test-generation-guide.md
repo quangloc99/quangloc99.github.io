@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A guide to test-generation with Polygon and Testlib"
+title: "A Guide to Test Generation with Polygon and Testlib"
 date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
 prepdir: embed-contents/2022-02-19-test-generation-guide
@@ -8,9 +8,31 @@ assetsdir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 ---
 
+Problem setting is a hard task when preparing a programming competition. As an
+[author for a Codeforces round](https://codeforces.com/blog/entry/98385), as
+well as a [Codeforces coordinator for the first time
+ever](https://codeforces.com/blog/entry/100368), I have to work with [Polygon] and
+[`testlib.h`][testlib.h] to prepare problems for contests. But even with very convenient
+platform as Polygon and library as `testlib.h`, test generation is still very
+tricky. So in this post, I hope to demonstrate some of the patterns that I have
+used and thought of for test generation from my little experiences.
+
+## Table of contents
+* TOC
+{:toc}
+
 {% include mathjax.html %}
 
-<!-- introduction bla bla -->
+## Prerequisite
+Even though this post go through some Polygon features, this is not a Polygon
+tutorial. This is also true for `testlib.h`. So having basic knowledges on using
+Polygon and `testlib.h` is required.
+
+This post also used some C++11 features, so having knowledges on C++11 is also required.
+
+For testing the code offline, use run the code on the command line. This is not
+really a requirement, but knowing how to use the command line is better for
+fully understanding the commands. 
 
 ## The problem
 The problem that we are going to take a look and make tests for today is
@@ -150,7 +172,7 @@ Here is the full solution, quoted from the editorial.
 > 1])$. It is clear that taking $a[i] = \min (a[i - 1], v[i] - b[i - 1])$ is the
 > best by construction.
 
-Because it is very short, here is the solution in Python.
+Because it is very short, here are the solutions in Python and C++.
 
 {% include customhighlight.html caption="py_solution.py"
   dir=page.prepdir file="solution.py" ext="py" collapsed=true
@@ -177,7 +199,7 @@ that is, storing all visited states.
   dir=page.prepdir file="brute-force.cpp" ext="cpp" collapsed=true
 %}
 
-## And now the main part.
+## And now the main part
 Before writing our very first generator, it is worth pointing out which
 functionalities we are going to use. For RNG (random number generation), [this
 post][generator-with-testlib] already covered some of them. There is also
@@ -315,7 +337,7 @@ But there are several enhancements we can add to it:
   increase all of them by a random constant. To make it hit the maximum
   value, we can use `rnd.wnext` to make that constant more likely to have
   extreme value. Also note that we should only increase, but not decrease,
-  because some `YES` tests after decrement will become `NO.
+  because some `YES` tests after decrement will become `NO`.
 - Sometimes we don't want a fixed number of `YES` tests, but more often we want
   the number of `YES` tests to be proportional to the total test cases. We can
   change the `yes-count` option to be a ratio. I use _percentages_ for this
@@ -671,7 +693,7 @@ Yes, they are still separated by height in a same test, but a `NO` test with a
 _high_ `padding-bias` is now not **distinguishable** by eyes from a `YES` test
 with a _low_ `padding-bias`, which we may call **strong tests** :)).
 
-#### Plotting _chaotic_ `YES` tests.
+#### Plotting _chaotic_ `YES` tests
 As a bi-product of our generator, _chaotic_ `YES` tests might also be a good
 candidate for **strong tests**. Let's remove the `sorted` flags and all other
 flags that influence the value distribution. So we are only looking at the
@@ -1257,9 +1279,37 @@ are ready to use. There is no need to change that.
 
 Two above generators are added to our test set. 
 
+## But are the tests actually _strong_?
+The array shape generated are cool and all, but that does not prove anything.
+Let's test it against some solutions! I will pick the most $5$ earliest `AC` solutions and $5$
+earliest `WA` solution. I won't link the solution here because that is wrong,
+and you can always look it up on Codeforces. The name of the solution's author
+will be in the solution name, so the solution can be found easier.
+
+Here is the result.
+
+{% include image.html caption="Testing result"
+  alt="testing-result" dir=page.assetsdir file="testing-result.png" %}
+  
+This is the bottom of the invocation table, where it shows the verdicts of all
+solutions over all tests. Here the highest number of tests that `WA` solution
+passes is $49$, about $50\%$ of the tests.
+
+With this result I think we can safely conclude that the tests are _strong_.
+
+## Conclusion
+I did not expect that the final post is this _long_. Seriously, it was **WAY TOO
+LONG**. And I even planned to add a few more content, but I end up not putting
+them in. 
+
+Some may argue that my tests are still not strong enough. But the points of this
+post is not really about generating strong tests, but rather explaining the
+patterns used when generating tests for a problem. Strong or not, that depends
+on your limitation. This is meant to provide you with the tool to do so, and I
+hope that I have delivered that to you.
 
 
-
+[Polygon]: https://polygon.codeforces.com/
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
 [generator-with-testlib]: https://codeforces.com/blog/entry/18291
 [testlib-opts]: https://codeforces.com/blog/entry/72702
