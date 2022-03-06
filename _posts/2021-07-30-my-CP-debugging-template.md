@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custompost
 title: My CP debugging template
 date: 2021-07-30 9:30:00 +0300
 tags: [en, cp, debugging]

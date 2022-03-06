@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custompost
 title: "A Guide to Test Generation with Polygon and Testlib"
 date: 2022-02-19 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: custompost
 title: "I'm red! Now what?"
 date: 2021-10-01 11:44:00 +0300
 tags: [en, thought, random]
