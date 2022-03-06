@@ -6,6 +6,7 @@ tags: [en, polygon, codeforces, testlib, cp]
 prepdir: _embed-contents/2022-02-19-test-generation-guide
 assetsdir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
+useMathjax: true
 ---
 
 Problem setting is a hard task when preparing a programming competition. As an
@@ -20,8 +21,6 @@ used and thought of for test generation from my little experiences.
 ## Table of contents
 * TOC
 {:toc}
-
-{% include mathjax.html %}
 
 ## Prerequisite
 Even though this post go through some Polygon features, this is not a Polygon
