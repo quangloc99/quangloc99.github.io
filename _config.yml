@@ -47,9 +47,6 @@ minima:
     github: quangloc99
     facebook: TQLoc
       
-sass:
-    sass_dir: ./
-
 # Currently disable because of the ads
 # disqus: 
   # shortname: darkkcyanblog 

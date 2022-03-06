@@ -3,5 +3,5 @@
 
 @import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
 @import "minima/initialize";
-@import "assets/css/customhighlight";
+@import "customhighlight";
 

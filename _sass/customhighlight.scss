@@ -1,24 +1,24 @@
 .highlight.caption {
-    display: block;
-    filter: invert(1);
-    /* padding: 2px; */
-    margin-bottom: 0;
-    border-radius: 0px;
-    display: block;
-    font-weight: bold;
-}
-
-.highlight.caption > label {
+  display: block;
+  filter: invert(1);
+  /* padding: 2px; */
+  margin-bottom: 0;
+  border-radius: 0px;
+  display: block;
+  font-weight: bold;
+  > label {
     display: block;
     @extend pre;
     margin-bottom: 0;
     cursor: pointer;
+  }
 }
 
 .collapse-checkbox-wrapper {
-    display: none;
+  display: none;
 }
-.collapse-label label::before {
+.collapse-label {
+  label::before {
     content: ' ';
     display: inline-block;
 
@@ -33,22 +33,23 @@
     transform: rotate(90deg) translateX(-3px);
 
     transition: transform .2s ease-out;
-}
-
-.collapse-label.collapse label::before {
+  }
+  
+  &.collapse label::before {
     transform: translateY(-2px);
+  }
 }
 
 .collapsible {
-    transition: height ease-in-out 0.25s 0s;
-    overflow: hidden;
-    margin-bottom: 16px;
-}
-
-.collapsible.collapse {
+  transition: height ease-in-out 0.25s 0s;
+  overflow: hidden;
+  margin-bottom: 16px;
+  
+  .collapse {
     height: 0px !important;
+  }
 }
 
 .wrap-code pre {
-    white-space: pre-wrap;
+  white-space: pre-wrap;
 }
