@@ -1,0 +1,94 @@
+$nav-elm-indent: 16px;
+$toc-width: 400px;
+$toc-padding-horizontal: 10px;
+
+@function repeat($character, $n){
+  $c:"";
+  @for $i from 1 through $n {
+    $c: $c + $character;
+  }
+  @return $c;
+}
+
+#toc-wrapper {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  left: 0px;
+  height: 100%;
+  background: $background-color;
+  padding: 0px $toc-padding-horizontal;
+  width: Min(100vw, $toc-width);
+  border-right: 1px solid $border-color-01;
+  #toc {
+    font-size: $base-font-size;
+    padding: 20px 0px;
+    width: Min(100vw, $toc-width);
+    overflow-y: auto;
+    overflow-x: hidden;
+    .nav-elm {
+      display: block;
+      @for $i from 2 through 6 {
+        &.h#{$i}{
+          margin-left: 1.5em * $i;
+          display: block;
+          position: relative;
+          &::before {
+            position: absolute;
+            left: -1.5em * $i;
+            content: repeat("#", $i - 1) + " ";
+            color: $brand-color-dark;
+            font-family: $code-font-family;
+          }
+        }
+        &.h2 {
+          font-weight: bold;
+          &::before {
+            color: $brand-color-light;
+          }
+        }
+      }
+    }
+  }
+  
+}
+
+label[for="toc-toggler"] {
+  z-index: 10000;
+}
+
+input#toc-toggler, label[for="toc-toggler"]{
+  display: none;
+}
+
+@media (max-width: 2 * $toc-width + $content-width + $spacing-unit / 2) {
+  #toc-wrapper {
+    width: 0px;
+    overflow: hidden;
+    transition: padding, width ease 0.25s;
+    padding: 0px;
+  }
+  label[for="toc-toggler"] {
+    display: inline;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: $brand-color;
+    color: $background-color;
+    border: 1px solid $brand-color-dark;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    cursor: pointer;
+    opacity: 0.75;
+  }
+  
+  input#toc-toggler:checked + #toc-wrapper {
+    overflow: scroll;
+    width: Min(100vw, $toc-width);
+    padding: 0px $toc-padding-horizontal;
+  }
+}

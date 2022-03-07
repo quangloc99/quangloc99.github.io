@@ -3,5 +3,5 @@
 @import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
 @import "minima/initialize";
 @import "customhighlight";
-@import "scroll-nav"
+@import "toc"
 

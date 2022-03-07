@@ -7,6 +7,7 @@ prepdir: _embed-contents/2022-02-19-test-generation-guide
 assetsdir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 useMathjax: true
+useToc: true
 ---
 
 Problem setting is a hard task when preparing a programming competition. As an
@@ -17,10 +18,6 @@ ever](https://codeforces.com/blog/entry/100368), I have to work with [Polygon] a
 platform as Polygon and library as `testlib.h`, test generation is still very
 tricky. So in this post, I hope to demonstrate some of the patterns that I have
 used and thought of for test generation from my little experiences.
-
-## Table of contents
-* TOC
-{:toc}
 
 ## Prerequisite
 Even though this post go through some Polygon features, this is not a Polygon

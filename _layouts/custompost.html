@@ -27,16 +27,34 @@ layout: post
     }
   });
 </script>
-
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML">
 </script>
+
 {%- endif -%}
 
 
+{%- if page.useToc -%}
+  <label for="toc-toggler"> TOC </label>
+  <input id="toc-toggler" type="checkbox" autocomplete="off" />
+  <div id="toc-wrapper">
+    <nav id="toc"></nav>
+  </div>
+
+  <script src="/assets/js/toc.js"></script>
+  <script>
+    window.addEventListener("load", () => {
+      const content = document.querySelector(".post-content");
+      const navWrapper = document.querySelector("#toc");
+      
+      createToc(content, navWrapper);
+    });
+                                            
+  </script>
+{%- endif -%}
+
 {% comment %} === Content here === {% endcomment %}
 {{ content }}
-
 
 
 {%- unless page.disable_utterances -%}
