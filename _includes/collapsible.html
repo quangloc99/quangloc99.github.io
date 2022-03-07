@@ -1,0 +1,27 @@
+{% unless COLLAPSIBLE_ASSETS_INCLUDED %}
+{% capture _ %}{% increment COLLAPSIBLE_ASSETS_INCLUDED %} {% endcapture %}
+<link rel="stylesheet" href="/assets/css/collapsible.css" />
+<script src="/assets/js/collapsible.js"></script>
+{% endunless %}
+
+
+{%- capture collapseCheckboxId -%}
+collapse-checkbox-{%-increment collapseCheckboxCounter -%}
+{%- endcapture -%}
+
+<input
+        type="checkbox" 
+        class="collapse-checkbox {{include.collapseCheckboxClasses}}" 
+        id="{{ collapseCheckboxId }}"
+        autocomplete="off" 
+        for-elm="{{include.for}}" 
+        {% if include.collapsed | default: false -%} checked {%- endif -%}
+/>
+
+<div class="collapse-label {{include.labelClasses}}">
+<label for="{{collapseCheckboxId}}">{{include.labelContent}}</label>
+</div>
+
+{% comment %}
+vim: filetype=liquid
+{% endcomment %}

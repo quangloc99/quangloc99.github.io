@@ -1,0 +1,25 @@
+---
+---
+
+@import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
+@import "minima/initialize";
+
+.collapse-label.highlight {
+  display: block;
+  filter: invert(1);
+  margin-bottom: 0;
+  border-radius: 0px;
+  display: block;
+  font-weight: bold;
+  padding-left: 1em;
+  border: 1px solid $border-color-01;
+  > label {
+    font-family: $code-font-family;
+    display: block;
+    margin-bottom: 0;
+  }
+}
+
+.wrap-code pre {
+  white-space: pre-wrap;
+}

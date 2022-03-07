@@ -1,0 +1,43 @@
+---
+---
+
+.collapse-checkbox {
+    display: none;
+}
+
+.collapse-label {
+    label {
+        cursor: pointer;
+        &::before {
+            content: ' ';
+            display: inline-block;
+
+            width: 0px;
+            height: 0px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid currentColor;
+
+            vertical-align: middle;
+            margin-right: .7rem;
+            transform: rotate(90deg) translateX(-3px);
+
+            transition: transform .2s ease-out;
+        }
+    }
+
+
+    &.collapse label::before {
+        transform: translateY(-2px);
+    }
+}
+
+.collapsible {
+    transition: height ease-in-out 0.25s 0s;
+    overflow: hidden;
+    margin-bottom: 16px;
+
+    &.collapse {
+        height: 0px !important;
+    }
+}
