@@ -30,12 +30,10 @@ layout: post
 
 
 {%- unless page.disable_utterances -%}
-<script src="https://utteranc.es/client.js"
-        repo="quangloc99/quangloc99.github.io"
-        issue-term="title"
-        theme="github-dark-orange"
-        crossorigin="anonymous"
-        async>
-</script>
+{% include utterances.html %}
 {%- endunless -%}
+
+{% comment %}
+vim: filetype=liquid
+{% endcomment %}
 
