@@ -66,7 +66,7 @@ array equal to zero by applying a certain number of operations, and `NO`
 otherwise.
 
 #### Example
-{%include customhighlight.html caption="Input" 
+{%include customhighlight.html caption="Input"  collapsed=true
 content="
 4
 3
@@ -79,7 +79,7 @@ content="
 5 2 1 10
 "%}
 
-{%include customhighlight.html caption="Output"
+{%include customhighlight.html caption="Output" collapsed=true
 content="
 YES
 YES
