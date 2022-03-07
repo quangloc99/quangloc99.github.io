@@ -31,6 +31,7 @@ function createToc(wrapper, navWrapper) {
     navElm.href = `#${elm.id}`;
     navElm.classList.add("nav-elm");
     navElm.classList.add(tag.toLowerCase());
+    navElm.tabindex = "0";
     navWrapper.appendChild(navElm);
     const newHeader = new Header(lv, elm, navElm);
     headers[lv].push(newHeader);
