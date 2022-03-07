@@ -60,8 +60,7 @@ $toc-padding-horizontal: 10px;
 
 }
 
-button#toc-toggler {
-  z-index: 10000;
+button#toc-toggler, button#toc-toggler-hider {
   display: none;
 }
 
@@ -70,12 +69,14 @@ button#toc-toggler {
     transform: translateX(#{-$toc-width - $spacing-unit});
     transition: transform ease 0.3s 0.3s;
   }
-  button#toc-toggler {
+  button#toc-toggler, button#toc-toggler-hider {
+    z-index: 10001;
     display: inline;
     width: 50px;
     height: 50px;
     line-height: 50px;
     text-align: center;
+    vertical-align: middle;
     background: $brand-color;
     color: $background-color;
     border: 1px solid $brand-color-dark;
@@ -83,12 +84,49 @@ button#toc-toggler {
     top: 50%;
     left: 0;
     cursor: pointer;
-    opacity: 0.75;
-    &:focus + #toc-wrapper {
-      display: block;
-      overflow: scroll;
-      transform: translateX(0);
+    opacity: 0.5;
+    padding: 0;
+    transition: opacity ease 0.6s;
+    border-radius: 5px;
+  }
+  button#toc-toggler-hider {
+    z-index: 10000;
+    opacity: 0;
+  }
+  
+  button#toc-toggler {
+    &:focus {
+      opacity: 0;
+      + button#toc-toggler-hider {
+        opacity: 0.5;
+        z-index: 10002;
+      }
+      + * + #toc-wrapper {
+        display: block;
+        overflow: scroll;
+        transform: translateX(0);
+      }
     }
   }
 
+
+  $burger-size: 20px;
+  $burger-line-width: 5px;
+  .burger {
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    rect {
+      fill: $brand-color-dark;
+    }
+  }
+
+  .cross {
+    position: absolute;
+    top: 0;
+    line {
+      stroke: $brand-color-dark;
+    }
+  }
 }
+

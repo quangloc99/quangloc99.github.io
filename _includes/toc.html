@@ -1,7 +1,25 @@
 <link rel="stylesheet" href="/assets/css/toc.css"/>
 <script src="/assets/js/toc.js"></script>
 
-<button id="toc-toggler"> TOC </button>
+<button id="toc-toggler">
+  <div class="burger">
+    <svg viewBox="-10 -10 130 130" width="50" height="50">
+      <rect y="10" x="0" width="100" height="20"></rect>
+      <rect y="40" x="0" width="100" height="20"></rect>
+      <rect y="70" x="0" width="100" height="20"></rect>
+    </svg>
+  </div>
+</button>
+<button id="toc-toggler-hider">
+  <div class="cross">
+    <svg viewBox="-10 -10 130 130" width="50" height="50">
+      <line x1="10" y1="10" x2="90" y2="90" stroke-width="20" stroke="black"
+      stroke-linecap="round"/>
+      <line x1="10" y1="90" x2="90" y2="10" stroke-width="20" stroke="black"
+      stroke-linecap="round"/>
+    </svg>
+  </div>
+</button>
 <div id="toc-wrapper">
     <nav id="toc"></nav>
 </div>
