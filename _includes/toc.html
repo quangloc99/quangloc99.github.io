@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/assets/css/toc.css"/>
+<script src="/assets/js/toc.js"></script>
+
+<button id="toc-toggler"> TOC </button>
+<div id="toc-wrapper">
+    <nav id="toc"></nav>
+</div>
+<script>
+  window.addEventListener("load", () => {
+    const content = document.querySelector(".post-content");
+    const navWrapper = document.querySelector("#toc");
+    
+    createToc(content, navWrapper);
+  });
+                                          
+</script>
+

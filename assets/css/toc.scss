@@ -1,3 +1,8 @@
+---
+---
+@import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
+@import "minima/initialize";
+
 $nav-elm-indent: 16px;
 $toc-width: 400px;
 $toc-padding-horizontal: 10px;
@@ -52,7 +57,7 @@ $toc-padding-horizontal: 10px;
       }
     }
   }
-  
+
 }
 
 button#toc-toggler {
@@ -62,10 +67,8 @@ button#toc-toggler {
 
 @media (max-width: 2 * $toc-width + $content-width + $spacing-unit / 2) {
   #toc-wrapper {
-    overflow: hidden;
-    padding: 0px;
-    width: 0px;
-    transition: padding, width ease 0.75s;
+    transform: translateX(#{-$toc-width - $spacing-unit});
+    transition: transform ease 0.3s 0.3s;
   }
   button#toc-toggler {
     display: inline;
@@ -84,9 +87,8 @@ button#toc-toggler {
     &:focus + #toc-wrapper {
       display: block;
       overflow: scroll;
-      width: Min(100vw, $toc-width);
-      padding: 0px $toc-padding-horizontal;
+      transform: translateX(0);
     }
   }
-  
+
 }
