@@ -3,3 +3,19 @@
 @import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
 @import "minima/initialize";
 
+@function repeat($character, $n){
+  $c:"";
+  @for $i from 1 through $n {
+    $c: $c + $character;
+  }
+  @return $c;
+}
+
+@for $i from 2 through 6 {
+    h#{$i}::before {
+        content: repeat("#", $i - 1) + " ";
+        color: $brand-color-dark;
+        font-family: $code-font-family;
+    }
+}
+

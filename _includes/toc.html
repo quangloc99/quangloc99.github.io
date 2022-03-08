@@ -24,12 +24,16 @@
     <nav id="toc"></nav>
 </div>
 <script>
-  window.addEventListener("load", () => {
-    const content = document.querySelector(".post-content");
-    const navWrapper = document.querySelector("#toc");
-    
-    createToc(content, navWrapper);
-  });
-                                          
+    window.addEventListener("load", () => {
+        const content = document.querySelector(".post-content");
+        const navWrapper = document.querySelector("#toc");
+        const endOfContent = document.querySelector("#end-of-content");
+
+        const getBottom = endOfContent ? () => endOfContent.offsetTop : undefined;
+
+
+        createToc(content, navWrapper, getBottom);
+    });
+                                      
 </script>
 

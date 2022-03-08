@@ -6,6 +6,7 @@
 $nav-elm-indent: 16px;
 $toc-width: 400px;
 $toc-padding-horizontal: 10px;
+$toc-active-background: lighten($background-color, 15%);
 
 @function repeat($character, $n){
   $c:"";
@@ -46,13 +47,17 @@ $toc-padding-horizontal: 10px;
             content: repeat("#", $i - 1) + " ";
             color: $brand-color-dark;
             font-family: $code-font-family;
+            transition: color ease 0.25s;
+            font-weight: bold;
           }
+          transition: background, --read-percent ease 0.25s;
         }
-        &.h2 {
-          font-weight: bold;
+        &.active {
+          /* font-weight: bold; */
           &::before {
-            color: $brand-color-light;
+              color: $brand-color-light;
           }
+          background: linear-gradient(to right, #{$toc-active-background} 0, #{$toc-active-background} var(--read-percent), $background-color var(--read-percent), $background-color 100%);
         }
       }
     }
