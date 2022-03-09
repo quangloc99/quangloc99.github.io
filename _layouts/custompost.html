@@ -3,6 +3,8 @@ layout: post
 vim: filetype=liquid
 ---
 
+{% assign GLOBAL_INCLUDED = "" %}
+
 {%- if page.useMathjax -%}
 {% include mathjax.html %}
 {%- endif -%}

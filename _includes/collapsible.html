@@ -1,7 +1,7 @@
-{% unless COLLAPSIBLE_ASSETS_INCLUDED %}
-{% capture _ %}{% increment COLLAPSIBLE_ASSETS_INCLUDED %} {% endcapture %}
-<link rel="stylesheet" href="/assets/css/collapsible.css" />
-<script src="/assets/js/collapsible.js"></script>
+{% unless GLOBAL_INCLUDED contains "|collapsible_assets|" %}
+  {% assign GLOBAL_INCLUDED = GLOBAL_INCLUDED | append: "|collapsible_assets|" %}
+  <link rel="stylesheet" href="/assets/css/collapsible.css" />
+  <script src="/assets/js/collapsible.js"></script>
 {% endunless %}
 
 

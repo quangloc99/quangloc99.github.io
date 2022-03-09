@@ -1,11 +1,7 @@
-{% unless CUSTOMHIGHLIGHT_ASSETS_INCLUDED %}
-{% capture _ %}{% increment CUSTOMHIGHLIGHT_ASSETS_INCLUDED %}{%endcapture%}
-<link rel="stylesheet" href="/assets/css/customhighlight.css" />
+{% unless GLOBAL_INCLUDED contains "|customhighlight_assets|"%}
+  {% assign GLOBAL_INCLUDED = GLOBAL_INCLUDED | append: "|customhighlight_assets|" %}
+  <link rel="stylesheet" href="/assets/css/customhighlight.css" />
 {% endunless %}
-
-{%- capture customhighlight_id -%}
-customhighlight-{%- increment customhighlight_count -%}
-{%- endcapture -%}
 
 {% include collapsible.html 
     for=customhighlight_id
