@@ -9,129 +9,129 @@ $toc-padding-horizontal: 10px;
 $toc-active-background: lighten($background-color, 15%);
 
 @function repeat($character, $n){
-  $c:"";
-  @for $i from 1 through $n {
-    $c: $c + $character;
-  }
-  @return $c;
+    $c:"";
+    @for $i from 1 through $n {
+        $c: $c + $character;
+    }
+    @return $c;
 }
 
 #toc-wrapper {
-  z-index: 9999;
-  position: fixed;
-  top: 0;
-  overflow-y: scroll;
-  overflow-x: scroll;
-  left: 0px;
-  height: 100%;
-  background: $background-color;
-  padding: 0px $toc-padding-horizontal;
-  width: Min(100vw, $toc-width);
-  border-right: 1px solid $border-color-01;
-  #toc {
-    font-size: $base-font-size;
-    padding: 20px 0px;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    left: 0px;
+    height: 100%;
+    background: $background-color;
+    padding: 0px $toc-padding-horizontal;
     width: Min(100vw, $toc-width);
-    overflow-y: auto;
-    overflow-x: hidden;
-    .nav-elm {
-      display: block;
-      @for $i from 2 through 6 {
-        &.h#{$i}{
-          margin-left: 1.5em * $i;
-          display: block;
-          position: relative;
-          &::before {
-            position: absolute;
-            left: -1.5em * $i;
-            content: repeat("#", $i - 1) + " ";
-            color: $brand-color-dark;
-            font-family: $code-font-family;
-            transition: color ease 0.25s;
-            font-weight: bold;
-          }
-          transition: background, --read-percent ease 0.25s;
+    border-right: 1px solid $border-color-01;
+    #toc {
+        font-size: $base-font-size;
+        padding: 20px 0px;
+        width: Min(100vw, $toc-width);
+        overflow-y: auto;
+        overflow-x: hidden;
+        .nav-elm {
+            display: block;
+            @for $i from 2 through 6 {
+                &.h#{$i}{
+                    margin-left: 1.5em * $i;
+                    display: block;
+                    position: relative;
+                    &::before {
+                        position: absolute;
+                        left: -1.5em * $i;
+                        content: repeat("#", $i - 1) + " ";
+                        color: $brand-color-dark;
+                        font-family: $code-font-family;
+                        transition: color ease 0.25s;
+                        font-weight: bold;
+                    }
+                    transition: background, --read-percent ease 0.25s;
+                }
+                &.active {
+                    /* font-weight: bold; */
+                    &::before {
+                        color: $brand-color-light;
+                    }
+                    background: linear-gradient(to right, #{$toc-active-background} 0, #{$toc-active-background} var(--read-percent), $background-color var(--read-percent), $background-color 100%);
+                }
+            }
         }
-        &.active {
-          /* font-weight: bold; */
-          &::before {
-              color: $brand-color-light;
-          }
-          background: linear-gradient(to right, #{$toc-active-background} 0, #{$toc-active-background} var(--read-percent), $background-color var(--read-percent), $background-color 100%);
-        }
-      }
     }
-  }
 
 }
 
 button#toc-toggler, button#toc-toggler-hider {
-  display: none;
+    display: none;
 }
 
 @media (max-width: 2 * $toc-width + $content-width + $spacing-unit / 2) {
-  #toc-wrapper {
-    transform: translateX(#{-$toc-width - $spacing-unit});
-    transition: transform ease 0.3s 0.3s;
-  }
-  button#toc-toggler, button#toc-toggler-hider {
-    z-index: 10001;
-    display: inline;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    vertical-align: middle;
-    background: $brand-color;
-    color: $background-color;
-    border: 1px solid $brand-color-dark;
-    position: fixed;
-    top: 50%;
-    left: 0;
-    cursor: pointer;
-    opacity: 0.5;
-    padding: 0;
-    transition: opacity ease 0.6s;
-    border-radius: 5px;
-  }
-  button#toc-toggler-hider {
-    z-index: 10000;
-    opacity: 0;
-  }
-  
-  button#toc-toggler {
-    &:focus {
-      opacity: 0;
-      + button#toc-toggler-hider {
+    #toc-wrapper {
+        transform: translateX(#{-$toc-width - $spacing-unit});
+        transition: transform ease 0.3s 0.3s;
+    }
+    button#toc-toggler, button#toc-toggler-hider {
+        z-index: 10001;
+        display: inline;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        background: $brand-color;
+        color: $background-color;
+        border: 1px solid $brand-color-dark;
+        position: fixed;
+        top: 50%;
+        left: 0;
+        cursor: pointer;
         opacity: 0.5;
-        z-index: 10002;
-      }
-      + * + #toc-wrapper {
-        display: block;
-        overflow: scroll;
-        transform: translateX(0);
-      }
+        padding: 0;
+        transition: opacity ease 0.6s;
+        border-radius: 5px;
     }
-  }
+    button#toc-toggler-hider {
+        z-index: 10000;
+        opacity: 0;
+    }
+
+    button#toc-toggler {
+        &:focus {
+            opacity: 0;
+            + button#toc-toggler-hider {
+                opacity: 0.5;
+                z-index: 10002;
+            }
+            + * + #toc-wrapper {
+                display: block;
+                overflow: scroll;
+                transform: translateX(0);
+            }
+        }
+    }
 
 
-  $burger-size: 20px;
-  $burger-line-width: 5px;
-  .burger {
-    margin: 0 auto;
-    position: absolute;
-    top: 0;
-    rect {
-      fill: $brand-color-dark;
+    $burger-size: 20px;
+    $burger-line-width: 5px;
+    .burger {
+        margin: 0 auto;
+        position: absolute;
+        top: 0;
+        rect {
+            fill: $brand-color-dark;
+        }
     }
-  }
 
-  .cross {
-    position: absolute;
-    top: 0;
-    line {
-      stroke: $brand-color-dark;
+    .cross {
+        position: absolute;
+        top: 0;
+        line {
+            stroke: $brand-color-dark;
+        }
     }
-  }
 }
 

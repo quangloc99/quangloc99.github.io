@@ -4,18 +4,27 @@
 @import "minima/initialize";
 
 @function repeat($character, $n){
-  $c:"";
-  @for $i from 1 through $n {
-    $c: $c + $character;
-  }
-  @return $c;
+    $c:"";
+    @for $i from 1 through $n {
+        $c: $c + $character;
+    }
+    @return $c;
 }
 
 @for $i from 2 through 6 {
-    h#{$i}::before {
-        content: repeat("#", $i - 1) + " ";
-        color: $brand-color-dark;
-        font-family: $code-font-family;
+    h#{$i} {
+        &::before {
+            display: inline;
+            content: repeat("#", $i - 1) + " ";
+            color: $brand-color-dark;
+            font-family: $code-font-family;
+        }
+    }
+}
+
+.home {
+    h3::before {
+        content: "";
     }
 }
 
