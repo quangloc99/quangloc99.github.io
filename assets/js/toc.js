@@ -71,7 +71,7 @@ function createToc(wrapper, navWrapper,
     }
 
     scrollspyUpdate();
-
+    
     document.addEventListener('scroll', function(e) {
         if (ticking)
             return;
@@ -82,4 +82,8 @@ function createToc(wrapper, navWrapper,
 
         ticking = true;
     });
+    
+    if (ResizeObserver) {
+        new ResizeObserver(scrollspyUpdate).observe(wrapper);
+    }
 }
