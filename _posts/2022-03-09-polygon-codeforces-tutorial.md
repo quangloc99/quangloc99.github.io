@@ -163,13 +163,13 @@ structure is not _visible_ for us, and we don't need to. But there are a way to
 do see it, and we go through it later.
 
 #### Version control
-Working with code, we often wanted to keep track the changes. Imagine when you
-add a _feature_, but it turns out to be _buggy_, then what you want is to revert
+Working with code, we often want to keep track the changes. Imagine when you add
+a _feature_, but it turns out to be _buggy_, then what you want is to revert
 back to the previous _version_ of your code. Broadly speaking, this process is
-called _version control_. One way to do version control is to copy your entire
-folder into a new one and making changes there, but that is not very efficient.
-This problem can be solve more efficiently with a _version control system_ like
-[git], which is the most popular one for programming. 
+called [_version control_][Version control]. One way to do version control is to
+copy your entire folder into a new one and making changes there, but that is not
+very efficient. This problem can be solve more efficiently with a _version
+control system_ like [git], which is the most popular one for programming. 
 
 For Polygon, you don't need to know git. Polygon is also a version control
 system, but with simpler functionality. It can keep track the changes, _mark
@@ -250,6 +250,7 @@ To see them in details, let's move on the following part.
 
 
 [Polygon]: https://polygon.codeforces.com/
+[Version control]: https://en.wikipedia.org/wiki/Version_control
 [git]: https://git-scm.com/
 
 {% comment %}
