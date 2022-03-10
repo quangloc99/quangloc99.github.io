@@ -190,11 +190,19 @@ If you clicked `DIFF`, a page will appear, showing which file has the changes,
 and in which lines, compared to the previous version. Again, this is a new
 problem, so all the files here are newly added.
 
-For now, let click `Commit Changes`. By doing _a commit_, we mark the our first
-version of the problem. Now we are presented with a page, asking us to enter a
-message for a commit. This is also _a feature_ of a typical version control
-system. A version is a record of the development history, and can also be
-treated as a _diary_. A commit message should explain what has been changed
+The option `Update Working Copy` is for team-working. Suppose that if you are in
+a version behind the newest version, made by your colleague, you can click that.
+After that, your version will be updated to be the latest version. All of your
+uncommited changes will be merge by Polygon. If there is _conflict_ (when your
+changes might not be the same as your colleague), Polygon will ask you to merge
+them by yourself, for each conflicted file. For now we should not care about
+this option much because we are not working in team.
+
+Now, let's click `Commit Changes`. By doing _a commit_, we mark the our first
+version of the problem. After that we are presented with a page, asking us to
+enter a message for a commit. This is also _a feature_ of a typical version
+control system. A version is a record of the development history, and can also
+be treated as a _diary_. A commit message should explain what has been changed
 during a version, so the message should be _meaningful_. Even though on Polygon,
 you can leave it blank, but it is a good practice to always write a message.
 
@@ -210,6 +218,9 @@ useful when for team-working (yes, another advantage of Polygon), but for one
 person, I usually mark it. Be aware that this mail can also be in the _spam_
 section.
 
+After making the commit, the _changes_ are gone, because there is no changes in
+_the current_ compared to the previous yet.
+
 ### Why making a commit now?
 As you can see, we have not done anything with this problem. It is fine to add
 something first, like the statement, and then do a commit. But I have saw people
@@ -217,7 +228,25 @@ using Polygon making a commit after **a lot** of changes. That is not _a good
 practice_. It is better to make small commits, with meaningful messages. That
 way, the versions are easier to maintain.
 
+### The other user interface parts
+There are two more significant UI parts that we should care about: the head bar
+and the first pane of the right column.
 
+{% include image.html caption="The head bar" alt="the-head-bar"
+  file="polygon-problem-head-bar.png" %}
+  
+{% include image.html caption="The first pane" alt="the-first-pane"
+  file="polygon-problem-main-pane.png" width="8cm" %}
+
+These two UI parts share some options. For example, the option `Statement` in
+the head bar also lead to the same page as clicking the word `None` near the
+option `Statements` of the pane. The difference is that, the top bar will contains
+the link to all of the pages of a problem, while the pane shows only some link.
+But the pane shows more information about the problem, like the number of
+tests and the number of solutions. There is nothing now so everywhere are `None`
+or `0`.
+
+To see them in details, let's move on the following part.
 
 
 [Polygon]: https://polygon.codeforces.com/
