@@ -3,7 +3,7 @@
     <a href="{{ include.url }}">
     {% endif %}
     <img
-        src="{{ include.dir }}/{{ include.file }}"
+        src="{{ include.dir | default: page.image_dir }}/{{ include.file }}"
         alt="{{ include.alt }}"
         style="
           margin: 0 auto;
@@ -19,3 +19,7 @@
         <figcaption>{{ include.caption }}</figcaption>
     {% endif %}
 </figure>
+
+{% comment %}
+vim: filetype=liquid
+{% endcomment %}
