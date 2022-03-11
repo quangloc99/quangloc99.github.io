@@ -3,6 +3,10 @@
   <link rel="stylesheet" href="/assets/css/customhighlight.css" />
 {% endunless %}
 
+{%- capture customhighlight_id -%}
+customhighlight-{%-increment customhighlightCounter -%}
+{%- endcapture -%}
+
 {% include collapsible.html 
     for=customhighlight_id
     labelClasses="highlight"

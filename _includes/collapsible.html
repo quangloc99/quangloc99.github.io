@@ -15,7 +15,7 @@ collapse-checkbox-{%-increment collapseCheckboxCounter -%}
         id="{{ collapseCheckboxId }}"
         autocomplete="off" 
         for-elm="{{include.for}}" 
-        {% if include.collapsed | default: false -%} checked {%- endif -%}
+        {% if include.collapsed -%} checked {%- endif -%}
 />
 
 <div class="collapse-label {{include.labelClasses}}">

@@ -175,7 +175,7 @@ For Polygon, you don't need to know git. Polygon is also a version control
 system, but with simpler functionality. It can keep track the changes, _mark
 the version_, and revert back to one previous _marked_ version.
 
-### Your first commit
+### Our first commit
 Now we can go back to the General Info page to see one detail there. Here is we
 wanted to see.
 
@@ -248,11 +248,191 @@ or `0`.
 
 To see them in details, let's move on the following part.
 
+## The statement
+In the General Info page, there are also input boxes for the input/output files,
+the time and memory limits. In the original problem, the time limit is $2s$, and
+the rest are the same, so we should now change the time to $2000ms$. **Remember to
+press `Save`**.
+
+{% include image.html caption="Input boxes for IO files, time and memory limit"
+alt="input-boxes-for-io-files-time-and-memory-limit"
+file="polygon-problem-general-info-limits.png" width="16cm" %}
+
+By clicking the `Statement` option in the head bar, a page asking us to choose
+the language for statement will appear. We can choose English and put the
+original problem statement. Polygon asks us to choose the language because it
+can manage the problem statements in various languages, making it suitable for
+prepare problems for competition at international scale.
+
+After choosing the language, the following page appears.
+
+{% include image.html caption="Problem statement page" 
+alt="problem-statement-page" file="polygon-problem-statement-page.png" %}
+
+First of all, if you look at the last pane of the right column again, there are
+new files added by Polygon. The content of these newly added files can be edited
+in this page.
+
+In the center, there are several boxes for creating parts of the statement. The
+parts are clear, so I think no explanation is needed for each of them. But they
+are divided by parts instead of only one big text for easier management. For
+example, Polygon supports both web format and PDF format for problem statement.
+By dividing the statement into parts, Polygon can put the parts into the
+corresponding position in the position for each format.
+
+If you wanted to add images to your problem, you can add the image at the bottom
+of this page, and then include it in your statement.
+
+There are also some options at the top. `Edit with preview` will split your
+screen by two, showing your texts on one side, and the beautiful, formatted
+statement on the other side. With split view, it is easier to see what you are
+typing and what it will look like. The `Review` option is for reviewing the some
+_parts_ of _the problem_ in one screen, namely the statement, the validator and
+the checker. More on that later. The `Delete Current` is for deleting this
+statement, and `Create New` is for creating new statement in another language.
+
+### $\TeX$
+To write the statement, Polygon supports [$\TeX$][tex] but with minimal set of
+commands. $\TeX$ has some options for formatting, as well as its _math mode_ for
+writing formula, therefore $\TeX$ is suitable for writing statement. Another
+reason for supporting $\TeX$ is for generating PDF version of the statement. 
+
+If you don't know $\TeX$, Polygon also includes a small manual right in that
+page, so do check it out. The syntax of $\TeX$ is also simple: it is plain text,
+but if you need some special formatting, you can use $\TeX$ command with the
+syntax `\commandName{Texts}`.
+
+Beside the minimal set of commands, Polygon supports extensive math mode using
+[MathJax]. For writing a formula inside a paragraph, use the `$formula$` (inline
+style) syntax, and for writing a formula in an individual paragraph, use the
+`$$formula$$` (display style) syntax. For example writing `$\sum \frac{1}{n}$`
+will result the formula $\sum \frac{1}{n}$ inside this paragraph, while `$$\sum
+\frac{1}{n}$$` will result
+
+{% comment %}
+Using div here because kramdown putting everything inside a <p> tag
+{% endcomment %}
+<div>
+$$\sum\frac{1}{n}$$
+</div>
+
+There are a lot of commands, but again, you don't need to know $\TeX$ to learn
+them. You can see a list of commands in [this wiki page][latex-mathematics].
+
+### Writing the statement
+
+First, the name of the problem can be `Extreme Subtraction Clone`, because we
+are cloning that problem.
+
+The followings are part of the legend, the input format and the output format:
+
+{% include customhighlight.html caption="Legend" ext="tex" collapsed=true
+  content="
+You are given an array $a$ of $n$ positive integers. You can use the following operation as many times as you like: select any integer $1 \le k \le n$ and do one of two things:
+\begin{itemize}
+\item decrement by one $k$ of the first elements of the array.
+\item decrement by one $k$ of the last elements of the array. 
+\end{itemize}
+
+For example, if $n=5$ and $a=[3,2,2,1,4]$, then you can apply one of the following operations to it (not all possible options are listed below):
+
+\begin{itemize}
+\item decrement from the first two elements of the array. After this operation $a=[2,1,2,1,4]$;
+\item decrement from the last three elements of the array. After this operation $a=[3,2,1,0,3]$;
+\item decrement from the first five elements of the array. After this operation $a=[2,1,1,0,3]$; 
+\end{itemize}
+
+Determine if it is possible to make all the elements of the array equal to zero by applying a certain number of operations.
+" %}
+
+{% include customhighlight.html caption="Input" ext="tex" collapsed=true 
+content="
+The first line contains one positive integer $t$ ($1 \le t \le 30000$) --- the number of test cases. Then $t$ test cases follow.
+
+Each test case begins with a line containing one integer $n$ ($1 \le n \le 30000$) --- the number of elements in the array.
+
+The second line of each test case contains $n$ integers $a_1, a_2, \ldots, a_n$ ($ \le ≤a_i \le 10^6$).
+
+The sum of $n$ over all test cases does not exceed $30000$.
+"
+%}
+
+{% include customhighlight.html caption="Output" ext="tex" collapsed=true
+content="
+For each test case, output on a separate line:
+\begin{itemize}
+\item \t{YES}, if it is possible to make all elements of the array equal to zero by applying a certain number of operations.
+\item \t{NO}, otherwise. 
+\end{itemize}
+
+The letters in the words \t{YES} and \t{NO} can be outputed in any case.
+" %}
+
+There is no example explanation in the original statement, but let's try to
+write one:
+
+{% include customhighlight.html caption="Notes" ext="tex" collapsed=true
+content="
+In the first case, the given array $a$ is $[1, 2, 1]$. We can do the following operations:
+\begin{enumerate}
+\item decrement from the \bf{first} two elements of the array. After this operation $a = [0, 1, 1]$.
+\item decrement from the \bf{last} two elements of the array. After this operation $a = [0, 0, 0]$.
+\end{enumerate}
+Therefore, the answer is \t{YES}.
+" %}
+
+This test case is simple. For more complicated cases, I recommend using _table_
+or _images_. So now let's add this case to the example: $[3, 2, 1, 2]$. Here is
+what the explanation for this case might look like using table:
+
+{% include customhighlight.html caption="Notes for new cases" ext="tex" collapsed=true
+content="
+In the last case, the array $a$ is $[3, 2, 1, 2]$. The following table demonstrate the order of operations.
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Step & Decremented elements & The array $a$ after \\ \hline
+Before first step & & $[3, 2, 1, 2]$ \\ \hline
+1 & \bf{first} 4 & $[2, 1, 0, 1]$ \\ \hline
+2 & \bf{first} 1 & $[1, 1, 0, 1]$ \\ \hline
+3 & \bf{last} 1 & $[1, 1, 0, 0]$ \\ \hline
+4 & \bf{first} 2 & $[0, 0, 0, 0]$ \\ \hline
+\end{tabular}
+\end{center}
+" %}
+
+{% include image.html caption="Problem statement edit with preview"
+alt="problem-statement-edit-with-preview"
+file="polygon-problem-statement-edit-with-preview.png"
+%}
+
+You can see that there is no Example tests here. That is because the Example
+tests must also be added in the `Tests` section, not this section. That way, it
+will be ensure its correctness, because when you change the input, Polygon will
+validate it again, and generate a new output for it. More on that part later.
+
+After typing the statement, go back to the statement page by clicking the `x`
+icon at the top right, and **remember to click `Save`**.
+
+I'm not adding the `Tutorial` here, because it is not the main focus. But you do
+it by yourself as a little exercise. Polygon also supports making tutorial in
+web format and PDF format, as well as in various languages.
+
+### Our second commit
+I think it is not redundant to remind about the importance of the commit. Here
+we have added the problem statement, which is a complete work. Making a commit
+now is a reasonable action. The commit message for this version can be something
+like `Add problem statement`.
+
 
 [Polygon]: https://polygon.codeforces.com/
 [Version control]: https://en.wikipedia.org/wiki/Version_control
 [git]: https://git-scm.com/
+[tex]: https://en.wikipedia.org/wiki/TeX
+[MathJax]: https://www.mathjax.org/
+[latex-mathematics]: https://en.wikibooks.org/wiki/LaTeX/Mathematics
 
 {% comment %}
-vim: spell
+vim: spell wrap
 {% endcomment %}
