@@ -4,9 +4,10 @@
 @import "minima/initialize";
 
 $nav-elm-indent: 16px;
-$toc-width: 400px;
+$toc-width: 350px;
 $toc-padding-horizontal: 10px;
 $toc-active-background: lighten($background-color, 15%);
+$transition-duration: 0.25s;
 
 @function repeat($character, $n){
     $c:"";
@@ -31,7 +32,7 @@ $toc-active-background: lighten($background-color, 15%);
     #toc {
         font-size: $base-font-size;
         padding: 20px 0px;
-        width: Min(100vw, $toc-width);
+        width: calc(Min(100vw, $toc-width) - $toc-padding-horizontal);
         overflow-y: auto;
         overflow-x: hidden;
         .nav-elm {
@@ -47,17 +48,35 @@ $toc-active-background: lighten($background-color, 15%);
                         content: repeat("#", $i - 1) + " ";
                         color: $brand-color-dark;
                         font-family: $code-font-family;
-                        transition: color ease 0.25s;
+                        transition: color ease $transition-duration;
                         font-weight: bold;
                     }
-                    transition: background, --read-percent ease 0.25s;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        z-index: -1;
+                        opacity: 0;
+                        transition: opacity ease $transition-duration;
+                        background: linear-gradient(to right,
+                          #{$toc-active-background} 0,
+                          #{$toc-active-background} var(--read-percent),
+                          $background-color var(--read-percent),
+                          $background-color 100%
+                        );
+                    }
                 }
                 &.active {
                     /* font-weight: bold; */
                     &::before {
                         color: $brand-color-light;
                     }
-                    background: linear-gradient(to right, #{$toc-active-background} 0, #{$toc-active-background} var(--read-percent), $background-color var(--read-percent), $background-color 100%);
+                    &::after {
+                        opacity: 1;
+                    }
                 }
             }
         }
@@ -72,7 +91,7 @@ button#toc-toggler, button#toc-toggler-hider {
 @media (max-width: 2 * $toc-width + $content-width + $spacing-unit / 2) {
     #toc-wrapper {
         transform: translateX(#{-$toc-width - $spacing-unit});
-        transition: transform ease 0.3s 0.3s;
+        transition: transform ease $transition-duration $transition-duration;
     }
     button#toc-toggler, button#toc-toggler-hider {
         z-index: 10001;
@@ -91,7 +110,7 @@ button#toc-toggler, button#toc-toggler-hider {
         cursor: pointer;
         opacity: 0.5;
         padding: 0;
-        transition: opacity ease 0.6s;
+        transition: opacity ease #{$transition-duration * 2};
         border-radius: 5px;
     }
     button#toc-toggler-hider {

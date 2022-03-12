@@ -1,5 +1,6 @@
 function createToc(wrapper, navWrapper,
                    getBottom = () => wrapper.offsetTop + wrapper.offsetHeight) {
+    const MAGIC_OFFSET_BETWEEN_SECTION = 30;
     class Header {
         constructor(level, elm, navElm) {
             this.level = level;
@@ -29,7 +30,7 @@ function createToc(wrapper, navWrapper,
         const lv = +tag[1] - 1;
         while (stk.length > 0 && stk[stk.length - 1].level >= lv) {
             const back = stk.pop();
-            back.getBottom = () => elm.offsetTop;
+            back.getBottom = () => elm.offsetTop - MAGIC_OFFSET_BETWEEN_SECTION;
         }
         const navElm = document.createElement("a");
         navElm.innerHTML = elm.innerHTML;
@@ -57,13 +58,13 @@ function createToc(wrapper, navWrapper,
             for (const header of headerLayer) {
                 if (!header.isIntersected(lower, upper)) {
                     header.navElm.classList.remove("active");
-                    header.navElm.style.setProperty("--read-percent", "0%");
-                    continue;
+                } else {
+                    header.navElm.classList.add("active");
                 }
-                header.navElm.classList.add("active");
-                const readPercent =
+                let readPercent =
                     (lower - header.getTop() + wheight) /
                     (header.getBottom() - header.getTop() + wheight) * 100;
+                readPercent = Math.max(0, Math.min(100, readPercent));
                 header.navElm.style.setProperty("--read-percent",
                                                 readPercent + "%");
             }
@@ -71,7 +72,7 @@ function createToc(wrapper, navWrapper,
     }
 
     scrollspyUpdate();
-    
+
     document.addEventListener('scroll', function(e) {
         if (ticking)
             return;
@@ -82,7 +83,7 @@ function createToc(wrapper, navWrapper,
 
         ticking = true;
     });
-    
+
     if (ResizeObserver) {
         new ResizeObserver(scrollspyUpdate).observe(wrapper);
     }
