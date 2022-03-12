@@ -202,9 +202,10 @@ Now, let's click `Commit Changes`. By doing _a commit_, we mark the our first
 version of the problem. After that we are presented with a page, asking us to
 enter a message for a commit. This is also _a feature_ of a typical version
 control system. A version is a record of the development history, and can also
-be treated as a _diary_. A commit message should explain what has been changed
-during a version, so the message should be _meaningful_. Even though on Polygon,
-you can leave it blank, but it is a good practice to always write a message.
+be treated as a _diary_ or a _journal_. A commit message should explain what has
+been changed during a version, so the message should be _meaningful_. Even
+though on Polygon, you can leave it blank, but it is a good practice to always
+write a message.
 
 There were not much going on during this first commit. So one _popular_ commit
 is `Initial commit`.
@@ -444,21 +445,21 @@ recommended to use [`testlib.h`][testlib.h] to write validators. `testlib.h` not
 only eases the writing validator process, but also it make the validation
 message more readable.
 
-**Notes.** I put this part before the test generation part, because
+**Note.** I put this part before the test generation part, because
 a validator is _generally easy to write_, while the test generation is the
 hardest part.
 
-### The validator page
+### The `Select validator` page
 When you click the `Validator` option on the top bar, here is validator page
 will look like.
 
-{% include image.html caption="Validator page" alt="validator-page" 
+{% include image.html caption="Select validator page" alt="select-validator-page" 
 file="polygon-validator-page.png"
 %}
 
 We can see that the Polygon's developers are nice enough to put on some example
 for us to see, as well as a little guide. I also recommend to read that guide
-before writing the validator. [Here](https://codeforces.com/blog/entry/18426) is
+before writing the validator. [Here][validator-guide] is
 the link to the guide. There are also some examples in `testlib.h`'s [github
 repository](https://github.com/MikeMirzayanov/testlib/tree/master/validators),
 and you should take a look at it.
@@ -471,7 +472,7 @@ There is a also a section to add the validator tests. Because the test
 validation step is important, the validator should also be tested thoroughly.
 More on that part later.
 
-### Writing the validator
+### The validator's implementation
 
 {%include customhighlight.html dir=page.prepdir file="validator.cpp"
   caption="validator.cpp" ext="cpp"
@@ -488,14 +489,14 @@ The validator is simple. But there are some notes for the validator:
   problems solved with `Pascal` or `C++`, spaces are generally not important. But
   for the other languages like `Python`, `Java`, `Kotlin`, the input it often
   read by lines and the tokens are split by spaces. Trailing and duplicated
-  spaces can cause these solution to fail.
+  spaces can cause these solutions to fail.
 - If you don't call `inf.readEof()`, there will also be an error for not
   confirming the input has been fully read.
 
 Now we can add this validator to Polygon. **Remember to click `Set validator`**
 for confirming the validator with Polygon.
 
-**Notes** Polygon also produces some warnings for missing some good practice.
+**Note.** Polygon also produces some warnings for missing some good practice.
 For example if you don't put the variable name for `test-case`, this message
 will appear when you hover your mouse over the validator name.
 
@@ -534,7 +535,7 @@ Here are the tests.
 {% include customhighlight.html caption="Inputs" dir=page.prepdir
   file="validation-test.txt" collapsed=true %}
 
-**Notes.** The last line has an extra line break.
+**Note.** The last line has an extra line break.
   
 {% include customhighlight.html caption="Verdicts" dir=page.prepdir
   file="validation-test-verdicts.txt" collapsed=true %}
@@ -549,6 +550,9 @@ the upper bound. The _description_ for the test is as follows.
 - The next test is for testing the `ensuref` statement, that is, ensuring if the
   sum of `n` does not exceed $30000$.
 - And finally, I add another small random test.
+
+The rule of thumb is the tests must [cover][test-coverange] what should be tested, and in this
+case they are the `inf.read*` and `ensuref` function calls.
   
 If you notice, there are test that does not follow the format, like in the
 second test I only put the number of test cases there. But here I wanted to test
@@ -569,6 +573,296 @@ You know the drill by now. We have added the validator, with its tests, so it is
 a good moment to make another commit. The commit message can be `Add validator
 with validator tests`.
 
+Of course, this commit can be broken into two smaller commits: one when the
+validator is added, and one when you are finished with the tests. Here I made
+one commit to not break the flow of the post.
+
+In some cases, you might failed some validator tests, you still can made a
+commit. After fixing the bug, you can create another commit like `Fix
+validator bug ...`. Again, we can treat the it as a _diary_ or _journal_.
+
+## The checker
+A checker is a program for checking whether or not _an answer_ is correct. What
+is the correctness anyway? Usually, this means the answer of the participant is
+_the same_ as the jury's (or the author's) answer. But that is not the case for
+most of the problem. There are problems with non-unique answer, and the checker
+must also check that. An example of non-unique answer problem is to trace a
+shortest path between two vertices in a graph. If the answer is the path, then
+the checker must check if two given vertices are reachable using the path, and
+if the path is truly the shortest.
+
+Before going further, let's look at the `Select checker` page.
+
+### The `Select checker` page
+{% include image.html caption="`Select checker` page"
+  alt="select-checker-page" file="polygon-checker-selection-page.png" %}
+  
+The page is almost identical as the `Select validator` page, with the same
+functionalities, as well as the examples. And I also recommend to read the
+[guide][checker-guide] for writing checker with `testlib.h` before writing your
+own.
+
+Different from the `Select validator` page, there are already some standard
+checkers ready to use. As mentioned before, usually the answer of the
+participant is checked against the answer of jury, and there are some checker to
+check some typical type of outputs.
+
+### The standard checkers
+{% include image.html caption="List of standard checkers"
+  alt="list-of-standard-checkers" file="polygon-standard-checkers.png" %}
+  
+For most cases, you can actually always choose the checker `wcmp.cpp`, since
+comparing integers for most cases is the same as comparing words (or tokens).
+But with different kind of input, it make more sense to use the exact checker,
+for example, the checker `ncmp.cpp` should be used for comparing sequence of
+integers. For a specific type of output, the corresponding checker can also
+check for the output formatting, as well as producing more readable messages.
+The case that we should not use the checker for tokens is when comparing _real
+numbers_ output, since the checker should checking the answers relatively or
+absolutely with a small value.
+
+In our case, we can use the checker `nyesno.cpp` (not `yesno.cpp`, since we are
+comparing sequence of `YES` and `NO` tokens, and not just one!). Selecting it
+then we are done with the checker part.
+
+**Note.** After selecting the checker, it is possible to see the checker's
+source code.
+
+### Writing our own checker
+Even though we already have our own checker, for the sake of the completeness, I
+think it worth to write our own checker in this tutorial.
+
+The standard checker is very general, since it is _input independent_. For this
+problem, let's make the check the output with the dependency on the number of
+test cases. That is, our checker should check if the number of read token is the
+same as the number of test cases.
+
+#### The `readAns` paradigm
+This is one part in the [guide for writing checker][checker-guide]. The main
+idea is, when writing a checker, it is a good practice to write a function for
+reading and (_paritially_) checking the answer from a stream, and use it to read
+the participant's answer as well as the jury's answer. After that, we can check
+these answers against each other.
+
+#### The checker's implementation
+{% include customhighlight.html caption="checker.cpp" dir=page.prepdir ext="cpp"
+file="checker.cpp" %}
+
+**Note.** I use [clang-format], so don't notice the _weird_ parameter
+indentation formatting.
+
+{% comment %}  This part is removed since `setTestCase` is used instead.
+**Note.** The function `englishEnding(number)` is for getting the _order_ ending
+of a number. For example, `englishEnding(1) == "st"`, `englishEnding(3) = "rd"`,
+`englishEnding(10) == "th"`. This is undocumented in [the guide][checker-guide],
+but it is on the [feature list in the source code of
+`testlib.h`](https://github.com/MikeMirzayanov/testlib/blob/f28d52804011c5dca2e62fbe7cff45888579b0e8/testlib.h#L114)
+{% endcomment %}
+
+If you have seen the source code of `nyesno.cpp`, I have borrowed some part from
+it. But with the dependence on the number of test cases, as well as using the
+`readAns` paradigm, the code is significantly shorten.
+
+Here I used a function here called `quitif(condition, verdict, message)`. If the
+`condition` is `true`, then the `verdict` will be returned with the `message`.
+If used with the input stream (`inf`) or the answer stream (`ansf`), then the
+verdict will always be `_fail`, no matter what is passed to the second
+parameter. This make sense because the input should be correct (validated by the
+validator), and the answer should also be correct before passing to the checker.
+And in case of failure, that's mean the there might be a bug in our checker or
+the solution.
+
+#### Adding the checker tests
+As in the case of the validator, we must also test the checker. And as before,
+the tests must [cover][test-coverange] the functionalities that we wanted to
+test. And in this case:
+- The token format (should be `YES` or `NO` case insensitive).
+- The number of tokens (should not be less or more than the number of test
+  cases).
+- The participant's answer and the jury's answer must be matched.
+
+To add the tests, click the `Add test` link to go to the `Create checker test`
+page.
+
+{% include image.html caption="Create checker test" alt="create-checker-test"
+  file="polygon-create-checker-test-page.png" %}
+  
+Here there are input boxes for the `Input`, the `Output` and the `Answer`. It is
+not simple as with the `validator` case, so we can not specify multiple tests
+within a text area.
+
+There is a also a button for generating the answer from the _model solution_. So
+if you have a model solution, pressing that button will save us a little time
+for not needing to recreate the true answer. But now let's make them by hand.
+
+Here are the tests. For space-saving, each test's parts are put into one file
+with the separator `=== section ===`. Also the verdict `CRASHED` corresponds to
+the `_fail` verdict in `testlib.h`.
+
+{% include customhighlight.html caption="Test 1. All correct cases (with all cases)"
+collapsed=true
+content="
+=== Input ===
+6
+5
+1 3 1 3 1
+5
+1 3 1 3 1
+1
+1
+1
+1
+1
+1
+1
+1
+=== Output ===
+no
+NO
+yes
+yeS
+yEs
+yES
+=== Answer ===
+nO
+No
+Yes
+YeS
+YEs
+YES
+=== Verdict ===
+OK
+" %}
+
+{% include customhighlight.html caption="Test 2. Output has fewer tokens"
+collapsed=true
+content="
+=== Input ===
+2
+1
+1
+1
+1
+=== Output ===
+yes
+=== Answer ===
+yes
+yes
+=== Verdict ===
+PRESENTATION_ERROR
+" %}
+
+{% include customhighlight.html caption="Test 3. Asnwer has fewer tokens"
+collapsed=true
+content="
+=== Input ===
+2
+1
+1
+1
+1
+=== Output ===
+yes
+yes
+=== Answer ===
+yes
+=== Verdict ===
+CRASHED
+" %}
+
+{% include customhighlight.html caption="Test 4. Output has wrong token format"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+nice
+=== Answer ===
+yes
+=== Verdict ===
+PRESENTATION_ERROR
+" %}
+
+{% include customhighlight.html caption="Test 5. Output has more tokens"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+yes
+yes
+=== Answer ===
+yes
+=== Verdict ===
+PRESENTATION_ERROR
+" %}
+
+{% include customhighlight.html caption="Test 6. Answer has more tokens"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+yes
+=== Answer ===
+yes
+yes
+=== Verdict ===
+CRASHED
+" %}
+
+{% include customhighlight.html caption="Test 7. Expected YES, found NO"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+no
+=== Answer ===
+yes
+=== Verdict ===
+WRONG_ANSWER
+" %}
+
+{% include customhighlight.html caption="Test 8. Expected NO, found YES"
+collapsed=true
+content="
+=== Input ===
+1
+5
+1 3 1 3 1
+=== Output ===
+yes
+=== Answer ===
+no
+=== Verdict ===
+WRONG_ANSWER
+" %}
+
+Here are the results of the tests.
+
+{% include image.html caption="Checker tests results"
+alt="checker-tests-results"
+file="polygon-checker-test-result.png" %}
+
+**Remember** to check the verdicts and the Checker comments.
+
+### A commit again
+Let's do the commit with the message `Add checker with checker tests`. Again, of
+course we can split this commit into two smaller one like in the validator case.
+Or there might also be bug in our code, which should also be fixed and saved
+with another commit. This part is completely similar to the validator. But it is
+up to you to decide when is the right time to make a commit.
+
+
 [Polygon]: https://polygon.codeforces.com/
 [Version control]: https://en.wikipedia.org/wiki/Version_control
 [git]: https://git-scm.com/
@@ -576,6 +870,10 @@ with validator tests`.
 [MathJax]: https://www.mathjax.org/
 [latex-mathematics]: https://en.wikibooks.org/wiki/LaTeX/Mathematics
 [testlib.h]: https://codeforces.com/testlib
+[validator-guide]: https://codeforces.com/blog/entry/18426
+[checker-guide]: https://codeforces.com/blog/entry/18431
+[clang-format]: https://clang.llvm.org/docs/ClangFormat.html
+[test-coverange]: https://en.wikipedia.org/wiki/Code_coverage
 
 {% comment %}
 vim: spell wrap
