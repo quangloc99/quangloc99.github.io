@@ -3,6 +3,10 @@
 @import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
 @import "minima/initialize";
 
+html {
+  scroll-behavior: smooth
+}
+
 @function repeat($character, $n){
     $c:"";
     @for $i from 1 through $n {
