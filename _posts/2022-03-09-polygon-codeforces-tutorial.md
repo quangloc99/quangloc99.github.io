@@ -4,7 +4,7 @@ title: "Polygon.Codeforces Tutorial - A Guide to Problem Preparation [Part 1]"
 date: 2022-03-09 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
 prepdir: _embed-contents/2022-02-19-test-generation-guide
-assetsdir: /assets/2022-02-19-test-generation-guide
+old_image_dir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 useMathjax: true
 useToc: true
@@ -248,15 +248,18 @@ or `0`.
 
 To see them in details, let's move on the following part.
 
-## The statement
-In the General Info page, there are also input boxes for the input/output files,
-the time and memory limits. In the original problem, the time limit is $2s$, and
-the rest are the same, so we should now change the time to $2000ms$. **Remember to
-press `Save`**.
+## Adding the problem statement
+Before adding the problem statement, notice that in the General Info page, there
+are also input boxes for the input/output files, the time and memory limits. In
+the original problem, the time limit is $2s$, and the rest are the same, so we
+should now change the time to $2000ms$. **Remember to press `Save`**.
 
 {% include image.html caption="Input boxes for IO files, time and memory limit"
 alt="input-boxes-for-io-files-time-and-memory-limit"
 file="polygon-problem-general-info-limits.png" width="16cm" %}
+
+
+### The statement page
 
 By clicking the `Statement` option in the head bar, a page asking us to choose
 the language for statement will appear. We can choose English and put the
@@ -415,9 +418,9 @@ validate it again, and generate a new output for it. More on that part later.
 After typing the statement, go back to the statement page by clicking the `x`
 icon at the top right, and **remember to click `Save`**.
 
-I'm not adding the `Tutorial` here, because it is not the main focus. But you do
-it by yourself as a little exercise. Polygon also supports making tutorial in
-web format and PDF format, as well as in various languages.
+I'm not adding the `Tutorial` here, because it is not the main focus. But you
+can do it by yourself as a little exercise. Polygon also supports making
+tutorial in web format and PDF format, as well as in various languages.
 
 ### Our second commit
 I think it is not redundant to remind about the importance of the commit. Here
@@ -426,12 +429,153 @@ now is a reasonable action. The commit message for this version can be something
 like `Add problem statement`.
 
 
+## Test validation
+Test validation is always an important step in contest preparation. A test
+generator could still be buggy, and might generate invalid tests. So test
+validation is a way to prevent this kind of mistake, and potentially (but not
+necessary) help us finding the bug in the generator.
+
+But each problem has its own input format and constraints, and therefore there
+is no universal way to validate a tests. So to validate a test, the author must
+write a program called _validator_ for his problem. This is a program that takes
+an input file and checks the validity of the test for a specific problem. On
+Polygon, you can write a generator in any tool you like, but it is **strictly**
+recommended to use [`testlib.h`][testlib.h] to write validators. `testlib.h` not
+only eases the writing validator process, but also it make the validation
+message more readable.
+
+**Notes.** I put this part before the test generation part, because
+a validator is _generally easy to write_, while the test generation is the
+hardest part.
+
+### The validator page
+When you click the `Validator` option on the top bar, here is validator page
+will look like.
+
+{% include image.html caption="Validator page" alt="validator-page" 
+file="polygon-validator-page.png"
+%}
+
+We can see that the Polygon's developers are nice enough to put on some example
+for us to see, as well as a little guide. I also recommend to read that guide
+before writing the validator. [Here](https://codeforces.com/blog/entry/18426) is
+the link to the guide. There are also some examples in `testlib.h`'s [github
+repository](https://github.com/MikeMirzayanov/testlib/tree/master/validators),
+and you should take a look at it.
+
+To add your validator, there is a button to upload your validator. There is also
+a drop-down menu for selecting _existing_ validator. But since there is no
+standard generator yet, you must add your first before any items appear.
+
+There is a also a section to add the validator tests. Because the test
+validation step is important, the validator should also be tested thoroughly.
+More on that part later.
+
+### Writing the validator
+
+{%include customhighlight.html dir=page.prepdir file="validator.cpp"
+  caption="validator.cpp" ext="cpp"
+%}
+
+The validator is simple. But there are some notes for the validator:
+- There should be a variable name for each `inf.read*` function call. This will
+  produce more readable error messages.
+- There should be a message for each `ensuref` function call. The `f` here means
+  `format`, the same as `printf` and `scanf`, and it use the same format as
+  `printf`. This is for readability too.
+- The use of `setTestCase()` function is also for readability.
+- The white-spaces (space, EOL character) should be check properly. For normal
+  problems solved with `Pascal` or `C++`, spaces are generally not important. But
+  for the other languages like `Python`, `Java`, `Kotlin`, the input it often
+  read by lines and the tokens are split by spaces. Trailing and duplicated
+  spaces can cause these solution to fail.
+- If you don't call `inf.readEof()`, there will also be an error for not
+  confirming the input has been fully read.
+
+Now we can add this validator to Polygon. **Remember to click `Set validator`**
+for confirming the validator with Polygon.
+
+**Notes** Polygon also produces some warnings for missing some good practice.
+For example if you don't put the variable name for `test-case`, this message
+will appear when you hover your mouse over the validator name.
+
+{% include image.html caption="Polygon's warning for validator"
+alt="polygon-warning-for-validator" file="polygon-validator-warning.png" %}
+
+
+And also note that <span style="color: orange">orange</span> things are often
+hoverable, and might be some warnings.
+
+For editing the validator, you can click to the validator's name on the right
+panel. To go to the validator page again, you can click `validator` option on
+the top bar, or click the `(None)` link to the right of the validator name.
+
+### Adding validator tests
+Yes, the thing that we are using to validate the tests should also be tested!
+The validator is a program too, and it is written by human. And we human very
+often making mistake. But the testing process is not complicated, since the
+validator is often not a complicated program. 
+
+To add tests, click `Add test` in the `validator page`. The page for adding the
+tests looks like this.
+
+{% include image.html caption="Create validator test page"
+alt="create-validator-test-page"
+file="polygon-create-validator-test-page.png" %}
+
+The first input box is for the id of the test. The checkbox `Use testset and
+group:` is for a problem with multiple test sets and group, like problem with
+sub-tasks. Since we don't use sub-task in this problem, we can leave it
+unchecked. When the checkbox `Multiple tests` is checked, we can input multiple
+validator tests instead of one, separated by 3 equal signs (`===`).
+
+Here are the tests.
+
+{% include customhighlight.html caption="Inputs" dir=page.prepdir
+  file="validation-test.txt" collapsed=true %}
+
+**Notes.** The last line has an extra line break.
+  
+{% include customhighlight.html caption="Verdicts" dir=page.prepdir
+  file="validation-test-verdicts.txt" collapsed=true %}
+  
+For each of the `inf.read*` and `ensuref` function calls, I add two tests for it
+-- one with a value lower than the lower bound, and one with a value higher than
+the upper bound. The _description_ for the test is as follows.
+- The first two are for testing the value of `test-count`.
+- The next two are for testing the value of `n`.
+- And the following two are for the value of `a`.
+- The next test is to test a very small test.
+- The next test is for testing the `ensuref` statement, that is, ensuring if the
+  sum of `n` does not exceed $30000$.
+- And finally, I add another small random test.
+  
+If you notice, there are test that does not follow the format, like in the
+second test I only put the number of test cases there. But here I wanted to test
+the constraints only, and we can consider the validator correct when it produce
+the correct verdict and **error message**. For testing the input formats, we
+already have two tests, but more can be added.
+
+After adding the tests, you can go back to the `Validator page` and run the
+tests. Here is the validator test result.
+
+{% include image.html alt="validation-test-result"
+  caption="Validation test result"
+  dir=page.old_image_dir file="validation-test-result.png"
+%}
+
+### Our third commit
+You know the drill by now. We have added the validator, with its tests, so it is
+a good moment to make another commit. The commit message can be `Add validator
+with validator tests`.
+
 [Polygon]: https://polygon.codeforces.com/
 [Version control]: https://en.wikipedia.org/wiki/Version_control
 [git]: https://git-scm.com/
 [tex]: https://en.wikipedia.org/wiki/TeX
 [MathJax]: https://www.mathjax.org/
 [latex-mathematics]: https://en.wikibooks.org/wiki/LaTeX/Mathematics
+[testlib.h]: https://codeforces.com/testlib
 
 {% comment %}
 vim: spell wrap

@@ -1,3 +1,4 @@
+{% if jekyll.environment == "production" %}
 <script src="https://utteranc.es/client.js"
         repo="quangloc99/quangloc99.github.io"
         issue-term="title"
@@ -5,3 +6,8 @@
         crossorigin="anonymous"
         async>
 </script>
+{% endif %}
+
+{% comment %}
+vim: filetype=liquid
+{% endcomment %}
