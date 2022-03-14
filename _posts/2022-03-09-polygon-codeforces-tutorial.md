@@ -786,21 +786,260 @@ pass.
 ### More commits!
 We make a commit with the message `Add two correct solutions`.
 
-## Our first test generator. Stress testing.
+## Stress testing. Our first test generator.
 
-TODO
-
-### Stress testing
-
-[Here][stress-testing] is the Wikipedia page about Stress testing. In
+[Here][stress-testing] is the Wikipedia page about stress testing. In
 competitive programming, stress testing is used not for all of the reason stated
 in the Wikipedia page, but there is a main point:
 - to confirm mathematical model is accurate enough in predicting breaking points
   or safe usage limits
   
 Stress testing on Polygon is conducted with multiple solutions (can also be
-incorrect solution), and check their output against the output of the model
-solution.
+incorrect solution). The output of these solution will be checked against the
+output of the **model solution**. The tests for stress testing is also generated
+from a test generator.
+
+With this way of doing stress testing, we not only can ensure the correctness of
+the mathematical model, but also eliminate the _implementation errors_. Suppose
+we are stress testing two solutions against each other. Both solution have the
+equal chance of being incorrect, since we have not tested them before.
+But with stress testing, _implementation errors_ is very easy to detect, because
+the **likelihood** of two solutions having the same _implementation errors_ is
+**not high**. If the result of these solutions are not matched, we should not
+only suspect the errors in one solution, but in both solutions. And if after
+fixing the implementation errors (in both solutions), the output of the
+solutions are still not matched, then we can conclude that the mathematical
+model is incorrect, with a concrete counter example. From there, we should find
+the error in the proof, or try to find another solution. If two solutions are
+not enough to guarantee the correctness, remember that Polygon allows stress
+testing with multiple solutions!
+
+In this section, we are going to test the correctness of the model solution with
+stress testing. So to do that, we are going to add another solution, as well as
+creating a test generator.
+
+### What solution are we going to test against?
+
+First of all, this solution should be a _correct_ solution. In order to reduce
+the implementation errors, this solution should solve this problem in a
+_different way_. Since we only use this solution for checking the correctness of
+the model solution, we don't need this solution to be fast. With these in mind,
+_brute-forcing_ is always a candidate. The brute-force solution is often _more_
+correct because it uses _less_ assumptions.
+
+In this problem, brute force can be done with **simulation** -- we simply try
+all possible ways to decrease the input array, and when we have all $0$, we can
+conclude that there is an answer. Such simulation can be implemented with
+recursion, but to make it a little faster, we can also use _memorization_ --
+that is, storing all visited states.
+
+{% include customhighlight.html caption="brute-force.cpp"
+  dir=page.prepdir file="brute-force.cpp" ext="cpp" collapsed=true
+%}
+
+We add this solution to Polygon the same was as in the previous section, but we
+set the _type_ of this solution to _Time limit exceeded_, because it can
+produce correct result, but it will run very slow on a big test case.
+
+### Our first generator
+#### The `Files` page
+To add a generator to Polygon, we must use the `Files` page (from the `Files`
+option on the top bar) instead of the `Tests` page. In the `Files` page, there
+are also added source files like our `validator.cpp` and `checker.cpp`, as well
+as `testlib.h`. The other files are for PDF file generation with $\LaTeX$.
+
+{% include image.html caption="The Files page" alt="the-files-page"
+  file="polygon-files-page.png" %}
+  
+As before, the developers are very nice, leaving us some examples, as well as
+[the guide][generator-guide] for writing a generator with testlib.h. Please
+read [the guide][generator-guide] before continueing.
+
+
+#### Functionalities for a test generator
+
+Before writing the out first generator, I think it worth pointing out some
+functionalities of a generator. I wanted to make it clear, not for this
+generator, but also the future generators, and also for this part -- stress
+testing.
+
+##### Re-usability
+A generator is used not only to generate a test, but also multiple tests. And we
+with the generator can generate a variety of tests. In this problem, for
+example, the test cases should have different lengths, the array elements should
+have different value ranges, and the answer for the tests should be
+_controllable_ (having a specific amount of `YES` answers).
+
+For this, a generator should have the ability to accept our external
+parameters/options to generate a test. Normally, a program can accepts [arguments
+from command line][cli-args], and these options can be accessed via the `argc`
+and `argv` arguments accepted by the `main` function. Polygon does support this
+way of passing arguments to the generator, and you can use `argc` and `argv` as
+intended.
+
+Recently, `testlib.h` supports a new way of way (or the old way but _fancier_)
+of passing and getting the arguments, called **`opts`**. For more details about
+**`opts`**, and see it in action, please refer to [this guide][opts-guide]. For
+**`opts`**, I wanted to point out that there is an function that is not
+mentioned in the guide.
+
+- `has_opt(key)` returns `true` if there is an option with the name `key`.
+
+With this function, we can specify default options as well, which will save us
+some efforts passing the arguments.
+
+{% comment %} maybe move `has_opt` to the exact location where it is used? {%
+endcomment %}
+
+
+##### Random number generation
+
+The tests are often _randomly_ generated by a generator. As you may have known
+before, the process for generating the random number (random number generation
+-- or RNG for short) of a computer program is [pseudo-random][pseudo-random].
+The numbers generated by a computer program is not completely random, but they
+must based on some initial value, called [a seed][random-seed]. 
+
+For RNG, the [generator guide][generator-guide] already provides functions for
+generating random numbers. But they did not specify how exactly the generator
+chooses the random seed, besides this sentence:
+
+> ... a generator must output the same test when compiled by any compiler on any
+> platform if it is run in the same way (using the same command line
+> parameters).
+
+This is a small detail, but I wanted to point it out before going to stress
+testing. The arguments passed to the generator are [hashed][hash-function], and
+the hash code is used as the random seed. Therefore, the test will be the same
+for the same set of arguments. This is also means that the arguments for the
+generator are _important_: it determined both the _shape_ of the test, as well
+as the random seed!
+
+#### The first generator's implementation
+
+{% include customhighlight.html caption="gen-totally-random.cpp"
+  dir=page.prepdir file="gen-totally-random.cpp" ext="cpp"
+%}
+
+This generator accepts 4 arguments/options:
+- `test-count` -- the number of of test cases.
+- `sum-n` -- the sum of array lengths over all test cases.
+- `min-a` and `max-a` -- the minimum value and maximum value for array's
+  elements.
+
+The generator will generate `test-count` _totally random_ arrays. To determine 
+the length for each array, I use `rnd.partition()` function. 
+
+- `rnd.partition(size, sum, [min_part=1])` returns a vector of the given
+  size, the sum of whose elements must equal the second parameter, and elements
+  must not be lower than `min_part`.
+
+This function is not in the [generator guide][generator-guide], because this
+function is _new_. See
+[the feature list](https://github.com/MikeMirzayanov/testlib/blob/f28d52804011c5dca2e62fbe7cff45888579b0e8/testlib.h#L67)
+of `testlib.h` for more newly added functions.
+
+There is also `println` function, which will print elements of a C++ collection 
+space-separatedly without any trailing spaces. Remember that the trailing spaces
+will cause the validation failure.
+
+Even though it generates _totally random_ tests, for test with very small
+constraints, the rate of `YES` tests will not be small, making the generator
+suitable for stress testing.
+
+Let's run it locally to generate a test with 5 test cases, the sum of length is
+20, and the value range is from 1 to 5.
+
+{% include customhighlight.html caption="gen-totally-random example"
+  dir=page.prepdir file="out/gen-totally-random-example.sh.out" ext="sh"
+%}
+
+It is looking good. Let's add it to Polygon, via the `Files` page.
+
+### Adding the stress test
+#### The stresses page
+{% include image.html caption="The stresses page" alt="the-stresses-page"
+  file="polygon-stresses-page.png" %}
+
+This page can be accessed via the `Stresses` option on the top bar. The layout
+of the stresses page is similar to the previous pages: one table, and one
+button to add an item.
+
+Let's add a stress to Polygon.
+
+{% include image.html alt="stress-against-brute-force"
+  caption="Stress against brute-force solution"
+  file="polygon-add-stress.png"
+  %}
+  
+In this page:
+- The `Script pattern` input allows us to write a script pattern for test
+  generation. Here the script pattern is
+```
+gen-totally-random -test-count [1..10] -sum-n 20 -min-a 1 -max-a 5
+```
+Polygon also supports minimal random parameters generation. Here I wanted the
+`test-count` to be a random number between $1$ and $10$. A fixed `sum-n` and
+a randomized `test-count` are good to randomize the test cases `n` without
+worrying about the constraints.
+- There are also `Time limit` and `Memory limit` input boxes, because the
+  stress-tested solution might not work well under the original problem's
+  constraints.
+- The `total-time-limit` is the total time to do stresses. If `60 seconds` is
+  chosen, the stress will repeatedly run till the $1$ minute mark is reached.
+- Finally, Polygon allows us to choose which solutions to run. Note that it is
+  **not necessary** to add the model solution to the stress, since Polygon will
+  use its output to check the other solutions anyway. But sometime it might
+  still be a good idea, in case of changing the model solution.
+
+For the configuration as in the image, click `Save and Run` to run the stress.
+After at least $2$ minutes it will produce the `OK ` result. It might be higher
+than $2$ minutes because of some other reasons, for example, if you update the
+generators or solutions, recompilation will take time.
+
+{% include image.html alt="the-stress-result"
+  caption="The stress result"
+  file="polygon-first-stress.png"
+  %}
+  
+**Note.** Polygon will not refresh itself _for most of the time_, so you must
+press refresh by yourself.
+
+#### Finding countertest
+
+But wait, _something is off_. Isn't the arguments is _the same_ for most of the
+time? We only make `test-count` random, with a very small range. So did we only
+do stress testing with only 10 tests repeatedly? Well no. To see why, let's
+create another stress. It will be the same as the above stress, but now with
+lower time limit for the brute-force solution to have `TLE` verdict.
+
+After a few seconds after running, we will receive the following table.
+
+{% include image.html alt="the-new-stress-result"
+  caption="The new-stress result"
+  file="polygon-second-stress.png"
+  %}
+  
+By clicking the `view` link of the new stress, we got the following page.
+
+{% include image.html alt="view-of-the-second-stress"
+  caption="View of the second stress"
+  file="polygon-stress-view-counter-test.png"
+  %}
+  
+In the page, it says that the brute-force solution run too long to generate a
+result, hence the `TL` verdict. If you see the `Countertest` row, there is a
+command, but now it has an additional string after it. This is the mechanism of
+Polygon for generating _totally_ random tests. By appending a random string at
+the end of the command, the _random seed_ will be different even for a fixed
+specified set of options.
+
+### Commit, commit, commit!
+We can _safely_ conclude that our solution is correct and contains no bug. Now
+we can do a commit, for example, `Add brute-force solution and 2 stresses`. And
+of course, it is better to split it into smaller commits, but again, we can do
+the commit here to not break the flow of the post.
+  
 
 
 [Polygon]: https://polygon.codeforces.com/
@@ -816,6 +1055,12 @@ solution.
 [test-coverange]: https://en.wikipedia.org/wiki/Code_coverage
 [CF1442-editorial]: https://codeforces.com/blog/entry/84298
 [stress-testing]: https://en.wikipedia.org/wiki/Stress_testing
+[generator-guide]: https://codeforces.com/blog/entry/18291
+[cli-args]: https://en.wikipedia.org/wiki/Command-line_argument_parsing
+[opts-guide]: https://codeforces.com/blog/entry/72702
+[pseudo-rng]: https://en.wikipedia.org/wiki/Random_number_generation#%22True%22_vs._pseudo-random_numbers
+[random-seed]: https://en.wikipedia.org/wiki/Random_seed
+[hash-function]: https://en.wikipedia.org/wiki/Hash_function
 
 {% comment %}
 vim: spell wrap
