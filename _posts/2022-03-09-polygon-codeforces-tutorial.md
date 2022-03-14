@@ -696,158 +696,15 @@ if you have a model solution, pressing that button will save us a little time
 for not needing to recreate the true answer. But now let's make them by hand.
 
 Here are the tests. For space-saving, each test's parts are put into one file
-with the separator `=== section ===`. Also the verdict `CRASHED` corresponds to
+with the separator `===section===`. Also the verdict `CRASHED` corresponds to
 the `_fail` verdict in `testlib.h`.
 
-{% include customhighlight.html caption="Test 1. All correct cases (with all cases)"
-collapsed=true
-content="
-=== Input ===
-6
-5
-1 3 1 3 1
-5
-1 3 1 3 1
-1
-1
-1
-1
-1
-1
-1
-1
-=== Output ===
-no
-NO
-yes
-yeS
-yEs
-yES
-=== Answer ===
-nO
-No
-Yes
-YeS
-YEs
-YES
-=== Verdict ===
-OK
-" %}
-
-{% include customhighlight.html caption="Test 2. Output has fewer tokens"
-collapsed=true
-content="
-=== Input ===
-2
-1
-1
-1
-1
-=== Output ===
-yes
-=== Answer ===
-yes
-yes
-=== Verdict ===
-PRESENTATION_ERROR
-" %}
-
-{% include customhighlight.html caption="Test 3. Asnwer has fewer tokens"
-collapsed=true
-content="
-=== Input ===
-2
-1
-1
-1
-1
-=== Output ===
-yes
-yes
-=== Answer ===
-yes
-=== Verdict ===
-CRASHED
-" %}
-
-{% include customhighlight.html caption="Test 4. Output has wrong token format"
-collapsed=true
-content="
-=== Input ===
-1
-1
-1
-=== Output ===
-nice
-=== Answer ===
-yes
-=== Verdict ===
-PRESENTATION_ERROR
-" %}
-
-{% include customhighlight.html caption="Test 5. Output has more tokens"
-collapsed=true
-content="
-=== Input ===
-1
-1
-1
-=== Output ===
-yes
-yes
-=== Answer ===
-yes
-=== Verdict ===
-PRESENTATION_ERROR
-" %}
-
-{% include customhighlight.html caption="Test 6. Answer has more tokens"
-collapsed=true
-content="
-=== Input ===
-1
-1
-1
-=== Output ===
-yes
-=== Answer ===
-yes
-yes
-=== Verdict ===
-CRASHED
-" %}
-
-{% include customhighlight.html caption="Test 7. Expected YES, found NO"
-collapsed=true
-content="
-=== Input ===
-1
-1
-1
-=== Output ===
-no
-=== Answer ===
-yes
-=== Verdict ===
-WRONG_ANSWER
-" %}
-
-{% include customhighlight.html caption="Test 8. Expected NO, found YES"
-collapsed=true
-content="
-=== Input ===
-1
-5
-1 3 1 3 1
-=== Output ===
-yes
-=== Answer ===
-no
-=== Verdict ===
-WRONG_ANSWER
-" %}
 
 Here are the results of the tests.
+
+{% include_relative 
+  _embed-contents/2022-03-09-polygon-codeforces-tutorial/checker-tests.liquid 
+%}
 
 {% include image.html caption="Checker tests results"
 alt="checker-tests-results"
@@ -862,6 +719,89 @@ Or there might also be bug in our code, which should also be fixed and saved
 with another commit. This part is completely similar to the validator. But it is
 up to you to decide when is the right time to make a commit.
 
+## The model solution
+A model solution is required in order to generate the output for the tests. 
+Arccording to the [editorial][CF1442-editorial], the solution is quite short.
+Here is the full solution, quoted from the editorial.
+
+> The problem sounds like this -- check that there are increasing and decreasing
+> arrays, the element-wise sum of which is equal to the given array.
+> 
+> This problem can be solved greedily. Let's maximize each element of the
+> decreasing array (let's call this array $a$, and the increasing one $b$).
+> Suppose initial array is $v$ and we have solved the problem on a prefix of
+> length $i - 1$. Then, for the element $a[i]$, $a[i] \le a[i - 1]$ and $v[i] -
+> a[i] \ge b[i - 1]$ must be fulfilled. Rewriting the second inequality and
+> combining with the first one, we get $a[i] \le \min (a[i - 1], v[i] - b[i -
+> 1])$. It is clear that taking $a[i] = \min (a[i - 1], v[i] - b[i - 1])$ is the
+> best by construction.
+
+Because it is very short, here are the solutions in Python and C++.
+
+{% include customhighlight.html caption="py_solution.py"
+  dir=page.prepdir file="solution.py" ext="py" collapsed=true
+%}
+
+{% include customhighlight.html caption="solution.cpp"
+  dir=page.prepdir file="solution.cpp" ext="cpp" collapsed=true
+%}
+
+### Adding the solutions to Polygon
+To add the solutions to Polygon, click the option `Solutions files` on the top
+bar, or on the right pane, `None` or `(0/0)` link at the `Solutions` section.
+
+{% include image.html caption="Solutions page" alt="solutions-page"
+  file="polygon-solutions-page.png" %}
+  
+The page is simple. There is a link to add the solutions. Now let's add the
+above two solutions first. Here is the page after adding the solutions.
+
+{% include image.html caption="Solutions page after adding solutions" alt="solutions-page-after-adding-solutions"
+  file="polygon-solutions-page-after-adding-solutions.png" %}
+
+**Note.** The solution name (without the extension part) must be all different.
+  
+By default, the first uploaded solution will be the `Main correct` (or model)
+solution, and other solution will be just be `Correct` solution. Even though
+there can be more than one correct solutions, the `Main correct solution` will
+be used to generate the output. You can change the solution type by click the
+`Change?` option at the `Type` column for each solution.
+
+{% include image.html caption="Solution types"
+alt="solution-types" file="polygon-solution-types.png" %}
+
+I think the types are self-explanatory, since most of them are normal verdicts
+in a contest. There are _more_ general verdict like `Incorrect` means that the
+solution of this type can have the verdict either be `WA`, or `TLE` or `MLE`,
+or maybe `Presentation error`. The `Incorrect` verdict can be used when the
+solution has a different verdict for a different input.
+
+There is no limit for a given solution type. Instead, if there are more
+solutions, with different _predictable_ verdicts, then they should be added as
+well. The point of having multiple solutions, either correct or incorrect, is to
+_verify_ the test-set. The test-set should be strong enough to _**kill** specific
+incorrect solutions_, while must remain correct for all _correct solutions_ to
+pass.
+
+### More commits!
+We make a commit with the message `Add two correct solutions`.
+
+## Our first test generator. Stress testing.
+
+TODO
+
+### Stress testing
+
+[Here][stress-testing] is the Wikipedia page about Stress testing. In
+competitive programming, stress testing is used not for all of the reason stated
+in the Wikipedia page, but there is a main point:
+- to confirm mathematical model is accurate enough in predicting breaking points
+  or safe usage limits
+  
+Stress testing on Polygon is conducted with multiple solutions (can also be
+incorrect solution), and check their output against the output of the model
+solution.
+
 
 [Polygon]: https://polygon.codeforces.com/
 [Version control]: https://en.wikipedia.org/wiki/Version_control
@@ -874,6 +814,8 @@ up to you to decide when is the right time to make a commit.
 [checker-guide]: https://codeforces.com/blog/entry/18431
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
 [test-coverange]: https://en.wikipedia.org/wiki/Code_coverage
+[CF1442-editorial]: https://codeforces.com/blog/entry/84298
+[stress-testing]: https://en.wikipedia.org/wiki/Stress_testing
 
 {% comment %}
 vim: spell wrap
