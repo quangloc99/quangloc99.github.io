@@ -6,7 +6,7 @@
 $nav-elm-indent: 16px;
 $toc-width: 350px;
 $toc-padding-horizontal: 10px;
-$toc-active-background: lighten($background-color, 15%);
+$toc-active-background: gray;
 $transition-duration: 0.25s;
 
 @function repeat($character, $n){
@@ -46,10 +46,11 @@ $transition-duration: 0.25s;
                         position: absolute;
                         left: -1.5em * $i;
                         content: repeat("#", $i - 1) + " ";
-                        color: $brand-color-dark;
+                        color: $text-color;
                         font-family: $code-font-family;
-                        transition: color ease $transition-duration;
+                        transition: opacity ease $transition-duration;
                         font-weight: bold;
+                        opacity: 0.25;
                     }
                     &::after {
                         content: "";
@@ -72,10 +73,10 @@ $transition-duration: 0.25s;
                 &.active {
                     /* font-weight: bold; */
                     &::before {
-                        color: $brand-color-light;
+                        opacity: 1;
                     }
                     &::after {
-                        opacity: 1;
+                        opacity: 0.25;
                     }
                 }
             }

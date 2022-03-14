@@ -1,0 +1,50 @@
+@import "minima/skins/dynamic";
+@import "minima/initialize";
+@import "minima/skins/mixin-classic";
+@import "minima/skins/mixin-dark";
+
+// the trick is described here:
+// https://derekkedziora.com/blog/dark-mode
+
+#theme-toggle {
+    background: $background-color;
+    color: $text-color;
+    border: 0;
+    font: inherit;
+    font-weight: bold;
+    span {
+        display: inline-block;
+        width: $base-font-size;
+        height: $base-font-size;
+        background-size: cover;
+    }
+    
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
+html, html[data-theme="light"], {
+    @include classic-skin;
+    #theme-toggle span {
+        // hand draw
+        background-image: url("/assets/icons/moon.png");
+    }
+}
+
+html[data-theme="dark"] {
+    @include dark-skin;
+    #theme-toggle span {
+        // https://www.iconsdb.com/white-icons/sun-4-icon.html
+        background-image: url("/assets/icons/sun-64.png");
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+      content: "dark";
+    }
+}
+
+

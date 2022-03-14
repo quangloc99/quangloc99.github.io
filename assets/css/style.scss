@@ -2,6 +2,10 @@
 ---
 @import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
 @import "minima/initialize";
+@import "minima/skins/mixin-classic";
+@import "minima/skins/mixin-dark";
+@import "dynamic-skin";
+
 
 html {
   scroll-behavior: smooth
@@ -25,7 +29,8 @@ p {
         &::before {
             display: inline;
             content: repeat("#", $i - 1) + " ";
-            color: $brand-color-dark;
+            color: $text-color;
+            opacity: 0.25;
             font-family: $code-font-family;
         }
     }
