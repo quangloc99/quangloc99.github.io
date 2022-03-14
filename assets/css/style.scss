@@ -7,6 +7,11 @@ html {
   scroll-behavior: smooth
 }
 
+p {
+  text-justify: inter-word;
+  text-align: justify;
+}
+
 @function repeat($character, $n){
     $c:"";
     @for $i from 1 through $n {
