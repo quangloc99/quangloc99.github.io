@@ -31,8 +31,10 @@
 
         const getBottom = endOfContent ? () => endOfContent.offsetTop : undefined;
 
-
-        createToc(content, navWrapper, getBottom);
+        createToc(content, navWrapper, {
+            title: "{{page.title}}",
+            getBottom
+        });
     });
                                       
 </script>
