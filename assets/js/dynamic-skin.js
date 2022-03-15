@@ -2,8 +2,9 @@
 // https://derekkedziora.com/blog/dark-mode
 
 {
-    const curtainMovingTime_ms = 0.2 * 1000;
-    const backgroundChangingTime_ms = 0.4 * 1000;
+    const delay = 50;
+    const curtainMovingTime_ms = 0.2 * 1000 + delay;
+    const backgroundChangingTime_ms = 0.3 * 1000 + delay;
 
     // for the comment engine
     // https://github.com/utterance/utterances/issues/549#issuecomment-907606127

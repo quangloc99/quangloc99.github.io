@@ -28,8 +28,8 @@
 .curtain {
     position: fixed;
     top: 0;
-    bottom: 0;
-    transition: left ease-in 0.2s, right ease-in 0.2s, background ease 0.4s;
+    height: 100vh;
+    transition: left ease-in 0.2s, right ease-in 0.2s, background ease 0.3s;
     z-index: 100000;
     &.covering {
         right: 0;
