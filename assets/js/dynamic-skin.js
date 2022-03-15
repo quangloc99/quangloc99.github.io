@@ -5,6 +5,37 @@
     const curtainMovingTime_ms = 0.2 * 1000;
     const backgroundChangingTime_ms = 0.4 * 1000;
 
+    // for the comment engine
+    // https://github.com/utterance/utterances/issues/549#issuecomment-907606127
+    function changeUtterancesTheme(theme) {
+        const iframe = document.querySelector('.utterances-frame')
+        if (!iframe) return;
+        const message = {type : 'set-theme', theme};
+        iframe.contentWindow.postMessage(message, 'https://utteranc.es');
+    }
+
+    const utterancesDark = () => changeUtterancesTheme("github-dark-orange");
+    const utterancesLight = () => changeUtterancesTheme("boxy-light");
+
+    function toggleSkin() {
+        let currentMode = localStorage.getItem("theme");
+        if (currentMode === "dark") {
+            window.localStorage.setItem('theme', 'light');
+        } else {
+            window.localStorage.setItem('theme', 'dark');
+        }
+    }
+    function updateSkin() {
+        let currentMode = localStorage.getItem("theme");
+        if (currentMode === "dark") {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            utterancesDark();
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            utterancesLight();
+        }
+    }
+
     const theme = localStorage.getItem('theme');
     if (theme === "dark") {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -14,17 +45,19 @@
                                 .getPropertyValue('content');
 
         if (userPrefers === "dark") {
-            document.documentElement.setAttribute('data-theme', 'dark');
             window.localStorage.setItem('theme', 'dark');
         } else {
-            document.documentElement.setAttribute('data-theme', 'light');
             window.localStorage.setItem('theme', 'light');
         }
     }
+    updateSkin();
 
     const curtain = document.createElement("div");
     curtain.classList.add("curtain");
-    window.addEventListener("load", () => document.body.appendChild(curtain));
+    window.addEventListener("load", () => {
+        document.body.appendChild(curtain)
+        updateSkin();
+    });
 
     let isCovering = false;
 
@@ -34,15 +67,8 @@
         isCovering = true;
         curtain.classList.add("covering");
         setTimeout(() => {
-            let currentMode =
-                document.documentElement.getAttribute('data-theme');
-            if (currentMode === "dark") {
-                document.documentElement.setAttribute('data-theme', 'light');
-                window.localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                window.localStorage.setItem('theme', 'dark');
-            }
+            toggleSkin();
+            updateSkin();
             setTimeout(() => {
                 curtain.classList.remove("covering");
                 setTimeout(() => isCovering = false, curtainMovingTime_ms);
