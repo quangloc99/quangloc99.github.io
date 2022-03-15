@@ -36,7 +36,7 @@ html, html[data-theme="light"], {
 html[data-theme="dark"] {
     @include dark-skin;
     #theme-toggle span {
-        // https://www.iconsdb.com/white-icons/sun-4-icon.html
+        // https://www.iconsdb.com/white-icons/sun-2-icon.html
         background-image: url("/assets/icons/sun-64.png");
     }
 }
