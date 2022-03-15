@@ -20,6 +20,10 @@ $transition-duration: 0.25s;
     @return $c;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    scroll-margin-top: #{3 * $spacing-unit};
+}
+
 #toc-wrapper {
     z-index: 9999;
     position: fixed;
