@@ -2,6 +2,19 @@
 ---
 @import "minima/skins/{{ site.minima.skin | default: 'classic' }}";
 @import "minima/initialize";
+@import "minima/skins/mixin-classic";
+@import "minima/skins/mixin-dark";
+@import "dynamic-skin";
+
+
+html {
+  scroll-behavior: smooth
+}
+
+p {
+  text-justify: inter-word;
+  text-align: justify;
+}
 
 html {
   scroll-behavior: smooth
@@ -25,7 +38,8 @@ p {
         &::before {
             display: inline;
             content: repeat("#", $i - 1) + " ";
-            color: $brand-color-dark;
+            color: $text-color;
+            opacity: 0.25;
             font-family: $code-font-family;
         }
     }
@@ -37,3 +51,9 @@ p {
     }
 }
 
+header.site-header {
+    background: $background-color;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}

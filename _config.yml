@@ -42,7 +42,7 @@ author:
   name: Tran Quang Loc (darkkcyan)
   email: quangloctran99@gmail.com
 minima:
-  skin: dark
+  skin: dynamic
   social_links:
     github: quangloc99
     facebook: TQLoc

@@ -1,5 +1,11 @@
-function createToc(wrapper, navWrapper,
-                   getBottom = () => wrapper.offsetTop + wrapper.offsetHeight) {
+function createToc(wrapper, navWrapper, {
+    title = "",
+    getBottom = () => wrapper.offsetTop + wrapper.offsetHeight,
+    headerLowerLevel = 2,
+    headerUpperLevel = 6
+} = {}) {
+    --headerLowerLevel;
+    --headerUpperLevel;
     const MAGIC_OFFSET_BETWEEN_SECTION = 30;
     class Header {
         constructor(level, elm, navElm) {
@@ -11,7 +17,7 @@ function createToc(wrapper, navWrapper,
         getTop() { return this.elm.offsetTop; }
 
         // might be override/overwrite
-        getBottom() { return this.top + this.elm.innerHeight; }
+        getBottom() { return this.getTop() + this.elm.offsetHeight; }
 
         getHeight() { return this.getBottom() - this.getHeight(); }
 
@@ -23,11 +29,25 @@ function createToc(wrapper, navWrapper,
     const headerTagRegex = /h\d/i;
     const headers = Array(6).fill(0).map(() => []);
     const stk = [];
+    if (title !== "") {
+        const navElm = document.createElement("a");
+        navElm.innerHTML = title;
+        navElm.href = "#";
+        navElm.classList.add("nav-elm");
+        navElm.classList.add("h1");
+        navElm.tabindex = "0";
+        navWrapper.appendChild(navElm);
+        const newHeader = new Header(0, wrapper, navElm);
+        headers[0].push(newHeader);
+    }
     for (const elm of wrapper.children) {
         const tag = elm.tagName;
         if (!headerTagRegex.test(tag))
             continue;
         const lv = +tag[1] - 1;
+        if (lv < headerLowerLevel || lv > headerUpperLevel) {
+            continue;
+        }
         while (stk.length > 0 && stk[stk.length - 1].level >= lv) {
             const back = stk.pop();
             back.getBottom = () => elm.offsetTop - MAGIC_OFFSET_BETWEEN_SECTION;

@@ -6,10 +6,13 @@
 $nav-elm-indent: 16px;
 $toc-width: 350px;
 $toc-padding-horizontal: 10px;
-$toc-active-background: lighten($background-color, 15%);
+$toc-active-background: gray;
 $transition-duration: 0.25s;
 
 @function repeat($character, $n){
+    @if ($n == 0) {
+        @return "";
+    }
     $c:"";
     @for $i from 1 through $n {
         $c: $c + $character;
@@ -37,18 +40,23 @@ $transition-duration: 0.25s;
         overflow-x: hidden;
         .nav-elm {
             display: block;
-            @for $i from 2 through 6 {
+            @for $i from 1 through 6 {
                 &.h#{$i}{
-                    margin-left: 1.5em * $i;
                     display: block;
                     position: relative;
-                    &::before {
-                        position: absolute;
-                        left: -1.5em * $i;
-                        content: repeat("#", $i - 1) + " ";
-                        color: $brand-color-dark;
-                        font-family: $code-font-family;
-                        transition: color ease $transition-duration;
+                    @if ($i > 1) {
+                        margin-left: 1.5em * $i;
+                        &::before {
+                            position: absolute;
+                            left: -1.5em * $i;
+                            content: repeat("#", $i - 1) + " ";
+                            color: $text-color;
+                            font-family: $code-font-family;
+                            transition: opacity ease $transition-duration;
+                            font-weight: bold;
+                            opacity: 0.25;
+                        }
+                    } @else {
                         font-weight: bold;
                     }
                     &::after {
@@ -72,10 +80,10 @@ $transition-duration: 0.25s;
                 &.active {
                     /* font-weight: bold; */
                     &::before {
-                        color: $brand-color-light;
+                        opacity: 1;
                     }
                     &::after {
-                        opacity: 1;
+                        opacity: 0.25;
                     }
                 }
             }
