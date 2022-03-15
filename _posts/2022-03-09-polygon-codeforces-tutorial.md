@@ -494,6 +494,9 @@ The validator is simple. But there are some notes for the validator:
   spaces can cause these solutions to fail.
 - If you don't call `inf.readEof()`, there will also be an error for not
   confirming the input has been fully read.
+  
+**Notes.** The result about white spaces and EOF mentioned above is called the
+_well-formed policy_. More on that in the test generation section.
 
 Now we can add this validator to Polygon. **Remember to click `Set validator`**
 for confirming the validator with Polygon.
@@ -1042,7 +1045,279 @@ we can do a commit, for example, `Add brute-force solution and 2 stresses`. And
 of course, it is better to split it into smaller commits, but again, we can do
 the commit here to not break the flow of the post.
 
+## Test generation
+### A better test generator
+We already have a generator. But that generator in general is not good. A random
+array is very unlikely to have an answer `YES`, and we need to fix that. How
+about we _don't_ generate the array, but the _increasing array_ $a$ and
+_decreasing array_ $b$ as in the editorial, then summing them up? Doing so will
+guarantee to have the answer `YES` because that is what the problem **is
+asking** the participant to do.
+
+**Note.** In the editorial, the name of the _increasing array_ is actually $b$
+and the _decreasing_ one is $a$. While making this blog, I have their names
+wrong. In my defense, making $a$ the increasing array is more natural than the
+other way around. So I'll keep it this way.
+
+For this algorithm, there are some problems when reusing the code from
+`gen-totally-random.cpp`
+- We can not use `min-a` and `max-a` for this algorithm.
+- That are only `YES` tests, how about the `NO` tests?
+
+The first problem can be _partially_ solved by adding the value for
+arrays $a$ and $b$ separately. For the second problem, we are going to generate
+arrays $a$ and $b$ now, so let's also add an option to generate them randomly
+instead of sorted. There should also be an option to specify how many of them
+are `YES`, and how many are `NO`.
+
+Here is the generator with the above idea.
+
+{%include customhighlight.html caption="gen-v1.cpp"
+  dir=page.prepdir file="gen-v1.cpp" ext="cpp"
+%}
+
+In this current version, all the `YES` tests are at the beginning, while all the
+`NO` tests are at the end. Even though it is not good for a test, but it does
+help us seeing the result of the test easier. And we will fix this for the
+future version of the generator, but let's keep this for now.
+
+Let's run it
+{%include customhighlight.html caption="gen-v1 example"
+  dir=page.prepdir file="out/gen-v1-example.sh.out" ext="sh"
+%}
+
+Here the first two tests are `YES` and the rest are `NO`. I purposely choose a
+larger range so the test that should not be `YES` will be more likely to produce
+the `NO` answer.
+
+This generator works, so let's add this to Polygon.
+
+### Adding the tests
+#### The `Create tests` page
+{% include image.html caption="The create tests page" alt="the-create-tests-page"
+file="polygon-create-tests-page.png"
+%}
+
+Similarly to the other pages, there is a table, and a button to add the tests.
+But in this page there are more elements than the other pages.
+
+There are some checkboxes in the top of the page. The well-formed policy is
+what we have discussed in the `test validation` section. If checked, then
+Polygon will also automatically validate the tests according to this policy. If
+you click on the question mark near the `Test well-formed` text, there is a
+pop-up window appears, explaining the policy.
+
+{% include image.html caption="Polygon's test well-formed policy explaination"
+alt="polygon-test-well-formed-policy-explaination"
+file="polygon-well-formed-policy.png"
+%}
+
+The other two checkboxes is for adding points and groups, and mainly used for
+other format like IOI, where there are subtasks and each subtasks has different
+scoring. Problem on Codeforces must be fully solved, so we don't need to check
+those checkboxes.
+
+The _huge_ part at the end is called _script_. This is a way to add the
+tests: by calling the generator. On the right of the input area box, there is a
+text, explaining how to write the script. This is what we have done before when
+calling the generator offline, and now on Polygon, we can compose them into a
+list of commands, which is actually called a _script_.
+
+Clicking `Add Test` link above the table, a page will appear, providing us some
+other ways to add the tests. We will see it shortly.
+
+The `Preview Tests` is for, you guess it, previewing the tests. We will see it
+later after generating the tests.
+
+#### Adding the example tests
+Now let's click the `Add Test` link. Here is the page looks like.
+
+{%include image.html caption="The add test page" alt="the-add-test-page"
+  file="polygon-add-test-page.png" %}
   
+Above, there are options to add tests from an archive or files. This is suitable
+for existing contests with available tests, but it is not recommended when we
+already have the test generators. An archive or files will be very big, making
+them hard to maintain. 
+
+Notice that there is an option called `type`, which let's us to choose to add
+the test either manually or with a script again. Since we are adding the example
+test, we choose to add the test manually.
+
+Remember that beside the original example, we also added a test case when
+writing the statement. Here will be our test input.
+
+{% include customhighlight.html caption="Example test input" collapsed=true
+content="
+5
+3
+1 2 1
+5
+11 7 9 6 8
+5
+1 3 1 3 1
+4
+5 2 1 10
+4
+3 2 1 2
+
+" %}
+
+Since this is the example test, we should click the check box `Use in
+statements` as well. After that the page should look like this.
+
+{%include image.html caption="The add test page after adding the a test"
+alt="the-add-test-page-after-adding-a-test"
+file="polygon-add-test-page-added-test.png" %}
+
+There is also an option for specifying custom output. This feature is useful
+for problem with non-unique outputs.
+
+Click the `Create` button to add the example test. Now if you go to the
+`Statement` page again and see the statement, the example test will appear.
+
+### Writing the test generation script
+Each command in the script on Polygon is similar to when we are executing the
+generator locally. The differences is the generator name, which we only specify 
+its name, and the _output_ file, denoted by the syntax `> [id]` where `[id]` is
+the test number, or `> $` for automatically id generation.
+
+A few first tests might be these.
+
+{% include customhighlight.html caption="First few tests"
+content="
+gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 1 -max-b 10 > $
+gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 100 -max-b 1000 > $
+gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
+gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
+" %}
+
+Here are 4 tests, the array length of the test cases in these tests is $100$ on
+average, with $50\%$ of the cases with the result `YES`, and the value size for
+the array $a$ and $b$ _slightly_ varies.
+
+We can of course, continue adding that. But that is not very elegant, since we
+must copy and paste a lot and change the test cases little by little.
+Fortunately, Polygon has a solution for that.
+
+#### Introducing FreeMarker.
+[FreeMarker] is the template engine used on Polygon, and in this case for
+_generating_ the script for test generation. There is a brief manual about
+FreeMarker to the right of the script input box, and please do check it out
+first. FreeMarker is very powerful, and it can be used as a real programming
+language. This tutorial will demonstrate some of its power in writing the test
+generation script.
+
+#### Making the lengths varies
+This can be done by altering the `test-count` option. For that, we can use the `<#list>`
+tag, which is equivalent to a for loop.
+
+{% include customhighlight.html caption="Altering the testCount"
+content="
+<#assign testCount = 10000 >
+<#list 1..5 as i>
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 1 -max-b 10 > $
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 100 -max-b 1000 > $
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
+<#assign testCount = testCount / 10>
+</#list>
+" %}
+
+There is some problem with this: the `yes-count` is the same. One way to fix it
+is to replace `150` of `yes-count` with the expression `${testCount / 2}`. But
+that expression will produce `0.5` for `testCount == 1`.
+
+Another way to solve this problem is to use [sequence][FreeMarker-sequence]
+which is equivalent to array/vector in a normal programming language.
+We will create a sequence of a pairs `(testCount, yesCount)`. To simplify, we
+will create a 2D sequence instead. The script will then look like this.
+
+{% include customhighlight.html caption="Altering the testCount and yesCount
+with sequence"
+content="
+<#assign testAndYesCounts = [
+  [10000, 5000],
+  [100, 50],
+  [1, 0],
+  [1, 1]
+] >
+<#list testAndYesCounts as testAndYesCount >
+  <#assign testCount = testAndYesCount[0] >
+  <#assign yesCount = testAndYesCount[1] >
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count ${yesCount} -min-a 1 -max-a 10 -min-b 1 -max-b 10 > $
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count ${yesCount} -min-a 1 -max-a 10 -min-b 100 -max-b 1000 > $
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count ${yesCount} -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
+  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count ${yesCount} -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
+</#list>
+" %}
+
+With this approach, we have more control over the test. Here we generated $16$
+tests, as opposed to the previous method which generated $20$ tests. 
+
+#### Making the value range varies
+We can as well use sequence of pairs to specifies the value ranges, and use
+loops to iterate over them.
+
+{% include customhighlight.html caption="Altering the value ranges with sequences
+and loops"
+content="
+<#assign testAndYesCounts = [
+  [10000, 5000],
+  [100, 50],
+  [1, 0],
+  [1, 1]
+] >
+<#assign valueRanges = [
+  [1, 10],
+  [100, 1000],
+  [100000, 500000]
+] >
+<#list testAndYesCounts as testAndYesCount >
+  <#assign testCount = testAndYesCount[0] >
+  <#assign yesCount = testAndYesCount[1] >
+  <#list valueRanges as aValueRange>
+    <#list valueRanges as bValueRange>
+      gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count ${yesCount} -min-a ${aValueRange[0]} -max-a ${aValueRange[1]} -min-b ${bValueRange[0]} -max-b ${bValueRange[1]} > $
+    </#list>
+  </#list>
+</#list>
+" %}
+
+This script will produce $4 \times 3 \times 3 = 36$ tests. FreeMarker really
+helps us writing the script more easily. With just a little code, we can produce
+a large amount of tests!
+
+#### Preview the tests
+**Remember** to click the `Save Script` button. Let's go to the test preview
+page.
+
+{% include image.html caption="Test review" alt="test-review"
+  file="polygon-test-review-page.png" %}
+  
+For each test, Polygon will show a few first character of the input, as well as
+the output. Seeing the whole test is a lot, but a few first line is enough for  
+online reviewing. It also allows to download the tests to review it more
+throughoutly when necessary.
+
+When there is some problem with a test, the message will also display there. For
+example, if you happened to add another range for the value range like `[500000,
+1000000]` in the script, then there will be an error because `1000000 + 1000000`
+will exceed the maximum value of array.
+
+{% include image.html caption="Test review with errors"
+alt="test-review-with-errors"
+  file="polygon-test-review-with-error.png" %}
+  
+It is a bit hard to see the error in a small box, so you can download the test
+to see it locally, or maybe run that command on your computer and do the
+validation locally.
+
+### Commit! Commit more! Commit forever!
+The commit message can be `Add a better generator with tests`. But as always, it
+should be broken down, like when you add the generator and when you add the
+tests.
+
 
 
 [Polygon]: https://polygon.codeforces.com/
@@ -1064,6 +1339,8 @@ the commit here to not break the flow of the post.
 [pseudo-rng]: https://en.wikipedia.org/wiki/Random_number_generation#%22True%22_vs._pseudo-random_numbers
 [random-seed]: https://en.wikipedia.org/wiki/Random_seed
 [hash-function]: https://en.wikipedia.org/wiki/Hash_function
+[FreeMarker]: freemarker.org
+[FreeMarker-sequence]: https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_direct_seuqence
 
 {% comment %}
 vim: spell wrap
