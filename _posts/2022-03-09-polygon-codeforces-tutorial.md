@@ -7,8 +7,10 @@ prepdir: _embed-contents/2022-02-19-test-generation-guide
 old_image_dir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 useMathjax: true
-useToc: true
 image_dir: /assets/2022-03-09-polygon-codeforces-tutorial
+toc: 
+  use: true
+  upper_header_level: 4
 ---
 
 This is the first part of my series on problem preparation for a programming
@@ -1039,6 +1041,7 @@ We can _safely_ conclude that our solution is correct and contains no bug. Now
 we can do a commit, for example, `Add brute-force solution and 2 stresses`. And
 of course, it is better to split it into smaller commits, but again, we can do
 the commit here to not break the flow of the post.
+
   
 
 
