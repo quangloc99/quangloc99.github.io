@@ -42,3 +42,9 @@ p {
     }
 }
 
+header.site-header {
+    background: $background-color;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
