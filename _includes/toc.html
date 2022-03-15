@@ -33,9 +33,18 @@
 
         createToc(content, navWrapper, {
             title: "{{page.title}}",
-            getBottom
+            getBottom,
+            {% if page.toc.lower_header_level %}
+            lowerHeaderLevel: {{ page.toc.lower_header_level }},
+            {% endif %}
+            {% if page.toc.upper_header_level %}
+            upperHeaderLevel: {{ page.toc.upper_header_level }}
+            {% endif %}
         });
     });
                                       
 </script>
 
+{% comment %}
+vim: filetype=liquid
+{% endcomment %}

@@ -1,11 +1,11 @@
 function createToc(wrapper, navWrapper, {
     title = "",
     getBottom = () => wrapper.offsetTop + wrapper.offsetHeight,
-    headerLowerLevel = 2,
-    headerUpperLevel = 6
+    lowerHeaderLevel = 2,
+    upperHeaderLevel = 6
 } = {}) {
-    --headerLowerLevel;
-    --headerUpperLevel;
+    --lowerHeaderLevel;
+    --upperHeaderLevel;
     const MAGIC_OFFSET_BETWEEN_SECTION = 30;
     class Header {
         constructor(level, elm, navElm) {
@@ -45,7 +45,7 @@ function createToc(wrapper, navWrapper, {
         if (!headerTagRegex.test(tag))
             continue;
         const lv = +tag[1] - 1;
-        if (lv < headerLowerLevel || lv > headerUpperLevel) {
+        if (lv < lowerHeaderLevel || lv > upperHeaderLevel) {
             continue;
         }
         while (stk.length > 0 && stk[stk.length - 1].level >= lv) {
