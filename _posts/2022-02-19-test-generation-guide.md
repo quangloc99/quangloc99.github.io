@@ -7,7 +7,8 @@ prepdir: _embed-contents/2022-02-19-test-generation-guide
 assetsdir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 useMathjax: true
-useToc: true
+toc:
+  use: true
 ---
 
 Problem setting is a hard task when preparing a programming competition. As an
