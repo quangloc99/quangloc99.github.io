@@ -55,8 +55,9 @@
     const curtain = document.createElement("div");
     curtain.classList.add("curtain");
     window.addEventListener("load", () => {
-        document.body.appendChild(curtain)
-        updateSkin();
+        document.body.appendChild(curtain);
+        // to update utterances
+        setTimeout(() => updateSkin());
     });
 
     let isCovering = false;
