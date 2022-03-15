@@ -25,11 +25,30 @@
     }
 }
 
+.curtain {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    transition: left ease-in 0.2s, right ease-in 0.2s, background ease 0.4s;
+    z-index: 100000;
+    &.covering {
+        right: 0;
+        left: 0;
+    }
+}
+
 html, html[data-theme="light"], {
     @include classic-skin;
     #theme-toggle span {
         // hand draw
         background-image: url("/assets/icons/moon.png");
+    }
+    .curtain {
+        background: $background-color;
+        &:not(.covering) {
+            left: 0;
+            right: 100vw;
+        }
     }
 }
 
@@ -39,6 +58,13 @@ html[data-theme="dark"] {
         // https://www.iconsdb.com/white-icons/sun-2-icon.html
         background-image: url("/assets/icons/sun-64.png");
     }
+    .curtain {
+        background: $background-color;
+        &:not(.covering) {
+            left: 100vw;
+            right: 0;
+        }
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -46,5 +72,4 @@ html[data-theme="dark"] {
       content: "dark";
     }
 }
-
 
