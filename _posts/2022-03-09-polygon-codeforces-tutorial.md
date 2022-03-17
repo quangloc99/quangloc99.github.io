@@ -1338,7 +1338,7 @@ sections that we have not touched yet. They are `Package`, `Verification`,
 Remember about the warning when writing the `validator`? By clicking the link,
 we are directed to the page containing all the warnings. We have done a good job
 not to leave any warnings in the other section, but the section `Show warning`
-is still <div style="color: orange">orange</div>. That because there is a small
+is still <span style="color: orange">orange</span>. That because there is a small
 thing that Polygon recommends us to do: add the tags to the problem.
 
 {% include image.html caption="Warnings page"
@@ -1486,6 +1486,12 @@ added this problem to a Mashup contest on Codeforces! You can share this contest
 with your friends, or add it to a Codeforces group.
 
 Again, [here][contest-invitation] is the link to the result of this post.
+
+## Conclusion
+There are more things that Polygon can do, and one of them is managing contests.
+But for problem preparation only, this post provides basic knowledges. I know
+that this post is _very long_, but I do hope that I have explained everything
+throughoutly. And I hope you can now make a problem by yourselves with Polygon!
 
 
 [contest-invitation]: https://codeforces.com/contestInvitation/0b42bfbee9fb4479e24492e688458a1bfa30c835
