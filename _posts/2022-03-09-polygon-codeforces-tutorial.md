@@ -1485,7 +1485,8 @@ Click it to copy the link, and paste it to the mashup creation page. Click
 added this problem to a Mashup contest on Codeforces! You can share this contest
 with your friends, or add it to a Codeforces group.
 
-Again, [here][contest-invitation] is the link to the result of this post.
+And [Here][contest-invitation] is the invitation to the mashup, which is the
+result of this post.
 
 ## Conclusion
 There are more things that Polygon can do, and one of them is managing contests.
