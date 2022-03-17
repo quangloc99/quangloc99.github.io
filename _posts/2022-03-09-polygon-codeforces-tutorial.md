@@ -249,6 +249,9 @@ But the pane shows more information about the problem, like the number of
 tests and the number of solutions. There is nothing now so everywhere are `None`
 or `0`.
 
+There is also the second pane of the right column, but for this tutorial, it
+does not contain much information, except for the last part.
+
 To see them in details, let's move on the following part.
 
 ## Adding the problem statement
@@ -357,7 +360,7 @@ The first line contains one positive integer $t$ ($1 \le t \le 30000$) --- the n
 
 Each test case begins with a line containing one integer $n$ ($1 \le n \le 30000$) --- the number of elements in the array.
 
-The second line of each test case contains $n$ integers $a_1, a_2, \ldots, a_n$ ($ \le ≤a_i \le 10^6$).
+The second line of each test case contains $n$ integers $a_1, a_2, \ldots, a_n$ ($1 \le a_i \le 10^6$).
 
 The sum of $n$ over all test cases does not exceed $30000$.
 "
@@ -1318,8 +1321,171 @@ The commit message can be `Add a better generator with tests`. But as always, it
 should be broken down, like when you add the generator and when you add the
 tests.
 
+## Final touches
+We basically have done everything to prepare a problem, from writing the
+statement to generate the tests. If you look at the right pane again, there are  
+sections that we have not touched yet. They are `Package`, `Verification`,
+`Review problem` and `Show warnings`.
+
+{% include image.html caption="The right pane after"
+  file="polygon-right-pane-after.png"
+%}
+
+### Show warnings
+Remember about the warning when writing the `validator`? By clicking the link,
+we are directed to the page containing all the warnings. We have done a good job
+not to leave any warnings in the other section, but the section `Show warning`
+is still <div style="color: orange">orange</div>. That because there is a small
+thing that Polygon recommends us to do: add the tags to the problem.
+
+{% include image.html caption="Warnings page"
+file="polygon-warnings-page.png"
+%}
+
+To add the `tags` for the problem, we can go to the `General info` page.
+{% include image.html caption="Adding tags in the General info page"
+file="polygon-problem-general-info-page-add-tags.png" %}
+
+The tags doesn't seem to be useful, but one of their use on Polygon is for
+`Searching`. There is a `Search` option on the top bar in the **home page**
+(when you logged in).
+
+{% include image.html caption="The search page" file="polygon-search.png" %}
+
+After adding the tags, you can make a commit as well.
+
+### Review problem
+By clicking the link in the section `Review problem` of the right pane, a page
+shows up with three columns: problem statement, validator and checker.
+
+{% include image.html caption="Review problem page"
+file="polygon-problem-review-page.png" %}
+
+I purposely capture this image **before** adding the tags, to show that in this
+page, warnings also appear as well. There are only validator and checker besides
+the problem statement, because the validator and the checker must **be aligned**
+to the problem statement. The reviewer should check if the constraints for the
+input are correctly checked by the validator, as well as if the checker
+correctly checks the output.
+
+### Invocation
+There is an option call `Invocation` on the top bar of the problem. When
+clicked, this page shows up.
+
+{% include image.html caption="Invocation page"
+file="polygon-invocation-page.png" %}
+
+This page is for running some/all solutions against the some/all tests. When
+clicking `Want to run solutions?`, two tables will appear, one for choosing
+solution, and one for choosing the tests. After choosing, click on `Run
+judgement` to run them.
+
+{% include image.html caption="Choose to run all solutions against all tests"
+file="polygon-invocation-run-all-solutions-against-all-tests.png" %}
+
+After that, there will be a new item on the table. Click the `view` link of the
+items to see the running result. The solutions are also ran on the fly, so you
+need to refresh the page to update the result.
+
+The result table grows vertically with the number of tests, so it will be huge.
+There are some useful information at the end of the table though, like the
+number of passed tests, the resource usages for each solution. There are also
+scores if you use scoring.
+
+{% include image.html caption="Invocation result"
+file="polygon-invocation-result.png" %}
+
+There are also notes about the color coding. Base on that you can adjust the  
+time and memory limit accordingly.
+
+**Note.** The invocation page is not shared among the author of the problem.
+
+### Verification
+If you click the `(start)` link of the `Verify` section in the right pane, it
+seems like nothing happen. But actually, Polygon will create **a new
+invocation** for all solutions and all tests, which can be seen in the
+`invocation page`. And after that, Polygon will **collect** the invocation
+result and compare it to the solutions verdicts. If everything matches, then the
+verification is **success**. Otherwise it is **failed**, meaning something is
+wrong, and you should fix it.
+
+{% include image.html caption="Verification failed with reason"
+file="polygon-verification-failed.png" %}
+
+We got **failed** verdict, because while we mark the solution `brute-force.cpp`
+as `TLE`, it has `MLE` verdict for the $10$-th test. To fix it, we should change
+the verdict of the `brute-force` solution into `Time limit exeeced or Memory
+limit exceeded` (or `TLE or MLE`). After fixing and re-run verification, we will
+get the `OK` result.
+
+{% include image.html caption="Verfication ok"
+file="polygon-verification-ok.png" %}
+
+### Package 
+A package is a zip file, containing all of the files of the problem, in the
+same directory as on Polygon. CodeForces in particular will use the package file
+to import the problem from Polygon, making it very easy to add problems to
+CodeForces.
+
+{% include image.html caption="The package page"
+file="polygon-package-page.png" %}
+
+These are the same old tables with an adding buttons. Beside the table for
+packages, recently there is also a table for the problem material. [See
+here][polygon-updates-02-2022] for more details.
+
+As seen here, there are two type of packages. The `standard` package only
+includes all files of the problem, while the `full` package contains additional
+files, noticeably the **generated tests**. So the `full` package will be heavier
+but things are already done in the `full` package. The `standard` package, however,
+is enough, since everything are _reproducible_. The checker, validator, the
+solutions and generators are all in the package, and there even a script for
+running them. CodeForces only requires standard package to import the problem.
+
+There is also a checkbox `Verify`. With this checked, Polygon will also do the
+verification process (again), and when failed, Polygon won't produce the
+package.
+
+Also note that Polygon only create a package when there is currently no changes
+because it is for a version, not _half_ version. Make sure to commit changes
+before creating a package. That being said, you can create any package for any
+version, whichever you like, and Polygon will store the package for you.
+
+{% include image.html caption="Create a new standard package"
+file="polygon-package-page-create-new-package.png" %}
+
+You can download the package and see it for yourselves.
+
+### Adding the problem to a CodeForces mashup
+To create a Mashup on Codeforces, go to `Gym > Mashup > Create new mashup`.
+
+{% include image.html caption="CodeForces create a new mashup"
+file="codeforces-create-mashup-page.png" %}
+
+There is a note about how to add the problem to CodeForces. We must grant the
+access of the problem to the user `CodeForces` on Polygon.
+
+On the top bar of the problem on Polygon, click `Manage Acess`. (And yes, there
+is a table with an adding button). Click `Add users` and type `codeforces`
+and then click `Add users` button.
+
+{% include image.html caption="Manage access page with codeforces added"
+file="polygon-manage-access-page.png" %}
+
+The link to this problem on Polygon is on the second pane of the right column.
+
+{% include image.html caption="The link to the problem in the second pane"
+file="polygon-the-second-pane.png" %}
+
+Click it to copy the link, and paste it to the mashup creation page. Click
+`Create Mashup Contest` to finally create the contest. That is, you finally
+added this problem to a Mashup contest on Codeforces! You can share this contest
+with your friends, or add it to a Codeforces group.
+
+Again, [here][contest-invitation] is the link to the result of this post.
 
 
+[contest-invitation]: https://codeforces.com/contestInvitation/0b42bfbee9fb4479e24492e688458a1bfa30c835
 [Polygon]: https://polygon.codeforces.com/
 [Version control]: https://en.wikipedia.org/wiki/Version_control
 [git]: https://git-scm.com/
@@ -1341,6 +1507,7 @@ tests.
 [hash-function]: https://en.wikipedia.org/wiki/Hash_function
 [FreeMarker]: freemarker.org
 [FreeMarker-sequence]: https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_direct_seuqence
+[polygon-updates-02-2022]: https://codeforces.com/blog/entry/100519
 
 {% comment %}
 vim: spell wrap
