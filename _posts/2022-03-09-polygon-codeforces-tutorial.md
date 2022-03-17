@@ -412,8 +412,11 @@ Before first step & & $[3, 2, 1, 2]$ \\ \hline
 " %}
 
 {% include image.html caption="Problem statement edit with preview"
-alt="problem-statement-edit-with-preview"
 file="polygon-problem-statement-edit-with-preview.png"
+%}
+
+{% include image.html caption="Problem statement notes"
+file="polygon-problem-statement-notes.png"
 %}
 
 You can see that there is no Example tests here. That is because the Example
