@@ -10,7 +10,7 @@ useMathjax: true
 image_dir: /assets/2022-03-09-polygon-codeforces-tutorial
 toc: 
   use: true
-  upper_header_level: 4
+  upper_header_level: 3
 ---
 
 This is the first part of my series on problem preparation for a programming
