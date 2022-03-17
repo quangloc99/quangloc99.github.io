@@ -6,8 +6,9 @@
 $nav-elm-indent: 16px;
 $toc-width: 350px;
 $toc-padding-horizontal: 10px;
-$toc-active-background: gray;
+$toc-active-background: $brand-color;
 $transition-duration: 0.25s;
+$read-percent-width: $spacing-unit;
 
 @function repeat($character, $n){
     @if ($n == 0) {
@@ -21,7 +22,7 @@ $transition-duration: 0.25s;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    scroll-margin-top: #{3 * $spacing-unit};
+    scroll-margin-top: #{2 * $spacing-unit};
 }
 
 #toc-wrapper {
@@ -39,9 +40,9 @@ h1, h2, h3, h4, h5, h6 {
     #toc {
         font-size: $base-font-size;
         padding: 20px 0px;
-        width: calc(Min(100vw, $toc-width) - $toc-padding-horizontal);
-        overflow-y: auto;
-        overflow-x: hidden;
+        width: calc(Min(100vw, #{$toc-width}) - #{$toc-padding-horizontal + $read-percent-width});
+        // overflow-y: auto;
+        // overflow-x: hidden;
         .nav-elm {
             display: block;
             @for $i from 1 through 6 {
@@ -49,16 +50,17 @@ h1, h2, h3, h4, h5, h6 {
                     display: block;
                     position: relative;
                     @if ($i > 1) {
-                        margin-left: 1.5em * $i;
+                        margin-left: 1.5em * ($i - 1);
                         &::before {
                             position: absolute;
-                            left: -1.5em * $i;
-                            content: repeat("#", $i - 1) + " ";
+                            left: -1.5em * ($i - 1);
+                            content: repeat("│ ", $i - 1);
                             color: $text-color;
-                            font-family: $code-font-family;
+                             font-family: $code-font-family;
                             transition: opacity ease $transition-duration;
                             font-weight: bold;
-                            opacity: 0.25;
+                            opacity: 0.15;
+                            font-weight: bold;
                         }
                     } @else {
                         font-weight: bold;
@@ -66,13 +68,15 @@ h1, h2, h3, h4, h5, h6 {
                     &::after {
                         content: "";
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        top: 1px;
+                        height: #{$base-font-size};
+                        // left: 0;
+                        right: #{-$read-percent-width};
+                        width: calc(#{$read-percent-width} - 0.5em);
                         z-index: -1;
                         opacity: 0;
                         transition: opacity ease $transition-duration;
+                        border: 1px solid $toc-active-background;
                         background: linear-gradient(to right,
                           #{$toc-active-background} 0,
                           #{$toc-active-background} var(--read-percent),
@@ -81,14 +85,13 @@ h1, h2, h3, h4, h5, h6 {
                         );
                     }
                 }
-                &.active {
-                    /* font-weight: bold; */
-                    &::before {
-                        opacity: 1;
-                    }
-                    &::after {
-                        opacity: 0.25;
-                    }
+            }
+            &.active {
+                &::before {
+                    opacity: 1;
+                }
+                &::after {
+                    opacity: 1;
                 }
             }
         }

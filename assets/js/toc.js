@@ -6,7 +6,7 @@ function createToc(wrapper, navWrapper, {
 } = {}) {
     --headerLowerLevel;
     --headerUpperLevel;
-    const MAGIC_OFFSET_BETWEEN_SECTION = 30;
+    const MAGIC_OFFSET_BETWEEN_SECTION = 70;
     class Header {
         constructor(level, elm, navElm) {
             this.level = level;
