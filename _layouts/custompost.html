@@ -9,13 +9,13 @@ vim: filetype=liquid
 {% include mathjax.html %}
 {%- endif -%}
 
+{{ content }}
+
+<div id="end-of-content"></div>
 {%- if page.toc.use -%}
 {% include toc.html %}
 {%- endif -%}
 
-{{ content }}
-
-<div id="end-of-content"></div>
 {%- unless page.disable_utterances -%}
 {% include utterances.html %}
 {%- endunless -%}

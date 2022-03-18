@@ -24,7 +24,8 @@
     <nav id="toc"></nav>
 </div>
 <script>
-    window.addEventListener("load", () => {
+    // window.addEventListener("load", () => {
+    {
         const content = document.querySelector(".post-content");
         const navWrapper = document.querySelector("#toc");
         const endOfContent = document.querySelector("#end-of-content");
@@ -41,7 +42,8 @@
             upperHeaderLevel: {{ page.toc.upper_header_level }}
             {% endif %}
         });
-    });
+    }
+    // });
                                       
 </script>
 
