@@ -45,46 +45,38 @@ h1, h2, h3, h4, h5, h6 {
         // overflow-x: hidden;
         .nav-elm {
             display: block;
-            @for $i from 1 through 6 {
-                &.h#{$i}{
-                    display: block;
-                    position: relative;
-                    @if ($i > 1) {
-                        margin-left: 1.5em * ($i - 1);
-                        &::before {
-                            position: absolute;
-                            left: -1.5em * ($i - 1);
-                            content: repeat("│ ", $i - 1);
-                            color: $text-color;
-                             font-family: $code-font-family;
-                            transition: opacity ease $transition-duration;
-                            font-weight: bold;
-                            opacity: 0.15;
-                            font-weight: bold;
-                        }
-                    } @else {
-                        font-weight: bold;
-                    }
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        top: 1px;
-                        height: #{$base-font-size};
-                        // left: 0;
-                        right: #{-$read-percent-width};
-                        width: calc(#{$read-percent-width} - 0.5em);
-                        z-index: -1;
-                        opacity: 0;
-                        transition: opacity ease $transition-duration;
-                        border: 1px solid $toc-active-background;
-                        background: linear-gradient(to right,
-                          #{$toc-active-background} 0,
-                          #{$toc-active-background} var(--read-percent),
-                          $background-color var(--read-percent),
-                          $background-color 100%
-                        );
-                    }
-                }
+            position: relative;
+            $indent-width: 20px;
+            $bar-width: 2px;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                font-family: $code-font-family;
+                transition: opacity ease $transition-duration;
+                opacity: 0.15;
+                background: repeating-linear-gradient(to right,
+                    #{$text-color} 0 #{$bar-width},
+                    transparent #{$bar-width} #{$indent-width}
+                );
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                top: 1px;
+                height: #{$base-font-size};
+                // left: 0;
+                right: #{-$read-percent-width};
+                width: calc(#{$read-percent-width} - 0.5em);
+                z-index: -1;
+                opacity: 0;
+                transition: opacity ease $transition-duration;
+                border: 1px solid $toc-active-background;
+                background: linear-gradient(to right,
+                    #{$toc-active-background} 0 var(--read-percent),
+                    transparent var(--read-percent) 100%
+                );
             }
             &.active {
                 &::before {
@@ -92,6 +84,20 @@ h1, h2, h3, h4, h5, h6 {
                 }
                 &::after {
                     opacity: 1;
+                }
+            }
+            @for $i from 1 through 6 {
+                $total-indent-width: $indent-width * ($i - 1);
+                &.h#{$i}{
+                    @if ($i > 1) {
+                        margin-left: $total-indent-width;
+                        &::before {
+                            left: -$total-indent-width;
+                            width: $total-indent-width;
+                        }
+                    } @else {
+                        font-weight: bold;
+                    }
                 }
             }
         }
