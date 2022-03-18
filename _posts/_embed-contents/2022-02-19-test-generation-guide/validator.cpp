@@ -3,7 +3,7 @@ using namespace std;
 
 const int max_testcount = 30000;
 const int max_n = 30000;
-const int max_val = (int)1e6;
+const int max_val = 1'000'000;
 
 int main(int argc, char** argv) {
     registerValidation(argc, argv);

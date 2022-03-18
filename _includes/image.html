@@ -1,11 +1,33 @@
+{% assign SPECIAL_CHAR = "`~!@#$%^&*()-_=+[]{}\|;:'\",.<>/?" | split: "" %}
+{%- capture alt -%}
+  {%- if include.alt -%}
+    {{ include.alt }}
+  {%- elsif include.caption -%}
+  {%- assign alt = include.caption | downcase -%}
+  {%- for special_char in SPECIAL_CHAR -%}
+    {%- if include.expclude_special_char contains special_char %}
+      {%- continue -%}
+    {%- endif -%}
+    {%- assign alt = alt | remove: special_char -%}
+  {%- endfor -%}
+  {{ alt
+    | strip
+    | split: " " | join: "-"
+    | split: "\n" | join: "-"
+    | split: "\t" | join: "-"
+    }}
+  {% endif %}
+{% endcapture %}
+
 <figure style="text-align: center; display: block;">
     {% if include.url %}
     <a href="{{ include.url }}">
     {% endif %}
     <img
-        src="{{ include.dir }}/{{ include.file }}"
-        alt="{{ include.alt }}"
+        src="{{ include.dir | default: page.image_dir }}/{{ include.file }}"
+        alt="{{ alt }}"
         style="
+          border: 1px solid gray;
           margin: 0 auto;
           {%- if include.width -%}
           width: {{ include.width }};
@@ -19,3 +41,7 @@
         <figcaption>{{ include.caption }}</figcaption>
     {% endif %}
 </figure>
+
+{% comment %}
+vim: filetype=liquid
+{% endcomment %}

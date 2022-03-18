@@ -7,8 +7,13 @@ prepdir: _embed-contents/2022-02-19-test-generation-guide
 assetsdir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 useMathjax: true
-useToc: true
+toc:
+  use: true
 ---
+
+> **Note.** This is the original post about the guide. But now I'm splitting this
+post into three parts! Please read the first part [here]({% post_url
+2022-03-09-polygon-codeforces-tutorial %})!
 
 Problem setting is a hard task when preparing a programming competition. As an
 [author for a Codeforces round](https://codeforces.com/blog/entry/98385), as

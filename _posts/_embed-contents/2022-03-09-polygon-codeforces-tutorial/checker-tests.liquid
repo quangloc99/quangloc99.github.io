@@ -1,0 +1,148 @@
+{% include customhighlight.html caption="Test 1. All correct cases (with all
+character cases)"
+collapsed=true
+content="
+=== Input ===
+6
+5
+1 3 1 3 1
+5
+1 3 1 3 1
+1
+1
+1
+1
+1
+1
+1
+1
+=== Output ===
+no
+NO
+yes
+yeS
+yEs
+yES
+=== Answer ===
+nO
+No
+Yes
+YeS
+YEs
+YES
+=== Verdict ===
+OK
+" %}
+
+{% include customhighlight.html caption="Test 2. Output has fewer tokens"
+collapsed=true
+content="
+=== Input ===
+2
+1
+1
+1
+1
+=== Output ===
+yes
+=== Answer ===
+yes
+yes
+=== Verdict ===
+PRESENTATION_ERROR
+" %}
+
+{% include customhighlight.html caption="Test 3. Asnwer has fewer tokens"
+collapsed=true
+content="
+=== Input ===
+2
+1
+1
+1
+1
+=== Output ===
+yes
+yes
+=== Answer ===
+yes
+=== Verdict ===
+CRASHED
+" %}
+
+{% include customhighlight.html caption="Test 4. Output has wrong token format"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+nice
+=== Answer ===
+yes
+=== Verdict ===
+PRESENTATION_ERROR
+" %}
+
+{% include customhighlight.html caption="Test 5. Output has more tokens"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+yes
+yes
+=== Answer ===
+yes
+=== Verdict ===
+PRESENTATION_ERROR
+" %}
+
+{% include customhighlight.html caption="Test 6. Answer has more tokens"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+yes
+=== Answer ===
+yes
+yes
+=== Verdict ===
+CRASHED
+" %}
+
+{% include customhighlight.html caption="Test 7. Expected YES, found NO"
+collapsed=true
+content="
+=== Input ===
+1
+1
+1
+=== Output ===
+no
+=== Answer ===
+yes
+=== Verdict ===
+WRONG_ANSWER
+" %}
+
+{% include customhighlight.html caption="Test 8. Expected NO, found YES"
+collapsed=true
+content="
+=== Input ===
+1
+5
+1 3 1 3 1
+=== Output ===
+yes
+=== Answer ===
+no
+=== Verdict ===
+WRONG_ANSWER
+" %}
