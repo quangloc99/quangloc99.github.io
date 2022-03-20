@@ -55,7 +55,7 @@
 
     const curtain = document.createElement("div");
     curtain.classList.add("curtain");
-    window.addEventListener("load", () => {
+    window.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(curtain);
         // to update utterances
         setTimeout(() => updateSkin());
