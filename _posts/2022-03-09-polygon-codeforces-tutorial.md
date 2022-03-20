@@ -169,7 +169,7 @@ _predefined structure_. That is, the statement, the solutions, the
 generators,... that you put on Polygon will go to its respective folder. One
 advantage of Polygon is that The author only need to work with the user
 interface, and Polygon will take care the rest. For most of the time, this
-structure is not _visible_ for us, and we don't need to. But there are a way to
+structure is not _visible_ to us, and we don't need to. But there are a way to
 do see it, and we go through it [later](#package).
 
 #### Version control
@@ -328,12 +328,15 @@ The `Delete Current` is for deleting this statement, and `Create New` is for
 creating new statement in another language.
 
 ### $\TeX$
-To write the statement, Polygon supports [$\TeX$][tex]. For PDF format, you can
-use any $\TeX$ commands you like. But for the web version, Polygon supports only
-minimal set of commands. But still, $\TeX$ has some options for formatting, as
-well as its _math mode_ for writing formula, therefore $\TeX$ is suitable for
-writing statement. Another reason for supporting $\TeX$ is for generating PDF
-version of the statement. 
+To write the statement, Polygon supports [$\TeX$][tex] -- a markup language that
+has a lot of options for document formatting. The coolest thing that makes
+$\TeX$ stands out is its _math mode_ for writing mathematical formula, making
+$\TeX$ a great language for writing statement. Another reason for supporting
+$\TeX$ is for generating PDF version of the statement. 
+
+On Polygon, For PDF format, you can use any $\TeX$ commands you like. But since
+$\TeX$ is not a language for the web, Polygon only supports minimal set of
+commands.
 
 If you don't know $\TeX$, Polygon also includes a small manual right in the
 statement  page, so do check it out. The syntax of $\TeX$ is also simple: it is
@@ -428,15 +431,18 @@ what the explanation for this case might look like using table:
 content="
 In the last case, the array $a$ is $[3, 2, 1, 2]$. The following table demonstrate the order of operations.
 
+% Hello there. This is a line comment in TeX!
+% You don't need to align the & symbols as I do. They are just for readability.
+
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
-Step & Decremented elements & The array $a$ after \\ \hline
-Before first step & & $[3, 2, 1, 2]$ \\ \hline
-1 & \bf{first} 4 & $[2, 1, 0, 1]$ \\ \hline
-2 & \bf{first} 1 & $[1, 1, 0, 1]$ \\ \hline
-3 & \bf{last} 1 & $[1, 1, 0, 0]$ \\ \hline
-4 & \bf{first} 2 & $[0, 0, 0, 0]$ \\ \hline
+Step              & Decremented elements  & The array $a$ after \\ \hline
+Before first step &                       & $[3, 2, 1, 2]$ \\ \hline
+1                 & \bf{first} 4          & $[2, 1, 0, 1]$ \\ \hline
+2                 & \bf{first} 1          & $[1, 1, 0, 1]$ \\ \hline
+3                 & \bf{last}  1          & $[1, 1, 0, 0]$ \\ \hline
+4                 & \bf{first} 2          & $[0, 0, 0, 0]$ \\ \hline
 \end{tabular}
 \end{center}
 " %}
@@ -467,6 +473,101 @@ I think it is not redundant to remind about the importance of the commit. Here
 we have added the problem statement, which is a complete work. Making a commit
 now is a reasonable action. The commit message for this version can be something
 like `Add problem statement`.
+
+### _But I want to add the examples now!_
+I usually wait until [the validator](#test-validation) and [the model
+solution](#model-solution) ready to add the example tests. That way, only the
+input data of the example tests need to be entered. Polygon will validate the
+example test, as well as generate the output for us.
+
+Lucky for us, Polygon also allows to add example tests with custom output. If
+you wanted add the example right now, I will briefly _temporary_
+demonstrate it here (without making a commit). Later I will [re-add the
+examples](#adding-the-example-tests) again but without custom output, because
+~~it's _the law_~~ I think it is better to let the Polygon generate the outputs.
+But adding it here is also good, since it can be used to check to Notes in the
+statement. Just **remember** to replace the custom output with the generated
+output.
+
+Before continuing, here is the test.
+{% include customhighlight.html caption="Example test input" collapsed=true
+content="
+5
+3
+1 2 1
+5
+11 7 9 6 8
+5
+1 3 1 3 1
+4
+5 2 1 10
+4
+3 2 1 2
+
+" %}
+  
+{% include customhighlight.html caption="Example test output" collapsed=true
+content="
+YES
+YES
+NO
+YES
+YES
+
+" %}
+
+
+Now, go to the `Create tests` page, by clicking the options `Tests` on the top
+bar. On this page, click `Add tests`.
+
+For more details on this page, see [Adding the tests](#adding-the-tests).
+
+{% include image.html caption="The Create tests page. Click the `Add Tests` link"
+  file="polygon-create-tests-page-add-example-guide.png"
+%}
+
+After that, the following page will appear. 
+
+{%include image.html caption="The add test page"
+  file="polygon-add-test-page.png" %}
+  
+Put the input data into the `Data` box. The input data will be
+
+To mark this test as an example, check `Use in statements` checkbox. There will
+be a text asking us if we wanted to use custom content for input or output.
+Click it to specify our output.
+
+{%include image.html caption="`Use in statements checkbox` checked "
+  file="polygon-add-test-page-use-in-statement-checkbox.png" %}
+  
+There will be two more boxes appear. Since we will specify our output by hand,
+we will us the second box only. And because we don't have a validator, a checker
+and a model solution yet, we _must_ uncheck the checkbox `Verify output for
+statements`. 
+
+{% include image.html caption = "Example test with custom output"
+file="polygon-add-test-page-added-example-test-custom-output.png" %}
+
+Click save, then return to the `Statements` page. The example test will appear.
+
+#### Viewing our result
+Because we have added the example, we might as well see our result.
+
+In the `Statements` page, there are a few view options: `In latex`, `In HTML` or
+`in PDF`. To see in our in the web format, click `In HTML`, and in the PDF
+format, click `In PDF`.
+  
+{% include image.html caption = "View statement options"
+file="polygon-problem-statement-page-view-options.png" %}
+
+If you wanted to see the web format _live_, see the [very last
+section](#adding-the-problem-to-a-codeforces-mashup) of this tutorial. I also
+experted the latest PDF version, click [here][problem-statement-pdf] to see it.
+
+**Note.** The first box, `Input in statement`, can be used when we have the
+model solution, in that case the output will be generated using the input from
+the `Data` box, and the input shown in the statement is from the `Input in
+statement` box.
 
 
 ## Test validation
@@ -614,7 +715,7 @@ tests. Here is the validator test result.
   dir=page.old_image_dir file="validation-test-result.png"
 %}
 
-**Remember** to check the verdicts and the Checker comments carefully.
+**Remember** to check the verdicts and the Validator comments carefully.
 
 ### Our third commit
 You know the drill by now. We have added the validator, with its tests, so it is
@@ -631,13 +732,13 @@ validator bug ...`. Again, we should treat the it as a _diary_ or _journal_.
 
 ## The checker
 A checker is a program for checking whether or not _an answer_ is correct. What
-is the correctness anyway? Usually, this means the answer of the participant is
-_the same_ as the jury's (or the author's) answer. But that is not the case for
-most of the problem. There are problems with non-unique answer, and a specific
-checker must be created to check that. An example of non-unique answer problem
-is to trace a shortest path between two vertices in a graph. If the answer is
-the path, then the checker must check if two given vertices are reachable using
-the path, and if the path is truly the shortest.
+is the correctness anyway? For most of the time, this means the answer of the
+participant is _the same_ as the jury's (or the author's) answer. But that is
+not the case for some of the problems. There are problems with non-unique
+answer, and a specific checker must be created to check that. An example of
+non-unique answer problem is to trace a shortest path between two vertices in a
+graph. If the answer is the path, then the checker must check if two given
+vertices are reachable using the path, and if the path is truly the shortest.
 
 Before going further, let's look at the `Select checker` page.
 
@@ -677,6 +778,10 @@ it then we are done with the checker part.
 source code.
 
 ### Writing our own checker
+It is always recommended to use the standard checkers when possible, because the
+standard checker is _well tested_ and produces readable error messages. But when
+the answer is non-unique, we must write our own.
+
 Even though we already have our own checker, for the sake of the completeness, I
 think it worth to write our own checker in this tutorial.
 
@@ -691,6 +796,26 @@ idea is, when writing a checker, it is a good practice to write a function for
 reading and (_partially_) checking the answer from a stream, and use it to read
 the participant's answer as well as the jury's answer. After that, we can
 _fully_ check these answers against each other.
+
+The obvious reason to use `readAns` paradigm is to reduce the length of the
+code. We use one function to read both the participant's answer and the jury's
+answer.
+
+But there is a more serious problem that `readAns` paradigm solves. This
+paradigm forces the same logic on the reading processes of participant's answer
+and the jury's answer. This means we don't entirely rely on the jury, but try to
+treat the jury's answer and the participant's answer as **equally** as possible.
+To see how that helps us, let's consider the shortest path problem again. What
+if the participant produces a _valid_ path, but its length is _shorter_ than the
+path length in the jury's answer? There might be a bug in the `model solution`
+(for producing non-optimal answer), and there might also be a bug in the
+`checker` (for incorrectly validating the answer), or even both. But either way,
+the fault is still at the author's side, and there something is _very wrong_ if
+that happens. Without `readAns` paradigm, the checker will more likely to rely
+on the jury's answer, and the above problem may go undetected!
+
+That's being said, the `readAns` paradigm **should always be used** when
+creating a custom checker to reduce the risk of errors.
 
 #### The checker's implementation
 {% include customhighlight.html caption="checker.cpp" dir=page.prepdir ext="cpp"
@@ -720,7 +845,15 @@ the verdict will always be `_fail`, no matter what is passed to the second
 parameter. This make sense because the input should be correct (validated by the
 validator), and the answer should also be correct before passing to the checker.
 And in case of failure, that's mean the there might be a bug in the checker or
-the solution.
+the solution, as we have discussed above.
+
+**Note.** In the checker, we don't need to _strictly_ follow the input format as
+we have done in the validator. In other words, we don't need to read the spaces
+or `EOLN` characters. That is because `testlib.h` only forces strict input
+format when calling `registerValidator`, while that is not the case with
+`registerTestlibCmd`. And also the test was validated by the `validator` anyway
+before passing to the `checker`.
+
 
 #### Adding the checker tests
 As in the case of the validator, we must also test the checker. And as before,
@@ -844,7 +977,12 @@ pass.
 We make a commit with the message `Add two correct solutions`.
 
 ## Stress testing. Our first test generator.
+Before adding the tests, we must ensure the correctness of the model solution
+first, because the model solution is used to generate the output of the tests.
+In this section, we are going to test the correctness of the model solution with
+stress testing.
 
+### What is stress testing?
 [Here][stress-testing] is the Wikipedia page about stress testing. In
 competitive programming, stress testing is used not for all of the reason stated
 in the Wikipedia page, but there is a main point:
@@ -863,17 +1001,16 @@ equal chance of being incorrect, since we have not tested them before.
 But with stress testing, _implementation errors_ is very easy to detect, because
 the **likelihood** of two solutions having the same _implementation errors_ is
 **not high**. If the result of these solutions are not matched, we should not
-only suspect the errors in one solution, but in both solutions. And if after
-fixing the implementation errors (in both solutions), the output of the
+only suspect the errors in one solution, but in both solutions. And after
+fixing the implementation errors (in both solutions), if the output of the
 solutions are still not matched, then we can conclude that the mathematical
 model is incorrect, with a concrete counter example. From there, we should find
 the error in the proof, or try to find another solution. If two solutions are
 not enough to guarantee the correctness, remember that Polygon allows stress
 testing with multiple solutions!
 
-In this section, we are going to test the correctness of the model solution with
-stress testing. So to do that, we are going to add another solution, as well as
-create a test generator.
+So to do stress testing, we are going to add another solution, as well as create
+a test generator.
 
 ### What solution are we going to test against?
 
@@ -884,7 +1021,7 @@ the model solution, we don't need this solution to be fast. With these in mind,
 _brute-forcing_ is always a candidate. The brute-force solution is often _more_
 correct because it uses _less_ assumptions.
 
-In this problem, brute force can be done with **simulation** -- we simply try
+In this problem, brute-force can be done with **simulation** -- we simply try
 all possible ways to decrease the input array, and when we have all $0$, we can
 conclude that there is an answer. Such simulation can be implemented with
 recursion, but to make it a little faster, we can also use _memorization_ --
@@ -1541,8 +1678,10 @@ But for problem preparation only, this post provides basic knowledges. I know
 that this post is _very long_, but I do hope that I have explained everything
 thoroughly. And I hope you can now make a problem by yourselves with Polygon!
 
-In the future parts, I will explain how to generate stronger tests, as well as
-how to generate more complicated tests. So please stay tuned!
+This series is not ended here. You may notice that our test set is _not really
+good_ for a real problem, because our generator is not _strong_. I will explain
+it why that is the case, and how can we improve it in the future parts. So
+please stay tuned!
 
 
 [contest-invitation]: https://codeforces.com/contestInvitation/0b42bfbee9fb4479e24492e688458a1bfa30c835
@@ -1569,6 +1708,7 @@ how to generate more complicated tests. So please stay tuned!
 [FreeMarker-sequence]: https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_direct_seuqence
 [polygon-updates-02-2022]: https://codeforces.com/blog/entry/100519
 [codeforces-hacking]: https://codeforces.com/blog/entry/6249?#comment-116329
+[problem-statement-pdf]: {{page.image_dir}}/extreme-subtraction-clone-r12-en.pdf
 
 {% comment %}
 vim: spell wrap
