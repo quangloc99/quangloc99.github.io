@@ -28,12 +28,13 @@
 .curtain {
     position: fixed;
     top: 0;
-    height: 100vh;
-    transition: left ease-in 0.2s, right ease-in 0.2s, background ease 0.3s;
+    height: 150vh;
+    width: 0;
+    transition: left ease-in 0.2s, width ease-in 0.2s, background ease 0.3s;
     z-index: 100000;
     &.covering {
-        right: 0;
         left: 0;
+        width: 100vw;
     }
 }
 
@@ -47,7 +48,6 @@ html, html[data-theme="light"], {
         background: $background-color;
         &:not(.covering) {
             left: 0;
-            right: 100vw;
         }
     }
 }
@@ -62,7 +62,6 @@ html[data-theme="dark"] {
         background: $background-color;
         &:not(.covering) {
             left: 100vw;
-            right: 0;
         }
     }
 }
