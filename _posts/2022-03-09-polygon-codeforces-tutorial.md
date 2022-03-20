@@ -552,6 +552,12 @@ file="polygon-add-test-page-added-example-test-custom-output.png" %}
 
 Click save, then return to the `Statements` page. The example test will appear.
 
+{: .notes }
+The first box, `Input in statement`, can be used when we have the model
+solution, in that case the output will be generated using the input from the
+`Data` box, and the input shown in the statement is from the `Input in
+statement` box.
+
 #### Viewing our result
 Because we have added the example, we might as well see our result.
 
@@ -565,12 +571,6 @@ file="polygon-problem-statement-page-view-options.png" %}
 If you wanted to see the web format _live_, see the [very last
 section](#adding-the-problem-to-a-codeforces-mashup) of this tutorial. I also
 experted the latest PDF version, click [here][problem-statement-pdf] to see it.
-
-{: .notes }
-The first box, `Input in statement`, can be used when we have the model
-solution, in that case the output will be generated using the input from the
-`Data` box, and the input shown in the statement is from the `Input in
-statement` box.
 
 
 ## Test validation
