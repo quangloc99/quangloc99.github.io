@@ -57,3 +57,14 @@ header.site-header {
     top: 0;
     z-index: 100;
 }
+
+.notes {
+    // background-color: #e7f3fe99;
+    padding-left: $spacing-unit / 2;
+    border-left: 4px solid #2196F3;
+    &:not(.no-before)::before {
+        content: "Notes";
+        display: block;
+        font-weight: bold;
+    }
+}

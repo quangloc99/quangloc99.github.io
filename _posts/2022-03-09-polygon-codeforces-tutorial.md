@@ -187,9 +187,10 @@ system, but with simpler functionality. It can help us keep track the changes,
 allow us to _commit the changes_, and revert back to one previously _committed_
 version.
 
-**Note.** _Committing_ is an action to make your changes _permanent_ to the
-version control system. That is, the version control system will create a new
-version with your changes. If you did not commit, then your changes is still
+{: .notes }
+_Committing_ is an action to make your changes _permanent_ to the version
+control system. That is, the version control system will create a new version
+with your changes. If you did not commit, then your changes is still
 _temporary_.
 
 ### Our first commit
@@ -240,8 +241,9 @@ _spam filter_.
 After making the commit, the _changes_ are gone, because there is no changes in
 _the current_ compared to the previous yet.
 
-**Notes.** If you did not commit, your _temporary_ changes **won't be visible**
-to your colleague.
+{: .notes }
+If you did not commit, your _temporary_ changes **won't be visible** to your
+colleague.
 
 
 ### Why making a commit now?
@@ -564,9 +566,10 @@ If you wanted to see the web format _live_, see the [very last
 section](#adding-the-problem-to-a-codeforces-mashup) of this tutorial. I also
 experted the latest PDF version, click [here][problem-statement-pdf] to see it.
 
-**Note.** The first box, `Input in statement`, can be used when we have the
-model solution, in that case the output will be generated using the input from
-the `Data` box, and the input shown in the statement is from the `Input in
+{: .notes }
+The first box, `Input in statement`, can be used when we have the model
+solution, in that case the output will be generated using the input from the
+`Data` box, and the input shown in the statement is from the `Input in
 statement` box.
 
 
@@ -585,12 +588,13 @@ recommended to use [`testlib.h`][testlib.h] to write validators. `testlib.h` not
 only eases the writing validator process, but also it make the validation
 message more readable.
 
-**Note.** I put this part before the test generation part, because
-a validator is _generally easy to write_, while the test generation is the
-hardest part.
+{: .notes }
+I put this part before the test generation part, because a validator is
+_generally easy to write_, while the test generation is the hardest part.
 
-**Note.** Codeforces also allows [hacking][Codeforces-hacking] during contests,
-and the hack tests will also be validated, using the author's validator.
+{: .notes }
+Codeforces also allows [hacking][Codeforces-hacking] during contests, and the
+hack tests will also be validated, using the author's validator.
 
 ### The `Select validator` page
 When you click the `Validator` option on the top bar, here is validator page
@@ -636,21 +640,22 @@ The validator is simple. But there are some notes for the validator:
 - If you don't call `inf.readEof()`, there will also be an error for not
   confirming the input has been fully read.
   
-**Notes.** The rule about white spaces and EOF mentioned above is called the
-_well-formed policy_. More on that [later](#the-create-tests-page).
+{: .notes }
+The rule about white spaces and EOF mentioned above is called the _well-formed
+policy_. More on that [later](#the-create-tests-page).
 
 Now we can add this validator to Polygon. **Remember to click `Set validator`**
 for confirming the validator to Polygon.
 
-**Note.** Polygon also produces some warnings. Warnings are not error, but
-fixing them is a good practice. For example if you don't put the variable name
-for `test-case`, this message will appear when you hover your mouse over the
-validator name.
-
+{: .notes }
+Polygon also produces some warnings. Warnings are not error, but fixing them is
+a good practice. For example if you don't put the variable name for `test-case`,
+this message will appear when you hover your mouse over the validator name.
+^
 {% include image.html caption="Polygon's warning for validator"
 alt="polygon-warning-for-validator" file="polygon-validator-warning.png" %}
 
-
+{: .notes.no-before }
 And also note that <span style="color: orange">orange</span> things are often
 hoverable, and might be some warnings.
 
@@ -682,7 +687,8 @@ Here are the tests.
 {% include customhighlight.html caption="Inputs" dir=page.prepdir
   file="validation-test.txt" collapsed=true %}
 
-**Note.** The last line has an extra line break.
+{: .notes }
+The last line has an extra line break.
   
 {% include customhighlight.html caption="Verdicts" dir=page.prepdir
   file="validation-test-verdicts.txt" collapsed=true %}
@@ -774,8 +780,8 @@ In our case, we can use the checker `nyesno.cpp` (not `yesno.cpp`, since we are
 comparing **sequence** of `YES` and `NO` tokens, and not just one!). Selecting
 it then we are done with the checker part.
 
-**Note.** After selecting the checker, it is possible to see the checker's
-source code.
+{: .notes }
+After selecting the checker, it is possible to see the checker's source code.
 
 ### Writing our own checker
 It is always recommended to use the standard checkers when possible, because the
@@ -821,13 +827,15 @@ creating a custom checker to reduce the risk of errors.
 {% include customhighlight.html caption="checker.cpp" dir=page.prepdir ext="cpp"
 file="checker.cpp" %}
 {% comment %}
-**Note.** I use [clang-format], so don't notice the _weird_ parameter
+{: .notes }
+I use [clang-format], so don't notice the _weird_ parameter
 indentation formatting.
 {% endcomment %}
 
 {% comment %}  This part is removed since `setTestCase` is used instead.
 
-**Note.** The function `englishEnding(number)` is for getting the _order_ ending
+{: .notes }
+The function `englishEnding(number)` is for getting the _order_ ending
 of a number. For example, `englishEnding(1) == "st"`, `englishEnding(3) = "rd"`,
 `englishEnding(10) == "th"`. This is undocumented in [the guide][checker-guide],
 but it is on the [feature list in the source code of
@@ -847,7 +855,8 @@ validator), and the answer should also be correct before passing to the checker.
 And in case of failure, that's mean the there might be a bug in the checker or
 the solution, as we have discussed above.
 
-**Note.** In the checker, we don't need to _strictly_ follow the input format as
+{: .notes }
+In the checker, we don't need to _strictly_ follow the input format as
 we have done in the validator. In other words, we don't need to read the spaces
 or `EOLN` characters. That is because `testlib.h` only forces strict input
 format when calling `registerValidator`, while that is not the case with
@@ -935,10 +944,11 @@ Because it is very short, here are the solutions in Python and C++.
 To add the solutions to Polygon, click the option `Solutions files` on the top
 bar, or on the right panel, `None` or `(0/0)` link at the `Solutions` section.
 
-**Note.** `None` and `(0/0)` are displayed when there is no solution yet. When
-there are solutions, `None` will be replaced with the name of the `Model
-solution`, and `(0/0)` will be replaced by `(x/y)`, where $x$ is the total
-number of solutions, and $y$ is the number of the correct solutions.
+{: .notes }
+`None` and `(0/0)` are displayed when there is no solution yet. When there are
+solutions, `None` will be replaced with the name of the `Model solution`, and
+`(0/0)` will be replaced by `(x/y)`, where $x$ is the total number of solutions,
+and $y$ is the number of the correct solutions.
 
 {% include image.html caption="Solutions page" alt="solutions-page"
   file="polygon-solutions-page.png" %}
@@ -949,7 +959,8 @@ above two solutions first. Here is the page after adding the solutions.
 {% include image.html caption="Solutions page after adding solutions" alt="solutions-page-after-adding-solutions"
   file="polygon-solutions-page-after-adding-solutions.png" %}
 
-**Note.** The solution name (without the extension part) must be all different.
+{: .notes }
+The solution name (without the extension part) must be all different.
   
 By default, the first uploaded solution will be the `Main correct` (or model)
 solution, and other solution will be just be `Correct` solution. Even though
@@ -1199,8 +1210,9 @@ generators or solutions, recompilation will take time.
   file="polygon-first-stress.png"
   %}
   
-**Note.** Polygon will not refresh itself _for most of the time_, so you must
-press refresh by yourself.
+{: .notes }
+Polygon will not refresh itself _for most of the time_, so you must press
+refresh by yourself.
 
 #### Finding countertest
 
@@ -1246,10 +1258,11 @@ _decreasing array_ $b$ as in the editorial, then summing them up? Doing so will
 guarantee to have the answer `YES` because that is what the problem **is
 asking** the participant to do.
 
-**Note.** In the editorial, the name of the _increasing array_ is actually $b$
-and the _decreasing_ one is $a$. While making this blog, I have their names
-wrong. In my defense, making $a$ the increasing array is more natural than the
-other way around. So I'll keep it this way.
+{: .notes }
+In the editorial, the name of the _increasing array_ is actually $b$ and the
+_decreasing_ one is $a$. While making this blog, I have their names wrong. In my
+defense, making $a$ the increasing array is more natural than the other way
+around. So I'll keep it this way.
 
 For this algorithm, there are some problems when reusing the code from
 `gen-totally-random.cpp`
@@ -1585,7 +1598,8 @@ file="polygon-invocation-result.png" %}
 There are also notes about the color coding. Base on that you can adjust the  
 time and memory limit accordingly.
 
-**Note.** The invocation page is not shared among the authors of the problem.
+{: .notes }
+The invocation page is not shared among the authors of the problem.
 
 ### Verification
 If you click the `(start)` link of the `Verify` section in the right panel, it
