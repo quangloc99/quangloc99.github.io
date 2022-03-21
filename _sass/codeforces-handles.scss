@@ -1,0 +1,38 @@
+// TODO add other handles
+
+
+.cf-user {
+    font-weight: bold;
+    display: inline-block;
+    
+}
+
+html, html[data-theme="light"] {
+    .cf-user {
+        &.legendary {
+            color: red;
+            &::first-letter {
+                color: black;
+            }
+        }
+          
+        &.admin {
+            color: black;
+        }
+    }
+}
+
+html, html[data-theme="dark"] {
+    .cf-user {
+        &.legendary {
+            color: red;
+            &::first-letter {
+                color: white;
+            }
+        }
+          
+        &.admin {
+            color: white;
+        }
+    }
+}
