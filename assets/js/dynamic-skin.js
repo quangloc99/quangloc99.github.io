@@ -57,9 +57,10 @@
     curtain.classList.add("curtain");
     window.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(curtain);
-        // to update utterances
-        setTimeout(() => updateSkin());
     });
+  
+    // force utterances to update the theme after everything is loaded
+    window.addEventListener("load", () => setTimeout(updateSkin));
 
     let isCovering = false;
 
