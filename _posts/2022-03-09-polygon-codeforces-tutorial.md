@@ -570,7 +570,7 @@ file="polygon-problem-statement-page-view-options.png" %}
 
 If you wanted to see the web format _live_, see the [very last
 section](#adding-the-problem-to-a-codeforces-mashup) of this tutorial. I also
-experted the latest PDF version, click [here][problem-statement-pdf] to see it.
+exported the latest PDF version, click [here][problem-statement-pdf] to see it.
 
 
 ## Test validation
