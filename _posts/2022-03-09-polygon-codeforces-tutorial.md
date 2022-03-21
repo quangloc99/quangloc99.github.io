@@ -336,9 +336,9 @@ $\TeX$ stands out is its _math mode_ for writing mathematical formula, making
 $\TeX$ a great language for writing statement. Another reason for supporting
 $\TeX$ is for generating PDF version of the statement. 
 
-On Polygon, For PDF format, you can use any $\TeX$ commands you like. But since
-$\TeX$ is not a language for the web, Polygon only supports minimal set of
-commands.
+On Polygon, For the PDF format, you can use any $\TeX$ commands you like. But
+since $\TeX$ is not a language for the web, Polygon only supports minimal set of
+commands for the web format.
 
 If you don't know $\TeX$, Polygon also includes a small manual right in the
 statement  page, so do check it out. The syntax of $\TeX$ is also simple: it is
@@ -360,7 +360,7 @@ $$\sum\frac{1}{n}$$
 </div>
 
 There are a lot of commands, but again, you don't need to be an expert in $\TeX$
-to learn them. You can see a list of commands in [this wiki
+to learn them. You can see a list of commands for math mode in [this wiki
 page][latex-mathematics].
 
 ### Writing the statement
@@ -1697,6 +1697,20 @@ good_ for a real problem, because our generator is not _strong_. I will explain
 it why that is the case, and how can we improve it in the future parts. So
 please stay tuned!
 
+---
+
+## Special thanks
+I want to give special thanks to Nikolay [KAN][cf-KAN-profile]{:
+.cf-user.legendary} Kalinin for proofreading, as well as giving very wonderful
+comments and feedback! I think I could not go this far to make this blog post
+without him.
+
+Shout out to [MikeMirzayanov][cf-MikeMirzayanov-profile]{:.cf-user.admin} and
+the Codeforces team for making Polygon! There are still more and more features
+being added, even during the writing process of this post.
+
+And thank you for reading this post!
+
 
 [contest-invitation]: https://codeforces.com/contestInvitation/0b42bfbee9fb4479e24492e688458a1bfa30c835
 [Polygon]: https://polygon.codeforces.com/
@@ -1723,6 +1737,8 @@ please stay tuned!
 [polygon-updates-02-2022]: https://codeforces.com/blog/entry/100519
 [codeforces-hacking]: https://codeforces.com/blog/entry/6249?#comment-116329
 [problem-statement-pdf]: {{page.image_dir}}/extreme-subtraction-clone-r12-en.pdf
+[cf-KAN-profile]: https://codeforces.com/profile/KAN
+[cf-MikeMirzayanov-profile]: https://codeforces.com/profile/MikeMirzayanov
 
 {% comment %}
 vim: spell wrap
