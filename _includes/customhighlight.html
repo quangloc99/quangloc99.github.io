@@ -21,7 +21,7 @@ customhighlight-{%-increment customhighlightCounter -%}
             {{ include.content | strip }}
         {%- endif -%}
     {%- else -%}
-        {%- include_relative {{include.dir}}/{{include.file}} -%}
+        {%- include_relative {{ include.dir | default: page.customhighlight.dir }}/{{include.file}} -%}
     {%- endif -%}
 {%- endcapture -%}
  
