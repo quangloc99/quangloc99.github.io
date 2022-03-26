@@ -13,6 +13,32 @@ T get_opt(const string& name, const T& def_val) {
     return has_opt(name) ? opt<T>(name) : def_val;
 }
 
+namespace shuffle_cases_first_way {
+    int test_count, yes_count;
+    void main() {
+        #include "./shuffle-cases-first-way.fragment.cpp"
+    }
+}
+
+namespace shuffle_cases_second_way {
+    int test_count, yes_count;
+    void main() {
+        #include "./shuffle-cases-second-way.fragment.cpp"
+    }
+}
+
+namespace yes_percent {
+    int test_count;
+    void main() {
+#include "./yes-percent.fragment.cpp"
+    }
+}
+
+namespace get_opt_ {
+    int test_count;
+#include "./get-opt.fragment.cpp"
+}
+
 namespace random_array_v1 {
     int n, min_a, max_a;
 #include "./random-array-v1.fragment.cpp"
