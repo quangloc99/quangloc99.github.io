@@ -5,8 +5,8 @@ date: 2022-03-09 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
 customhighlight:
   dir: _embed-contents/2022-02-19-test-generation-guide
+  wrap: true
 old_image_dir: /assets/2022-02-19-test-generation-guide
-wrapCode: true
 useMathjax: true
 image_dir: /assets/2022-03-09-polygon-codeforces-tutorial
 toc: 
