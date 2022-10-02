@@ -129,12 +129,22 @@ Hãy in ra $n$ số. Số thứ $i$ là phần tử $a_j$ sao cho $\lvert a_i - 
 lớn nhất.
 
 Bài toán này được chọn vì:
-- Bài này có hai lời giải, một lời giải dễ nhưng chậm, và lời giải nhanh hơn
-  nhưng cũng không quá khó.
+- Bài này có hai lời giải, cả lời giải nhanh và chậm đề dễ hiểu và dễ cài đặt.
 - Input của bài là một dãy số.
 - Output của bài cũng là một dãy số.
 - Bài toán có nhiều output.
 
+### Solution cho bài toán.
+#### Solution chậm
+Với mỗi một phần tử trong mảng, ta có thể tìm đáp án sử dụng một vòng lặp. Như
+vậy độ phức tạp cho solution sẽ là $O(n^2)$.
+
+{% include customhighlight.html caption="Code cho lời giải chậm"
+  dir=page.prepdir
+  file="slow-solution-example.cpp"
+  ext="cpp"
+  collapse="true"
+%}
 
 
 [cppreference-mt19937]: https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
