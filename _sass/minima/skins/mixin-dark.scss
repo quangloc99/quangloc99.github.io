@@ -1,10 +1,10 @@
 @charset "utf-8";
 
 @mixin dark-skin {
-    $dark-brand-color:           #aaaaaa !default;
+    $dark-brand-color:           #cccccc !default;
     // $dark-background-color:      #181818 !default;
     $dark-background-color:      #333644 !default;
-    $dark-text-color:            #dddddd !default;
+    $dark-text-color:            #ffffff !default;
     $dark-link-base-color:       #79b8ff !default;
 
     --skin-brand-color:           #{$dark-brand-color};
