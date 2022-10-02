@@ -1,3 +1,4 @@
+{%- unless page.utterances.disable -%}
 {% if jekyll.environment == "production" %}
 <script src="https://utteranc.es/client.js"
         repo="quangloc99/quangloc99.github.io"
@@ -7,6 +8,7 @@
         async>
 </script>
 {% endif %}
+{%- endunless -%}
 
 {% comment %}
 vim: filetype=liquid

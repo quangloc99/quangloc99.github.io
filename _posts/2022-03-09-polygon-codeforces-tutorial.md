@@ -7,7 +7,7 @@ customhighlight:
   dir: _embed-contents/2022-02-19-test-generation-guide
   wrap: true
 old_image_dir: /assets/2022-02-19-test-generation-guide
-useMathjax: true
+mathjax: true
 image_dir: /assets/2022-03-09-polygon-codeforces-tutorial
 toc: 
   use: true

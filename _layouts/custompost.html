@@ -4,19 +4,11 @@ vim: filetype=liquid
 ---
 
 {% assign GLOBAL_INCLUDED = "" %}
-
-{%- if page.useMathjax -%}
 {% include mathjax.html %}
-{%- endif -%}
 
 {{ content }}
 
 <div id="end-of-content"></div>
-{%- if page.toc.use -%}
 {% include toc.html %}
-{%- endif -%}
-
-{%- unless page.disable_utterances -%}
 {% include utterances.html %}
-{%- endunless -%}
 
