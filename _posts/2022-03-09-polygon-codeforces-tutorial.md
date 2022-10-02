@@ -9,8 +9,7 @@ customhighlight:
 old_image_dir: /assets/2022-02-19-test-generation-guide
 mathjax: true
 image_dir: /assets/2022-03-09-polygon-codeforces-tutorial
-toc: 
-  use: true
+toc:
   upper_header_level: 3
 ---
 
