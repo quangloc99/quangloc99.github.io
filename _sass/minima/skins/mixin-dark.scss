@@ -1,10 +1,10 @@
 @charset "utf-8";
 
 @mixin dark-skin {
-    $dark-brand-color:           #999999 !default;
+    $dark-brand-color:           #aaaaaa !default;
     // $dark-background-color:      #181818 !default;
-    $dark-background-color:      #232323 !default;
-    $dark-text-color:            #bbbbbb !default;
+    $dark-background-color:      #333644 !default;
+    $dark-text-color:            #dddddd !default;
     $dark-link-base-color:       #79b8ff !default;
 
     --skin-brand-color:           #{$dark-brand-color};
@@ -15,7 +15,7 @@
 
     --skin-text-color:            #{$dark-text-color};
     --skin-background-color:      #{$dark-background-color};
-    --skin-code-background-color: #212121;
+    --skin-code-background-color: #{darken($dark-background-color, 5%)};
 
     --skin-link-base-color:       #{$dark-link-base-color};
     --skin-link-visited-color:    #{$link-base-color};
