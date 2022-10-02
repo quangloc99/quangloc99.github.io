@@ -3,7 +3,8 @@ layout: custompost
 title: "Polygon.Codeforces Tutorial - A Guide to Problem Preparation [Part 1]"
 date: 2022-03-09 00:00:00 +0300
 tags: [en, polygon, codeforces, testlib, cp]
-prepdir: _embed-contents/2022-02-19-test-generation-guide
+customhighlight:
+  dir: _embed-contents/2022-02-19-test-generation-guide
 old_image_dir: /assets/2022-02-19-test-generation-guide
 wrapCode: true
 useMathjax: true
@@ -621,7 +622,7 @@ But now let's write the validator first.
 
 ### The validator's implementation
 
-{%include customhighlight.html dir=page.prepdir file="validator.cpp"
+{%include customhighlight.html  file="validator.cpp"
   caption="validator.cpp"
 %}
 
@@ -684,13 +685,13 @@ validator tests instead of one, separated by 3 equal signs (`===`).
 
 Here are the tests.
 
-{% include customhighlight.html caption="Inputs" dir=page.prepdir
+{% include customhighlight.html caption="Inputs" 
   file="validation-test.txt" collapsed=true %}
 
 {: .notes }
 The last line has an extra line break.
   
-{% include customhighlight.html caption="Verdicts" dir=page.prepdir
+{% include customhighlight.html caption="Verdicts" 
   file="validation-test-verdicts.txt" collapsed=true %}
   
 For each of the `inf.read*` and `ensuref` function calls, I add two tests for it
@@ -824,7 +825,7 @@ That's being said, the `readAns` paradigm **should always be used** when
 creating a custom checker to reduce the risk of errors.
 
 #### The checker's implementation
-{% include customhighlight.html caption="checker.cpp" dir=page.prepdir 
+{% include customhighlight.html caption="checker.cpp"  
 file="checker.cpp" %}
 {% comment %}
 {: .notes }
@@ -933,11 +934,11 @@ Here is the full solution, quoted from the editorial.
 Because it is very short, here are the solutions in Python and C++.
 
 {% include customhighlight.html caption="py_solution.py"
-  dir=page.prepdir file="solution.py" collapsed=true
+  file="solution.py" collapsed=true
 %}
 
 {% include customhighlight.html caption="solution.cpp"
-  dir=page.prepdir file="solution.cpp" collapsed=true
+  file="solution.cpp" collapsed=true
 %}
 
 ### Adding the solutions to Polygon
@@ -1039,7 +1040,7 @@ recursion, but to make it a little faster, we can also use _memorization_ --
 that is, storing all visited states.
 
 {% include customhighlight.html caption="brute-force.cpp"
-  dir=page.prepdir file="brute-force.cpp" collapsed=true
+  file="brute-force.cpp" collapsed=true
 %}
 
 We add this solution to Polygon the same was as in the previous section, but we
@@ -1126,7 +1127,7 @@ both the _shape_ of the test, as well as the random seed!
 #### The first generator's implementation
 
 {% include customhighlight.html caption="gen-totally-random.cpp"
-  dir=page.prepdir file="gen-totally-random.cpp"
+  file="gen-totally-random.cpp"
 %}
 
 This generator accepts 4 arguments/options:
@@ -1159,7 +1160,7 @@ Let's run it locally to generate a test with 5 test cases, the sum of length is
 20, and the value range is from 1 to 5.
 
 {% include customhighlight.html caption="gen-totally-random example"
-  dir=page.prepdir file="out/gen-totally-random-example.sh.out" ext="sh"
+  file="out/gen-totally-random-example.sh.out" ext="sh"
 %}
 
 It is looking good. Let's add it to Polygon, via the `Files` page.
@@ -1278,7 +1279,7 @@ are `YES`, and how many are `NO`.
 Here is the generator with the above idea.
 
 {%include customhighlight.html caption="gen-v1.cpp"
-  dir=page.prepdir file="gen-v1.cpp"
+  file="gen-v1.cpp"
 %}
 
 In this current version, all the `YES` tests are at the beginning, while all the
@@ -1288,7 +1289,7 @@ future version of the generator, but let's keep this for now.
 
 Let's run it
 {%include customhighlight.html caption="gen-v1 example"
-  dir=page.prepdir file="out/gen-v1-example.sh.out" ext="sh"
+  file="out/gen-v1-example.sh.out" ext="sh"
 %}
 
 Here the first two tests are `YES` and the rest are `NO`. I purposely choose a
