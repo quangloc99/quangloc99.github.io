@@ -25,8 +25,7 @@ customhighlight-{%-increment customhighlightCounter -%}
     {%- endif -%}
 {%- endcapture -%}
  
-
-```{{include.ext}}
+```{{include.ext | default: (include.file | split: '.' | last | default: "") }}
 {{ content }}
 ```
 {: #{{customhighlight_id}}
@@ -34,7 +33,7 @@ customhighlight-{%-increment customhighlightCounter -%}
   {%- if include.wrap -%}
     .wrap-code
   {%- endif -%}
-{%- elsif page.wrapCode -%}
+{%- elsif page.customhighlight.wrap -%}
   .wrap-code
 {%- endif -%}
 }

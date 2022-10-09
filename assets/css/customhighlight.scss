@@ -6,13 +6,14 @@
 
 .collapse-label.highlight {
   display: block;
-  filter: invert(1);
+  background: var(--skin-text-color);
+  color: var(--skin-background-color);
   margin-bottom: 0;
   border-radius: 0px;
   display: block;
   font-weight: bold;
   padding-left: 1em;
-  border: 1px solid $border-color-01;
+  border: 1px solid var(--skin-border-color-02);
   > label {
     font-family: $code-font-family;
     display: block;
