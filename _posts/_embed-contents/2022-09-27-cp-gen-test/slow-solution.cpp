@@ -12,7 +12,7 @@ int main() {
     for (auto value: a) {
         int ans = value;
         for (auto other: a) {
-            if (abs(ans - value) < abs(ans - other)) {
+            if (abs(ans - value) < abs(value - other)) {
                 ans = other;
             }
         }

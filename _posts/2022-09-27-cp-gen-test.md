@@ -31,6 +31,22 @@ Draft layout
 * Bonus: stupid validator?
 {% endcomment %}
 
+<style>
+.template-rating {
+  font-weight: bold;
+}
+
+.template-rating.bad {
+  color: red;
+}
+
+.template-rating.good {
+  color: #11cc11;
+}
+</style>
+
+
+
 Môn lập trình thi đấu (competitive programming - CP) quả là một môn thi đấu khá
 đặc biệt so với các bộ môn olympic khác. Người thi CP bình thường được cấp một
 công cụ rất rất mạnh trong quá trình làm bài, đó là chiếc máy tính...
@@ -160,13 +176,14 @@ Bài toán này được chọn vì:
 - Output của bài cũng là một dãy số.
 - Bài toán có nhiều output.
 
-### Solution cho bài toán
+### Solution cho bài toán   {#solutions}
+
 #### Solution _chậm_
 Với mỗi một phần tử trong mảng, ta có thể tìm đáp án sử dụng một vòng lặp. Như
 vậy độ phức tạp cho solution sẽ là $O(n^2)$.
 
-{% include customhighlight.html caption="Code cho lời giải chậm"
-  file="slow-solution-example.cpp"
+{% include customhighlight.html caption="[slow-solution.cpp] Code cho lời giải chậm"
+  file="slow-solution.cpp"
   ext="cpp"
   collapsed=true
 %}
@@ -176,16 +193,99 @@ Nhận thấy rằng, giá trị _xa_ một phần tử nhất chỉ có thể l
 hoặc lớn nhất trong mảng, nên ta có thể tìm hai giá trị này trước, và việc tìm
 đáp án cho mỗi phần tử lúc này sẽ là $O(1)$.
 
-{% include customhighlight.html caption="Code cho lời giải nhanh"
-  file="fast-solution-example.cpp"
+{% include customhighlight.html caption="[fast-solution.cpp] Code cho lời giải nhanh"
+  file="fast-solution.cpp"
   collapsed=true
 %}
 
 ## Template sinh test 1: chuẩn bị thêm 1-2 chương trình
+Mình muốn đề cập đến template này đầu tiên do template này thật ra khá phổ biến
+(trên internet). [VNOI wiki][vnoi-wiki] có [một bài viết][vnoi-wiki-stress-test]
+sử dụng template này. Trên [Codeforces] cũng có một vài bài viết về việc stress
+test, và [bài của <span class="cf-user
+grandmaster">-is-this-fft-</span>][codeforces-is-this-fft-cli-tutorial] là bài
+viết giới thiệu với command line, với mục stress test rất đầy đủ.
 
+Trên thực tế, việc chuẩn bị một bài toán tin cũng cần chia ra nhiều chương trình.
+Nếu như bạn sử dụng một hệ thông chuẩn bị bài như [Polygon] thì đây là điều cần
+thiết (psss, check bài [Polygon tutorial][polygon-tutorial] của mình nhé)
+
+Trong hai bài viết trên có đề cập đến việc sử dụng command line và shell script.
+Tuy nhiên mình sẽ sử dụng C++. Theo mình C++ sẽ thân thiện hơn, vì dù gì chúng
+ta cũng sẽ sử dụng C++.
+### Triển khai
+
+#### Solution
+Ta có thể sử dụng hai chương trình như đã đề cập ở mục <a
+href="#solutions">solutions</a>. 
+
+#### Trình sinh test (generator) và kiểm tra (checker)
+Với mục đích thi đấu, ta có thể gộp hai chương trình này vào một. Chương trình
+có thể sinh test ra một file, gọi hai file solution, và đọc output của chúng vào
+để kiểm tra.
+
+{% include customhighlight.html
+  caption="[template1.cpp] Trình sinh test, chạy solution và kiểm tra"
+  file="template-1-gen-and-check.cpp"
+%}
+
+
+Đầu tiên là hàm `gentest`. Hàm này nhận vào một
+[`ostream&`][cppreference-ostream]. Làm như vậy ta có thể in ra bất cứ `ostream`
+nào mà ta muốn. Như trong hàm `main`, `gentest` được gọi để in ra file có tên là
+`main.inp`, tuy nhiên ta có thể in ra bất cứ file nào ta muốn, thậm chí có thể
+truyền `cout` vào.
+
+Hàm `read_ans` nhận `istream&` cũng với lý do tương tự, là để đọc output từ
+nhiều chương trình khác nhau (ở đây là `slow.out` và `fast.out`). Hàm này sẽ đọc
+output và _chuẩn hóa_ nó để dễ kiểm tra so sánh hơn. Ở đây output đã được biến
+đổi về khoảng cách của phần tử đến đáp án. Nếu như khoảng cách cho bởi output
+của 2 solutions là khớp nhau, ta có thể coi như 2 solutions đều chạy đúng. Điều
+này được thực hiện ở hàm `check`.
+
+Nếu bạn để ý, ở toàn cục có một `set<int> values`. Đây là `set` lưu giá trị của
+mảng `a`. `set` này là cần thiết để kiểm tra xem output có cho ra một số **đã
+cho bởi input** hay không, và câu lệnh kiểm tra chính là câu lệnh
+[`assert`][cppreference-assert] trong `read_ans`.
+
+Ở trong hàm `main` có chạy qua $1000$ tests. Mỗi test đầu tiên sẽ được sinh ra
+qua việc gọi hàm `gen_test`, sau đó là 2 solutions sẽ được gọi với hàm
+`system()`, đồng thời cũng kiểm tra xem hai chương trình có bị lỗi runtime
+không. Cuối cùng là output của hai chương trình sẽ được so sánh bằng hàm
+`check`. Nếu như mọi thứ OK hết, vậy `OK` sẽ được in ra. Khi gọi chương trình
+này, khi cửa sổ dòng lệnh in ra một loạt dòng `OK` cho đến khi kết thúc, điều đó
+có nghĩa là hai solutions đều cho ra đúng kết quả với tất cả các test được sinh
+ra!
+
+### Chạy template
+Các file `slow-solution.cpp`, `fast-solution.cpp` và `template1.cpp` cần được
+dịch ra thành các file chạy `slow-solution`, `fast-solution` và `template1` (lưu
+ý là tên file sẽ có đuôi `exe` nếu ban dùng Windows), đặt chúng cùng một thư
+mục. Cuối cùng bạn cần chạy file `template1`.
+
+### Tiêu chí template
+- **Kiến thức cần biết thêm**: <span class="template-rating bad">nhiều</span>.
+  Cho dù chúng ta sẽ không sử dụng command line, kiến thức về command line, hay
+  biết thêm về IDE cũng cần thiết cho việc setup để sử dụng template này. Một số
+  kiến thức khác như nhập xuất với file cũng cần thiết, dù chúng không đống góp
+  cho quá trình giải bài.
+- **Công chuẩn bị**: <span class="template-rating bad">nhiều</span>, Vì ta cần
+  viết thêm chương trình, và setup thêm IDE.
+- **Kiểm tra được nhập xuát**: <span class="template-rating good">có</span>, do
+  solution sẽ được gọi lại sau mỗi test.
+- **Reset bộ nhớ toàn cục**: <span class="template-rating good">có</span>, cũng
+  với lý do trên.
 
 
 [cppreference-mt19937]: https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
 [cppreference-rand]: https://en.cppreference.com/w/c/numeric/random/rand
 [codeforces-dont-use-rand]: https://codeforces.com/blog/entry/61587
 [cppreference-system]: https://en.cppreference.com/w/cpp/utility/program/system
+[vnoi-wiki]: https://vnoi.info/wiki/
+[vnoi-wiki-stress-test]: https://vnoi.info/wiki/algo/skill/viet-trinh-cham
+[Codeforces]: https://codeforces.com
+[codeforces-is-this-fft-cli-tutorial]: https://codeforces.com/blog/entry/102287
+[Polygon]: https://polygon.codeforces.com/
+[polygon-tutorial]: {% post_url 2022-03-09-polygon-codeforces-tutorial %}
+[cppreference-ostream]: https://en.cppreference.com/w/cpp/io/basic_ostream
+[cppreference-assert]: https://en.cppreference.com/w/cpp/error/assert
