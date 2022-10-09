@@ -2,9 +2,10 @@
 layout: custompost
 title: "Sinh test (?)"
 date: 2022-09-27 10:00:00 +0700
-prepdir: _embed-contents/2022-09-27-cp-gen-test
+customhighlight:
+  dir: _embed-contents/2022-09-27-cp-gen-test
 image_dir: /assets/2022-09-27-cp-gen-test
-useMathjax: true
+mathjax: true
 toc:
   use: true
 ---
@@ -49,7 +50,6 @@ Nói đến C++11, không thể không nói đến công cụ mới nhất đư�
 giản:
 
 {% include customhighlight.html caption="Ví dụ cho mt19937 và mt19937_64"
-  dir=page.prepdir
   file="mt19937-examples.fragment.cpp"
   ext="cpp"
 %}
@@ -72,7 +72,6 @@ quên bỏ đi phần code mà bạn dùng để sinh test, như vậy điểm c
 Macro có thể được định nghĩa và kiểm tra như sau trong một chương trình C++.
 
 {% include customhighlight.html caption="Ví dụ định nghĩa và kiểm tra macro"
-  dir=page.prepdir
   file="macro-example.fragment.cpp"
   ext="cpp"
 %}
@@ -105,7 +104,6 @@ nhiên đây là hàm rất đơn giản và mạnh mẽ nếu như ta muốn s�
 trình cùng lúc.
 
 {% include customhighlight.html caption="Ví dụ sử dụng hàm `system`"
-  dir=page.prepdir
   file="system-example.fragment.cpp"
   ext="cpp"
 %}
@@ -134,16 +132,25 @@ Bài toán này được chọn vì:
 - Output của bài cũng là một dãy số.
 - Bài toán có nhiều output.
 
-### Solution cho bài toán.
-#### Solution chậm
+### Solution cho bài toán
+#### Solution _chậm_
 Với mỗi một phần tử trong mảng, ta có thể tìm đáp án sử dụng một vòng lặp. Như
 vậy độ phức tạp cho solution sẽ là $O(n^2)$.
 
 {% include customhighlight.html caption="Code cho lời giải chậm"
-  dir=page.prepdir
   file="slow-solution-example.cpp"
   ext="cpp"
-  collapse="true"
+  collapsed=true
+%}
+
+#### Solution _nhanh_
+Nhận thấy rằng, giá trị _xa_ một phần tử nhất chỉ có thể là giá trị nhỏ nhất
+hoặc lớn nhất trong mảng, nên ta có thể tìm hai giá trị này trước, và việc tìm
+đáp án cho mỗi phần tử lúc này sẽ là $O(1)$.
+
+{% include customhighlight.html caption="Code cho lời giải nhanh"
+  file="fast-solution-example.cpp"
+  collapsed=true
 %}
 
 
