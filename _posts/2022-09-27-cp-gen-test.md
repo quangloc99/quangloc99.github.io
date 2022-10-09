@@ -18,6 +18,7 @@ Draft layout
 + rand
 - `system`
 - macros
+* Template rating criteria
 * Simple stupid problem
 * 2/3 programs templates
 * Single program 
@@ -108,6 +109,33 @@ trình cùng lúc.
   ext="cpp"
 %}
 
+## Tiêu chí đánh giá template
+Blog này có xét nhiều template cho việc stress test. Tất nhiên các template sẽ
+khác nhau, do đó chúng có các điểm mạnh và yếu khác nhau. Để xem xét được những
+điểm mạnh yếu của một template, mình sẽ xét một vài tiêu chí sau:
+
+- **Kiến thức cần biết thêm**. Một số template yêu cầu người sử dụng phải
+  biết thêm những kiến thức khác ngoài kiến thức cần biết cho lập trình thi đấu.
+  Như vậy template đòi hỏi nhiều kiến thức bên ngoài cũng sẽ gây khó khăn cho
+  những bạn mới học.
+
+- **Công chuẩn bị**. Một số template có nhiều công chuẩn bị hơn template khác, cụ
+  thể là ở việc người sử dụng template cần thiết phải tạo thêm file, cần phải
+  setup trình dịch/IDE để có thể dịch thêm file. Nếu công chuẩn bị chiếm nhiều
+  thời gian, nó có thể ảnh hưởng đến quá trình làm bài trong kì thi. Tuy nhiên
+  template có thể đem lại nhiều lợi thế hơn template khác.
+
+- **Kiểm tra nhập xuất**. Một số template không kiểm tra phần nhập xuất của
+  chương trình. Và nhiều khi bug có thể nằm ở chính phần nhập xuất (đọc
+  thiếu/thừa dữ liệu).
+  
+- **Reset bộ nhớ toàn cục**. Trong CP, bộ nhớ toàn cục hay được sử dụng để chia
+  sẻ dữ liệu với nhiều hàm khác nhau, làm đơn giản hóa việc code. Nhưng một số
+  template sẽ không reset bộ nhớ toàn cục của chương trình. Nếu như trạng thái
+  của bộ nhớ toàn cục không giống như lần đầu chạy (được khởi tạo bởi 0), lần
+  chạy test sau sẽ có thể không cho ra đúng kết quả. Do đó người dùng template
+  như vậy cần phải tự reset bộ nhớ sau mỗi test.
+
 ## Bài toán ví dụ
 Để mô phỏng quá trình sinh test, ta sẽ cùng nhau giải một bài toán cơ bản sau:
 
@@ -152,6 +180,9 @@ hoặc lớn nhất trong mảng, nên ta có thể tìm hai giá trị này tr�
   file="fast-solution-example.cpp"
   collapsed=true
 %}
+
+## Template sinh test 1: chuẩn bị thêm 1-2 chương trình
+
 
 
 [cppreference-mt19937]: https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
