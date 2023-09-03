@@ -5,8 +5,6 @@ export const postDateFormatter = Intl.DateTimeFormat('en-GB', {
 });
 
 export function formatPostDate(date: Date | string) {
-    console.log(date);
     if (typeof date == 'string') date = new Date(date);
-    console.log(date);
     return postDateFormatter.format(date);
 }

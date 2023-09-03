@@ -12,6 +12,9 @@ Might be about math. Might be about art. Who knows?`,
     },
 
     themeConfig: {
-        // theme-level options
+        aside: 'left',
+        outline: {
+            level: [2, 3]
+        }
     },
 });
