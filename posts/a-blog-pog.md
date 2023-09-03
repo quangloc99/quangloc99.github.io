@@ -10,6 +10,8 @@ a blog is a appropriate place just for thought dumping. Also I actually wanted t
 for a while now, but I don't have time. Now it is summer, and I have time, so I wanted to try
 this out.
 
+<!-- more -->
+
 What will I write about tho? Now I'm actually known for doing competitive programming (CP). But
 I might not write about it thought. There are actually a great amount of quality posts just about
 CP, and writing about those are just repetitive thing to do. This blog is just a plain personal

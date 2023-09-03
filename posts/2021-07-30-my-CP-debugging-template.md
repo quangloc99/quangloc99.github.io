@@ -19,6 +19,8 @@ output][how-to-debug-with-color]. But some people prefer a simpler approach,
 and nearly requires nothing, like [Um_nik][Um_nik-codeforces-profile] with [his
 printf to stderr][Um_nik-debugging-template].
 
+<!-- more -->
+
 I also have my debugging template. But why would I created a new template, when
 I can just use a very comprehensive like tourist, a also comprehensive but
 ~~ugly~~ short like Erricto, or just writing things out like Um_nik? Well, I

@@ -19,6 +19,8 @@ to celebrate_ and _a way to mark my achievement_. And besides, this blog site is
 post I will want to talk about... things, randomly, so don't expect something
 too crazy (like how to become red).
 
+<!-- more -->
+
 Maybe I'll start telling you how yesterday went, or maybe before that. Well
 yesterday (Thursday, September 30Th), I had 2 classes at the university, which
 started at 13:30 and 15:20 (Moscow time). And the contest yesterday was

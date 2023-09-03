@@ -1,8 +1,12 @@
-# a
+---
+outline: false
+sidebar: false
+aside: false
+---
 
-## b
+<script lang="ts" setup>
 
-```ts
-console.log('xyz');
-```
+</script>
+
+<Posts />
 

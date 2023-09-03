@@ -1,0 +1,5 @@
+{
+  "volar.takeOverMode.enabled": true,
+  "tsserver.enable": false,
+  "vue.server.vitePress.supportMdFile": true
+}
