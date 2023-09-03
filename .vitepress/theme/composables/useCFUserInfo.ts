@@ -43,13 +43,13 @@ export function useCFUserInfo(userHandle: MaybeRefOrGetter<string>) {
         userInfo.value = null;
         error.value = null;
         try {
-            const res: CFResponse<CFUserInfo> = await fetch(
+            const res: CFResponse<CFUserInfo[]> = await fetch(
                 `https://codeforces.com/api/user.info?handles=${toValue(userHandle)}`
             ).then((res) => res.json());
             if (res.status === 'FAILED') {
                 throw new Error(`CFResponse error: ${res.comment}`);
             } else {
-                userInfo.value = res.result;
+                userInfo.value = res.result[0];
             }
         } catch (e: unknown) {
             error.value = e as Error;

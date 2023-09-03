@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import { computed, CSSProperties } from 'vue';
+    import { computed } from 'vue';
     import { useCFUserInfo, CFRank } from '../composables/useCFUserInfo';
     const props = defineProps<{
         nickname: string;
@@ -11,19 +11,34 @@
         if (props.rank) return props.rank;
 
         const { userInfo, error } = useCFUserInfo(props.nickname);
-        return computed(() =>
-            error ? undefined : props.displayMaxRank ? userInfo.value.maxRank : userInfo.value.rank
-        );
+        return computed(() => {
+            if (error.value) {
+                console.error(error.value);
+                return undefined;
+            }
+            console.log(userInfo);
+            return props.displayMaxRank ? userInfo.value?.maxRank : userInfo.value?.rank;
+        });
     }
 
     const rank = useRank();
 </script>
 
 <template>
-    <span class="cf-handle" :class="rank?.replace(' ', '-') ?? ''">{{ props.nickname }}</span>
+    <a
+        class="cf-handle"
+        :class="rank?.replace(' ', '-') ?? ''"
+        :href="`https://codeforces.com/profile/${props.nickname}`"
+        target="_blank"
+        >{{ props.nickname }}</a
+    >
 </template>
 
 <style>
+    .cf-handle {
+        font-weight: 500;
+        display: inline-block;
+    }
     .cf-handle.newbie {
         color: gray;
     }
@@ -59,13 +74,12 @@
     }
     .cf-handle.headquater {
         color: black;
-        font-weight: 800;
     }
-    
-    .dark .cf-handle.cf-handle.legendary-grandmaster::first-letter {
+
+    .dark .cf-handle.legendary-grandmaster::first-letter {
         color: white;
     }
-    
+
     .dark .cf-handle.headquater {
         color: white;
     }
