@@ -1,36 +1,39 @@
 <script lang="ts" setup>
-    import { computed } from 'vue';
+    import { computed, toRefs } from 'vue';
     import { useCFUserInfo, CFRank } from '../composables/useCFUserInfo';
-    const props = defineProps<{
-        nickname: string;
-        rank?: CFRank;
-        displayMaxRank?: boolean;
-    }>();
+    const props = 
+        defineProps<{
+            nickname: string;
+            rank?: CFRank;
+            displayMaxRank?: boolean;
+        }>();
+    
+    const { nickname, rank, displayMaxRank } = toRefs(props);
 
     function useRank() {
-        if (props.rank) return props.rank;
+        if (rank.value) return rank;
 
-        const { userInfo, error } = useCFUserInfo(props.nickname);
+        const { userInfo, error } = useCFUserInfo(nickname);
         return computed(() => {
             if (error.value) {
                 console.error(error.value);
                 return undefined;
             }
             console.log(userInfo);
-            return props.displayMaxRank ? userInfo.value?.maxRank : userInfo.value?.rank;
+            return displayMaxRank ? userInfo.value?.maxRank : userInfo.value?.rank;
         });
     }
 
-    const rank = useRank();
+    const computedRank = useRank();
 </script>
 
 <template>
     <a
         class="cf-handle"
-        :class="rank?.replace(' ', '-') ?? ''"
-        :href="`https://codeforces.com/profile/${props.nickname}`"
+        :class="computedRank?.replace(' ', '-') ?? ''"
+        :href="`https://codeforces.com/profile/${nickname}`"
         target="_blank"
-        >{{ props.nickname }}</a
+        >{{ nickname }}</a
     >
 </template>
 
