@@ -1762,8 +1762,6 @@ being added, even during the writing process of this post.
 
 And thank you for reading this post!
 
-<cf-handle nickname="darkkcyan" />
-
 [contest-invitation]: https://codeforces.com/contestInvitation/0b42bfbee9fb4479e24492e688458a1bfa30c835
 [Polygon]: https://polygon.codeforces.com/
 [Version control]: https://en.wikipedia.org/wiki/Version_control

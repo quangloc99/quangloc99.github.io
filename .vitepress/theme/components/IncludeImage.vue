@@ -6,7 +6,7 @@
         alt?: string;
         src?: string;
         file?: string;
-        width?: number;
+        width?: string;
     }>();
     const { frontmatter } = useData();
 

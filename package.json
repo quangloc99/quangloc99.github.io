@@ -14,5 +14,8 @@
         "blog:dev": "vitepress dev .",
         "blog:build": "vitepress build .",
         "blog:preview": "vitepress preview ."
+    },
+    "dependencies": {
+        "markdown-it-mathjax3": "^4.3.2"
     }
 }

@@ -1,0 +1,9 @@
+/* https://github.com/brc-dd/vitepress-mathjax3/blob/main/.vitepress/theme/styles/mathjax3.css */
+mjx-container {
+    display: inline-block;
+    margin: auto 2px -2px;
+}
+
+mjx-container > svg {
+    margin: auto;
+}
