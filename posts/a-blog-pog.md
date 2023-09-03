@@ -1,7 +1,9 @@
 ---
-# layout: custompost
+layout: blog-post
 title: "A blog? Pog!"
-date: 2021-07-26 11:25:00 +0300
+date: '2021-07-26T11:25:00+03:00'
+aside: false
+sidebar: false
 ---
 
 Yay I created a blog! But that's actually might be it for now. I sometimes wanted to write, but
