@@ -1,0 +1,15 @@
+{
+    "name": "quangloc99.github.io",
+    "packageManager": "yarn@3.6.3",
+    "type": "module",
+    "devDependencies": {
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2",
+        "vitepress": "^1.0.0-rc.10"
+    },
+    "scripts": {
+        "blog:dev": "vitepress dev .",
+        "blog:build": "vitepress build .",
+        "blog:preview": "vitepress preview ."
+    }
+}

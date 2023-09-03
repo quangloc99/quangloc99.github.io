@@ -1,5 +1,5 @@
 ---
-layout: custompost
+# layout: custompost
 title: "A blog? Pog!"
 date: 2021-07-26 11:25:00 +0300
 ---
@@ -24,7 +24,7 @@ that writing just this post in both languages is tiresome. But if things are get
 
 That's it for now.
 
-```c++
+```cpp
 #include <iostream>
 int main() {
     std::cout << "Bye" << std::endl;
