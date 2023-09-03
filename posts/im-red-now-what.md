@@ -1,9 +1,22 @@
 ---
-layout: custompost
+layout: blog-post
 title: "I'm red! Now what?"
-date: 2021-10-01 11:44:00 +0300
+date: '2021-10-01T11:44:00+03:00'
 tags: [en, thought, random]
+aside: false
 ---
+
+<style scope>
+.image-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+}
+</style>
 
 Recently [I][darkkcyan profile] just became a [Grandmaster][Codeforces rating
 interpretation](GM) on [Codeforces] (for one who does not know, this is
@@ -55,10 +68,10 @@ Anyway, I made my breakfast, while texting with mom :). Here is my cooking
 process tho (these are images I sent mom but I find that it is still suitable
 for this post)
 
-<div style="text-align: center">
-    <img alt="breakfast preparation 1" src="/assets/2021-10-01-im-red-now-what/breakfast-1.jpg" width=200 />
-    <img alt="breakfast preparation 2" src="/assets/2021-10-01-im-red-now-what/breakfast-2.jpg" width=200 />
-    <img alt="the breakfast" src="/assets/2021-10-01-im-red-now-what/breakfast-3.jpg" width=200 />
+<div class="image-container">
+<img alt="breakfast preparation 1" src="/assets/2021-10-01-im-red-now-what/breakfast-1.jpg" width=200 />
+<img alt="breakfast preparation 2" src="/assets/2021-10-01-im-red-now-what/breakfast-2.jpg" width=200 />
+<img alt="the breakfast" src="/assets/2021-10-01-im-red-now-what/breakfast-3.jpg" width=200 />
 </div>
 
 After having breakfast (which is about 10 AM btw, because of my unhealthy
@@ -92,14 +105,13 @@ listen to most of the lectures tho, even I was more focused on chatting and the
 lecture was in Russian :). And I went straight home after the lecture, enjoying
 the autumn.
 
-<div style="text-align: center">
-    <img alt="autumn tree" src="/assets/2021-10-01-im-red-now-what/autumn-tree.jpg" width=200 />
-    
-    <p>
-    I'm sorry that this is not the best example I can find. But it is most
-    yellow one on my way to my dormitory. And it was almost night around this
-    time.
-    </p>
+<div class="image-container">
+<img alt="autumn tree" src="/assets/2021-10-01-im-red-now-what/autumn-tree.jpg" width=200 />
+<p>
+I'm sorry that this is not the best example I can find. But it is most
+yellow one on my way to my dormitory. And it was almost night around this
+time.
+</p>
 </div>
 
 I think that should be the end of the story. In the evening of yesterday, I don't
@@ -107,13 +119,13 @@ really do anything special tho, besides preparing for today's lab's protection. 
 did not celebrate either. Well, today I thought that I should have done something,
 so I just order pizza for myself (I more or less was lazy to cook).
 
-<div style="text-align: center">
-    <img alt="pizza" src="/assets/2021-10-01-im-red-now-what/pizza.jpg" width=200 />
-    <img alt="chicken and onion rings" src="/assets/2021-10-01-im-red-now-what/chickens-and-onion-rings.jpg" width=200 />
-    
-    <p>
-    The left is pizza and the right are checkens and some onion rings.
-    </p>
+<div class="image-container">
+<img alt="pizza" src="/assets/2021-10-01-im-red-now-what/pizza.jpg" width=200 />
+<img alt="chicken and onion rings" src="/assets/2021-10-01-im-red-now-what/chickens-and-onion-rings.jpg" width=200 />
+
+<p>
+The left is pizza and the right are chickens and some onion rings.
+</p>
 </div>
 
 Maybe enough for the story. Now should be the time for the title's question.
@@ -144,7 +156,7 @@ Thanks again for reading my blog!
 
 ##### Side note
 Why the language is English? Should the casual stuff be in Vietnamese like I
-said in the [first post]({{ '2021/07/26/a-blog-pog!.html' | relative_url }})? For
+said in the [first post](./a-blog-pog.md)? For
 some reason, I still like writing stuff in English. My mind now is partially
 thinking in English. And another reason that this blog _should_ be important. I
 want this blog to be as deliverable to many people as it can. And there you have
@@ -165,6 +177,4 @@ so.
 [Codeforces round #745 downvotes]: https://codeforces.com/blog/entry/95478
 [Grammarly]: https://app.grammarly.com/
 
-{% comment %}
-vim: tw=80 ai nocin spell
-{% endcomment %}
+<!-- vim: tw=80 ai nocin spell -->

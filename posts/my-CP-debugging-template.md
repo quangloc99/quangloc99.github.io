@@ -1,7 +1,7 @@
 ---
-layout: custompost
+layout: blog-post
 title: My CP debugging template
-date: 2021-07-30 9:30:00 +0300
+date: '2021-07-30T09:30:00+03:00'
 tags: [en, cp, debugging]
 ---
 Debugging in competitive programming (CP) is hard. But there are several
@@ -34,7 +34,7 @@ should be as simple as possible to type out.
 
 Here is my debugging template (just a part of my CP template).
 
-```c++
+```cpp
 #define print_op(...) ostream& operator<<(ostream& out, const __VA_ARGS__& u)
 // DEBUGING TEMPLETE ////////////////////////////////////////////////////////////////////////
 #define db(val) "["#val" = "<<(val)<<"] "
@@ -100,7 +100,7 @@ Here are some advantages of printing the debug information to `stderr`:
     ./main < input.txt > output.txt 2> debug.log
     ```    
   or just add this line to the beginning of the `main()` function:
-    ```c++
+    ```cpp
     freopen("debug.log", "w", stderr);
     ```
     
@@ -109,7 +109,7 @@ Here are some advantages of printing the debug information to `stderr`:
 
 - And third, if we use a different stream than the `cout`, we can use macro
   to magically remove those debug lines. Check out my template again:
-    ```c++
+    ```cpp
     #ifdef LOCAL_DEBUG   
     #   define clog cerr << flush << setw(__db_level * 2) << setfill(' ') << "" << setw(0)
     //...
@@ -122,7 +122,7 @@ Here are some advantages of printing the debug information to `stderr`:
     If there is **not** a macro named `LOCAL_DEBUG` defined beforehand, there
     will be no debug printing. For example, if we have the following code:
     
-    ```c++
+    ```cpp
     int a, b;
     cin >> a >> b;
     clog << "a = " << a << endl;
@@ -132,7 +132,7 @@ Here are some advantages of printing the debug information to `stderr`:
 
     In case of **no** `LOCAL_DEBUG`, the code is transformed to:
 
-    ```c++
+    ```cpp
     int a, b;
     cin >> a >> b;
     if (0) cerr << "a = " << a << endl;
@@ -152,7 +152,7 @@ Here are some advantages of printing the debug information to `stderr`:
     ```
     
 ### The `db()` macro
-```c++
+```cpp
 #define db(val) "["#val" = "<<(val)<<"] "
 ```
 This is a very basic macro, very fast to write, and yet it is very useful.  Its
@@ -161,7 +161,7 @@ is, what we passed to the macro) and the result of the expression, and wrap
 them around a pair of square brackets.
 
 We can rewrite the above example:
-```c++
+```cpp
 int a, b;
 cin >> a >> b;
 clog << db(a) << db(b) << endl;
@@ -176,7 +176,7 @@ which is great, because we don't have to write the name of the variable before
 actually passing it value to `clog`.
 
 But this is not just variable, but any kind of expression. For example:
-```c++
+```cpp
 clog << db(1) << db(2) << endl;
 clog << db(gcd(6, 8)) << endl;
 clog << db(string(10, '=')) << endl;
@@ -223,7 +223,7 @@ arguments, but they are just very long.
 ### The `debug_block` struct and `DB()` macro.
 This is the one additional feature that I am proud of, and also the core of
 this template. Let’s see the code once again.
-```c++
+```cpp
 #define CONCAT_(x, y) x##y
 #define CONCAT(x, y) CONCAT_(x, y)
 #ifdef LOCAL_DEBUG   
@@ -251,7 +251,7 @@ will be printed. And if there is `k` instance, `2 * k` spaces.
 To use this struct, simply declare a variable of unique name inside a code
 block.  All `clog` statements afterward will be automatically indented by 2.
 Check out this example.
-```c++
+```cpp
 clog << "no indent" << endl;
 debug_block first_db;                   // indent once
 clog << "one indent" << endl;
@@ -301,7 +301,7 @@ What's about the `DB()` macro? It is also used for saving keystrokes:
 instead of naming every instance of struct `debug_block`, it will generate a
 name, based on the line number when the macro is called, and declare an
 instance with that name. So the above example can be changed like following:
-```c++
+```cpp
 clog << "no indent" << endl;
 DB();                               // <-- new here
 clog << "one indent" << endl;
@@ -340,7 +340,7 @@ Unlike Tourist, I only add 3 more basic printing functions, which are for
 existed.
 
 I think demonstration is better in this case:
-```c++
+```cpp
 // simple pair
 pair<int, string> a = {123, "abc"};
 clog << db(a) << endl;
@@ -386,7 +386,7 @@ And the output to `stderr`:
 ```
 
 Let's see the code for the magic that I used ;).
-```c++
+```cpp
 #define print_op(...) ostream& operator<<(ostream& out, const __VA_ARGS__& u)
 // DEBUGING TEMPLETE ////////////////////////////////////////////////////////////////////////
 // ...
@@ -443,7 +443,7 @@ keeping track of the number of the printed fields.
 And finally, because we add more printing functions to a custom type, the
 `print_op` macro will come in handy. For example:
 
-```c++
+```cpp
 // a line with slope form: y = ax + b
 struct Line {
     double a, b;
@@ -488,7 +488,7 @@ height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
 ## Some tips for using this template
 - For print array, instead of just printing out `db(a[i])`, index can also be
 printed:
-    ```c++
+    ```cpp
     clog << db(i) << db(a[i]) << endl;
     ```
 Well, I do have a printing function for `std::vector`, but the above also
@@ -496,7 +496,7 @@ applied for the case where we want to print values that depend on the
 current index.
 - A multiple-dimension array can also be print as above, but if there are a lot
 of them, using `DB()` might help:
-    ```c++
+    ```cpp
     for (int i = 0; i < n; ++i) {
         DB();
         clog << db(i) << endl;
@@ -560,6 +560,4 @@ to just about my template. So yeah, the first post, yay!
 [python-pprint]: https://docs.python.org/3/library/pprint.html
 
 
-{% comment %}
-vim: spell spl=en nocindent autoindent
-{% endcomment %}
+<!-- vim: spell spl=en nocindent autoindent -->
