@@ -69,9 +69,9 @@ process tho (these are images I sent mom but I find that it is still suitable
 for this post)
 
 <div class="image-container">
-<img alt="breakfast preparation 1" src="/assets/2021-10-01-im-red-now-what/breakfast-1.jpg" width=200 />
-<img alt="breakfast preparation 2" src="/assets/2021-10-01-im-red-now-what/breakfast-2.jpg" width=200 />
-<img alt="the breakfast" src="/assets/2021-10-01-im-red-now-what/breakfast-3.jpg" width=200 />
+<img alt="breakfast preparation 1" src="./img/breakfast-1.jpg" width=200 />
+<img alt="breakfast preparation 2" src="./img/breakfast-2.jpg" width=200 />
+<img alt="the breakfast" src="./img/breakfast-3.jpg" width=200 />
 </div>
 
 After having breakfast (which is about 10 AM btw, because of my unhealthy
@@ -106,7 +106,7 @@ lecture was in Russian :). And I went straight home after the lecture, enjoying
 the autumn.
 
 <div class="image-container">
-<img alt="autumn tree" src="/assets/2021-10-01-im-red-now-what/autumn-tree.jpg" width=200 />
+<img alt="autumn tree" src="./img/autumn-tree.jpg" width=200 />
 <p>
 I'm sorry that this is not the best example I can find. But it is most
 yellow one on my way to my dormitory. And it was almost night around this
@@ -120,8 +120,8 @@ did not celebrate either. Well, today I thought that I should have done somethin
 so I just order pizza for myself (I more or less was lazy to cook).
 
 <div class="image-container">
-<img alt="pizza" src="/assets/2021-10-01-im-red-now-what/pizza.jpg" width=200 />
-<img alt="chicken and onion rings" src="/assets/2021-10-01-im-red-now-what/chickens-and-onion-rings.jpg" width=200 />
+<img alt="pizza" src="./img/pizza.jpg" width=200 />
+<img alt="chicken and onion rings" src="./img/chickens-and-onion-rings.jpg" width=200 />
 
 <p>
 The left is pizza and the right are chickens and some onion rings.
