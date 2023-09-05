@@ -1201,9 +1201,7 @@ suitable for stress testing.
 Let's run it locally to generate a test with 5 test cases, the sum of length is
 20, and the value range is from 1 to 5.
 
-:::code-group
-<<< ./code-fragments/out/gen-totally-random-example.sh.out{sh}
-:::
+<<< ./code-fragments/out/gen-totally-random-example.sh.out{txt}
 
 It is looking good. Let's add it to Polygon, via the `Files` page.
 
@@ -1343,9 +1341,7 @@ future version of the generator, but let's keep this for now.
 
 Let's run it
 
-:::code-group
-<<< ./code-fragments/out/gen-v1-example.sh.out
-:::
+<<< ./code-fragments/out/gen-v1-example.sh.out{txt}
 
 Here the first two tests are `YES` and the rest are `NO`. I purposely choose a
 larger range so the test that should not be `YES` will be more likely to produce
