@@ -489,7 +489,7 @@ like `Add problem statement`.
 ### _But I want to add the examples now!_
 
 I usually wait until [the validator](#test-validation) and [the model
-solution](#model-solution) ready to add the example tests. That way, only the
+solution](#the-model-solution) ready to add the example tests. That way, only the
 input data of the example tests need to be entered. Polygon will validate the
 example test, as well as generate the output for us.
 
@@ -936,7 +936,7 @@ fixed and saved with another commit. This part is completely similar to the
 validator. But it is up to _you_ to decide when is the right time to make a
 commit.
 
-## The model solution
+## The model solution {#the-model-solution}
 
 A model solution is required in order to generate the output for the tests.
 Arccording to the [editorial][CF1442-editorial], the solution is quite short.
@@ -1782,7 +1782,7 @@ And thank you for reading this post!
 [FreeMarker-sequence]: https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_direct_seuqence
 [polygon-updates-02-2022]: https://codeforces.com/blog/entry/100519
 [codeforces-hacking]: https://codeforces.com/blog/entry/6249?#comment-116329
-[problem-statement-pdf]: {{frontmatter.image_dir}}/extreme-subtraction-clone-r12-en.pdf
+[problem-statement-pdf]: extreme-subtraction-clone-r12-en.pdf
 [cf-KAN-profile]: https://codeforces.com/profile/KAN
 [cf-MikeMirzayanov-profile]: https://codeforces.com/profile/MikeMirzayanov
 
