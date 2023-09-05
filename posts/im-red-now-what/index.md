@@ -156,7 +156,7 @@ Thanks again for reading my blog!
 
 ##### Side note
 Why the language is English? Should the casual stuff be in Vietnamese like I
-said in the [first post](./a-blog-pog.md)? For
+said in the [first post](../a-blog-pog.md)? For
 some reason, I still like writing stuff in English. My mind now is partially
 thinking in English. And another reason that this blog _should_ be important. I
 want this blog to be as deliverable to many people as it can. And there you have
