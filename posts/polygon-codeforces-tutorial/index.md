@@ -368,11 +368,7 @@ style) syntax, and for writing a formula in an individual paragraph, use the
 will result the formula $\sum \frac{1}{n}$ inside this paragraph, while `$$\sum
 \frac{1}{n}$$` will result
 
-<!-- Using div here because kramdown putting everything inside a <p> tag -->
-
-<div>
 $$\sum\frac{1}{n}$$
-</div>
 
 There are a lot of commands, but again, you don't need to be an expert in $\TeX$
 to learn them. You can see a list of commands for math mode in [this wiki
@@ -1189,7 +1185,7 @@ suitable for stress testing.
 Let's run it locally to generate a test with 5 test cases, the sum of length is
 20, and the value range is from 1 to 5.
 
-<<< ./code-fragments/out/gen-totally-random-example.sh.out
+<<< ./code-fragments/out/gen-totally-random-example.sh.out{sh}
 
 It is looking good. Let's add it to Polygon, via the `Files` page.
 

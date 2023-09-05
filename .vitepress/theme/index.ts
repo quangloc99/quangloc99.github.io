@@ -1,5 +1,3 @@
-import './styles/mathjax3.css';
-
 import DefaultTheme from 'vitepress/theme';
 import Posts from './components/Posts.vue';
 import BlogPost from './layouts/blog-post.vue';
