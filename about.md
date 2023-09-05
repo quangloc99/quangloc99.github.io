@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: blog-post
 title: About
-permalink: /about/
+aside: false
 ---
 
 Hi! My name is Loc. I'm 22 as of 2021. I'm currently a student in ITMO university.
