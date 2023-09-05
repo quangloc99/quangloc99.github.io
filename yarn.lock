@@ -2475,6 +2475,7 @@ __metadata:
     typescript: ^5.2.2
     vitepress: ^1.0.0-rc.10
     vue: ^3.3.4
+    vue-utterances: ^0.3.4
   languageName: unknown
   linkType: soft
 
@@ -2992,6 +2993,15 @@ __metadata:
   peerDependencies:
     eslint: ">=6.0.0"
   checksum: 6d1476b45fcc5b456a1e5c0f33ec695cf1d392ca6113250d5e3441e6cf3b2a0ec28a9455699363641dfb7c48358f215db07856c98385a31ace9bc58196f4156e
+  languageName: node
+  linkType: hard
+
+"vue-utterances@npm:^0.3.4":
+  version: 0.3.4
+  resolution: "vue-utterances@npm:0.3.4"
+  peerDependencies:
+    vue: ^3.0.5
+  checksum: 765073dd8ea2f763800c3dd5ac5ab9fe8fa3d71dc0490f1cdf1307a2eb429357ddcc4b6e874558bc5525ad9b8333f176b7691e50e4c874eebe5339995d912d1f
   languageName: node
   linkType: hard
 

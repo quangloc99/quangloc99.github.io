@@ -15,5 +15,8 @@
         "blog:dev": "vitepress dev .",
         "blog:build": "vitepress build .",
         "blog:preview": "vitepress preview ."
+    },
+    "dependencies": {
+        "vue-utterances": "^0.3.4"
     }
 }
