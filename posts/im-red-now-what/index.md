@@ -32,6 +32,9 @@ to celebrate_ and _a way to mark my achievement_. And besides, this blog site is
 post I will want to talk about... things, randomly, so don't expect something
 too crazy (like how to become red).
 
+[darkkcyan profile]: https://codeforces.com/profile/darkkcyan
+[Codeforces rating interpretation]: https://codeforces.com/blog/entry/68288
+[Codeforces]: https://codeforces.com/
 <!-- more -->
 
 Maybe I'll start telling you how yesterday went, or maybe before that. Well

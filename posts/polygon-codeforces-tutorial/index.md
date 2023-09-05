@@ -22,6 +22,7 @@ modern platform for this purpose in a _professional_ way! There are already a
 few posts on this topic, but for the completeness of the series, it would be
 nice to include this part.
 
+[Polygon]: https://polygon.codeforces.com/
 <!-- more -->
 
 This post is long, because I wanted to explain things thoroughly. Feel free to

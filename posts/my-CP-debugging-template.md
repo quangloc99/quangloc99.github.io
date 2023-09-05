@@ -19,6 +19,17 @@ output][how-to-debug-with-color]. But some people prefer a simpler approach,
 and nearly requires nothing, like [Um_nik][Um_nik-codeforces-profile] with [his
 printf to stderr][Um_nik-debugging-template].
 
+[tourist-codeforces-profile]: https://codeforces.com/profile/tourist
+[tourist-debugging-template-1]: https://codeforces.com/contest/1540/submission/120602670
+[tourist-debugging-template-2]: https://codeforces.com/contest/1553/submission/123310012
+
+[Erricto-codeforces-profile]: https://codeforces.com/profile/Errichto
+[Erricto-debugging-template]: https://codeforces.com/contest/1523/submission/117877943
+[Erricto-debugging-template-explanation]: https://codeforces.com/blog/entry/67830
+
+[Um_nik-codeforces-profile]: https://codeforces.com/profile/Um_nik
+[Um_nik-debugging-template]: https://codeforces.com/contest/1552/submission/123756921
+
 <!-- more -->
 
 I also have my debugging template. But why would I created a new template, when
