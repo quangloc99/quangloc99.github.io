@@ -96,6 +96,7 @@ otherwise.
 
 **Example**
 
+::: code-group
 ```txt [Input]
 4
 3
@@ -107,13 +108,16 @@ otherwise.
 4
 5 2 1 10
 ```
+:::
 
+::: code-group
 ```txt [Output]
 YES
 YES
 NO
 YES
 ```
+:::
 
 ### Why this problem?
 
@@ -426,6 +430,7 @@ The letters in the words \t{YES} and \t{NO} can be outputed in any case.
 There is no example explanation in the original statement, but let's try to
 write one:
 
+:::code-group
 ```tex [Notes]
 In the first case, the given array $a$ is $[1, 2, 1]$. We can do the following operations:
 \begin{enumerate}
@@ -434,11 +439,13 @@ In the first case, the given array $a$ is $[1, 2, 1]$. We can do the following o
 \end{enumerate}
 Therefore, the answer is \t{YES}.
 ```
+:::
 
 This test case is simple. For more complicated cases, I recommend using _table_
 or _images_. So now let's add this case to the example: $[3, 2, 1, 2]$. Here is
 what the explanation for this case might look like using table:
 
+:::code-group
 ```tex [Notes for new cases]
 In the last case, the array $a$ is $[3, 2, 1, 2]$. The following table demonstrate the order of operations.
 
@@ -457,6 +464,7 @@ Before first step & & $[3, 2, 1, 2]$ \\ \hline
 \end{tabular}
 \end{center}
 ```
+:::
 
 <include-image caption="Problem statement edit with preview"
 src="./img/polygon-problem-statement-edit-with-preview.png"
@@ -637,7 +645,9 @@ But now let's write the validator first.
 
 ### The validator's implementation
 
+:::code-group
 <<< ./code-fragments/validator.cpp
+:::
 
 The validator is simple. But there are some notes for the validator:
 
@@ -853,7 +863,9 @@ creating a custom checker to reduce the risk of errors.
 
 #### The checker's implementation
 
+:::code-group
 <<< ./code-fragments/checker.cpp
+:::
 
 <!-- This part is removed since `setTestCase` is used instead. -->
 <!--  -->
@@ -1069,7 +1081,9 @@ conclude that there is an answer. Such simulation can be implemented with
 recursion, but to make it a little faster, we can also use _memorization_ --
 that is, storing all visited states.
 
+:::code-group
 <<< ./code-fragments/brute-force.cpp
+:::
 
 We add this solution to Polygon the same was as in the previous section, but we
 set the _type_ of this solution to _Time limit exceeded_, because it can
@@ -1153,7 +1167,9 @@ both the _shape_ of the test, as well as the random seed!
 
 #### The first generator's implementation
 
+:::code-group
 <<< ./code-fragments/gen-totally-random.cpp
+:::
 
 This generator accepts 4 arguments/options:
 
@@ -1185,7 +1201,9 @@ suitable for stress testing.
 Let's run it locally to generate a test with 5 test cases, the sum of length is
 20, and the value range is from 1 to 5.
 
+:::code-group
 <<< ./code-fragments/out/gen-totally-random-example.sh.out{sh}
+:::
 
 It is looking good. Let's add it to Polygon, via the `Files` page.
 
@@ -1314,7 +1332,9 @@ are `YES`, and how many are `NO`.
 
 Here is the generator with the above idea.
 
+:::code-group
 <<< ./code-fragments/gen-v1.cpp
+:::
 
 In this current version, all the `YES` tests are at the beginning, while all the
 `NO` tests are at the end. Even though it is not good for a test, but it does
@@ -1323,7 +1343,9 @@ future version of the generator, but let's keep this for now.
 
 Let's run it
 
+:::code-group
 <<< ./code-fragments/out/gen-v1-example.sh.out
+:::
 
 Here the first two tests are `YES` and the rest are `NO`. I purposely choose a
 larger range so the test that should not be `YES` will be more likely to produce
@@ -1389,6 +1411,7 @@ test, we choose to add the test manually.
 Remember that beside the original example, we also added a test case when
 writing the statement. Here will be our test input.
 
+::: code-group
 ```txt [Example test input]
 5
 3
@@ -1402,6 +1425,7 @@ writing the statement. Here will be our test input.
 4
 3 2 1 2
 ```
+:::
 
 Since this is the example test, we should click the check box `Use in
 statements` as well. After that the page should look like this.
@@ -1425,12 +1449,14 @@ the test number, or `> $` for automatically id generation.
 
 A few first tests might be these.
 
+:::code-group
 ```txt [First few tests]
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 1 -max-b 10 > $
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 100 -max-b 1000 > $
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
 ```
+:::
 
 Here are 4 tests, the array length of the test cases in these tests is $100$ on
 average, with $50\%$ of the cases with the result `YES`, and the value size for
