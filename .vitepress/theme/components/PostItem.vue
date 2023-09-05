@@ -19,7 +19,7 @@
             </a>
         </div>
         <div :class="$style.date">{{ formattedDate }}</div>
-        <div v-if="excerpt" v-html="excerpt"></div>
+        <div :class="$style.excerpt" v-if="excerpt" v-html="excerpt"></div>
         <hr />
     </div>
 </template>
@@ -27,5 +27,8 @@
 <style module>
     .date {
         font-weight: 200;
+    }
+    .excerpt {
+        opacity: 0.7;
     }
 </style>
