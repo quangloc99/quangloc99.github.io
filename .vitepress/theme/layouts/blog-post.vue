@@ -6,7 +6,7 @@
     import { formatPostDate } from '../../utils';
     import VueUtterances from 'vue-utterances';
 
-    const { frontmatter } = useData();
+    const { frontmatter, isDark } = useData();
     const shouldShowTitle = computed(() => !!frontmatter.value.title || !!frontmatter.value.date);
 
     // @ts-ignore
@@ -28,7 +28,7 @@
             <VueUtterances v-if="isProd"
                 repo="quangloc99/quangloc99.github.io"
                 issue-term="title"
-                theme="github-dark-orange"
+                :theme="isDark ? 'github-dark-orange' : 'github-light'"
             />
         </template>
     </VPDoc>
