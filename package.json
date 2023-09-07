@@ -1,0 +1,22 @@
+{
+    "name": "quangloc99.github.io",
+    "packageManager": "yarn@3.6.3",
+    "type": "module",
+    "devDependencies": {
+        "eslint": "^8.48.0",
+        "eslint-plugin-vue": "^9.17.0",
+        "http-server": "^14.1.1",
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2",
+        "vitepress": "^1.0.0-rc.10",
+        "vue": "^3.3.4"
+    },
+    "scripts": {
+        "blog:dev": "vitepress dev .",
+        "blog:build": "vitepress build .",
+        "blog:preview": "vitepress preview ."
+    },
+    "dependencies": {
+        "vue-utterances": "^0.3.4"
+    }
+}

@@ -3,3 +3,16 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+
+node_modules
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.vitepress/cache
+.vitepress/dist

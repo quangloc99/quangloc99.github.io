@@ -1,17 +1,20 @@
 ---
-layout: custompost
-title: "Polygon.Codeforces Tutorial - A Guide to Problem Preparation [Part 1]"
-date: 2022-03-09 00:00:00 +0300
+layout: blog-post
+title: 'Polygon.Codeforces Tutorial - A Guide to Problem Preparation [Part 1]'
+date: '2022-03-09T00:00:00+03:00'
 tags: [en, polygon, codeforces, testlib, cp]
 customhighlight:
-  dir: _embed-contents/2022-02-19-test-generation-guide
-  wrap: true
+    wrap: true
 old_image_dir: /assets/2022-02-19-test-generation-guide
 mathjax: true
-image_dir: /assets/2022-03-09-polygon-codeforces-tutorial
 toc:
-  upper_header_level: 3
+    upper_header_level: 3
 ---
+
+<script lang="ts" setup>
+import { useData } from 'vitepress';
+const { frontmatter } = useData();
+</script>
 
 This is the first part of my series on problem preparation for a programming
 contest. In this part, we are going to familiarize ourselves with [Polygon] -- a
@@ -19,28 +22,34 @@ modern platform for this purpose in a _professional_ way! There are already a
 few posts on this topic, but for the completeness of the series, it would be
 nice to include this part.
 
+[Polygon]: https://polygon.codeforces.com/
+<!-- more -->
+
 This post is long, because I wanted to explain things thoroughly. Feel free to
 skip some parts if you already know about it.
 
 ## Why Polygon?
+
 To prepare a problem, we must _at least_ prepare the following things:
-- The problem statement.
-- The tests. For this, we must also prepare:
-  + A solution.
-  + A test generator.
-- A checker, if the answer is not unique.
+
+-   The problem statement.
+-   The tests. For this, we must also prepare:
+    -   A solution.
+    -   A test generator.
+-   A checker, if the answer is not unique.
 
 Obviously, a platform is not a requirement to prepare a problem. A problem
 statement can just be in plain text format. A solution, a generator and a
 checker are also just programs, which can be written with any tools. But there
 are a lot of problems during the preparation. Here are some examples:
-- How do we know of a test is **valid**? That is, how to know if a test
-  satisfies the constraints given in the problem statement? This is hard for a
-  human to inspect by eye since a test will often be _way too big_.
-- How can we guarantee that the solution is **correct**? How do we test the
-  solution if there is no tests beforehand?
-- How do we **manage** the tests? How do we add or remove a test? What if the
-  generating algorithm changed?
+
+-   How do we know of a test is **valid**? That is, how to know if a test
+    satisfies the constraints given in the problem statement? This is hard for a
+    human to inspect by eye since a test will often be _way too big_.
+-   How can we guarantee that the solution is **correct**? How do we test the
+    solution if there is no tests beforehand?
+-   How do we **manage** the tests? How do we add or remove a test? What if the
+    generating algorithm changed?
 
 Polygon is a solution to these problems, as well as some other problems . It
 aids the problem's author during the problem preparation process with
@@ -48,6 +57,7 @@ automation. Of course, using Polygon requires some additional efforts. Because
 of that, I hope to overcome the learning process with this post.
 
 ## The example problem
+
 To demonstrate the usage of Polygon, we need to prepare a problem ourselves. The
 problem that we are going to take a look is [Codeforces 1442A - Extreme
 Subtraction](https://codeforces.com/problemset/problem/1442/A).
@@ -55,9 +65,10 @@ The problem statement is quite short, so let's repeat it once more time here.
 
 We are given an array $a$ of length $n$. We can use the following operation as
 many times as we want: select any integer $k$ ($1 \le k \le n$) and either:
-- decrease $a_1, a_2, \ldots, a_k$ (the first $k$ elements) by $1$.
-- decrease $a_n, a_{n - 1}, \ldots, a_{n - k + 1}$ (the last $k$ elements) by
-  $1$.
+
+-   decrease $a_1, a_2, \ldots, a_k$ (the first $k$ elements) by $1$.
+-   decrease $a_n, a_{n - 1}, \ldots, a_{n - k + 1}$ (the last $k$ elements) by
+    $1$.
 
 We must answer, for a given array $a$, if it is possible to make all the
 elements of the array equal to zero by applying a certain number of operations.
@@ -86,8 +97,8 @@ otherwise.
 
 **Example**
 
-{%include customhighlight.html caption="Input"  collapsed=true
-content="
+::: code-group
+```txt [Input]
 4
 3
 1 2 1
@@ -97,28 +108,32 @@ content="
 1 3 1 3 1
 4
 5 2 1 10
-"%}
+```
+:::
 
-{% include customhighlight.html caption="Output" collapsed=true
-content="
+::: code-group
+```txt [Output]
 YES
 YES
 NO
 YES
-" %}
+```
+:::
 
 ### Why this problem?
+
 The problem is very simple. Its difficulty is average, therefore I think it is
 not too hard to follow. The input is also one of the classic kinds of input: an
 array. Array generation is simple, but in some cases, is not easy. In part 2 and
 3 we are going to take a deeper look at it, also **with this problem**.
 
 ## Let's create a problem
+
 When entering Polygon, we are greeted with a simple page like this.
 
-{% include image.html caption="Polygon home page" alt="polygon-home-page"
-  file="polygon-home-page.png"
-%}
+<include-image caption="Polygon home page" alt="polygon-home-page"
+  src="./img/polygon-home-page.png"
+/>
 
 On the head bar (the bar with blue color), there are several options. Polygon
 allows us to manage individual problems, as well as group them into one contest.
@@ -133,19 +148,18 @@ this list, there are problems owned by us. There are also problems that are
 shared with us, meaning the problem's owner grant us the access to it. That's
 why there are already some problems like `example-a-plus-b` in that page.
 
-{% include image.html caption="Polygon problems page"
+<include-image caption="Polygon problems page"
   alt="polygon-problems-page"
-  file="polygon-problems-page.png" %}
-
+  src="./img/polygon-problems-page.png" />
 
 In the row having our problem, under the column `Working Copy` we click `Start` to
 start working with it.
 
 ## Problem general info page
 
-{% include image.html caption="Problem general info page"
+<include-image caption="Problem general info page"
   alt="problem-general-info-page"
-  file="polygon-problem-general-info-page.png" %}
+  src="./img/polygon-problem-general-info-page.png" />
 
 > “A user interface is like a joke. If you have to explain it, it’s not that
 > good”. — Martin Leblanc
@@ -157,12 +171,14 @@ is not a beginner-friendly page. There are a lot of information to
 digest, so I think it worth _explaining_ a few things first.
 
 ### How Polygon manages things
+
 #### Folder structure
+
 If you were trying to prepare problem locally, what would you do? You could
 write the statement and store it into a file. You could write solutions and they
 will also be files. When there are lots of files, you can divide the files into
 sub folders: a folder for statement(s), a folder for the solutions, a folder for
-the test generators,... 
+the test generators,...
 
 Polygon also works with folder structure. Everything on Polygon has its own
 _predefined structure_. That is, the statement, the solutions, the
@@ -173,6 +189,7 @@ structure is not _visible_ to us, and we don't need to. But there are a way to
 do see it, and we go through it [later](#package).
 
 #### Version control
+
 Working with code, we often want to keep track the changes. Imagine when you add
 a _feature_, but it turns out to be _buggy_, then what you want is to revert
 back to the previous _version_ of your code. Broadly speaking, this process is
@@ -180,29 +197,31 @@ called [_version control_][Version control]. One way to do version control is to
 copy your entire folder into a new one and making changes there, but that is not
 very efficient. This problem can be solve more efficiently with a _version
 control system_ like [git], which is the most popular one for programming and
-software development.  
+software development.
 
 For Polygon, you don't need to know git. Polygon is also a version control
 system, but with simpler functionality. It can help us keep track the changes,
 allow us to _commit the changes_, and revert back to one previously _committed_
 version.
 
-{: .notes }
+::: info
 _Committing_ is an action to make your changes _permanent_ to the version
 control system. That is, the version control system will create a new version
 with your changes. If you did not commit, then your changes is still
 _temporary_.
+:::
 
 ### Our first commit
+
 Now we can go back to the General Info page to see one detail there. Here is we
 wanted to see.
 
-{% include image.html caption="The commit panel" alt="the-commit-panel"
-  file="polygon-commit-pane.png" width="8cm" %}
+<include-image caption="The commit panel" alt="the-commit-panel"
+  src="./img/polygon-commit-pane.png" width="8cm" />
 
 This is the last panel of the right column. Every lines in this panel starts with
 `ADDED`, and that means all the files and folders shown in this panel are newly
-added, which make sense since we just create a problem. 
+added, which make sense since we just create a problem.
 
 If you clicked `DIFF` (for differences), a page will appear, showing which file
 has the changes, compared to the previous version. Again, this is a new problem,
@@ -229,9 +248,9 @@ practice to always write a message.
 There were not much going on during this first commit. So one _popular_ commit
 message is `Initial commit`.
 
-{% include image.html caption="Commit page" alt="commit-page"
-  file="polygon-commit-page.png" width="90%"%}
-  
+<include-image caption="Commit page" alt="commit-page"
+  src="./img/polygon-commit-page.png" width="90%"/>
+
 There is also a check box for _not_ sending an email notification. If leaved
 unchecked, an email with full `DIFF` will be sent to your email, as well as this
 problem developer. This might be useful when for team-working , but for one
@@ -241,12 +260,13 @@ _spam filter_.
 After making the commit, the _changes_ are gone, because there is no changes in
 _the current_ compared to the previous yet.
 
-{: .notes }
+::: info
 If you did not commit, your _temporary_ changes **won't be visible** to your
 colleague.
-
+:::
 
 ### Why making a commit now?
+
 As you can see, we have not done anything with this problem. It is fine to add
 something first, like the statement, and then do a commit. But I have saw people
 using Polygon making a commit after **a lot** of changes. That is not _a good
@@ -256,14 +276,15 @@ way, the versions are easier to maintain.
 Keep committing regularly.
 
 ### The other user interface parts
+
 There are two more significant UI parts that we should care about: the head bar
 and the first panel of the right column.
 
-{% include image.html caption="The head bar" alt="the-head-bar"
-  file="polygon-problem-head-bar.png" %}
-  
-{% include image.html caption="The first panel" alt="the-first-panel"
-  file="polygon-problem-main-pane.png" width="8cm" %}
+<include-image caption="The head bar" alt="the-head-bar"
+  src="./img/polygon-problem-head-bar.png" />
+
+<include-image caption="The first panel" alt="the-first-panel"
+  src="./img/polygon-problem-main-pane.png" width="8cm" />
 
 These two UI parts share some options. For example, the option `Statement` in
 the head bar also lead to the same page as clicking the word `None` near the
@@ -274,21 +295,20 @@ tests and the number of solutions. There is nothing now so everywhere are `None`
 or `0`.
 
 There is also the second panel of the right column, but for this tutorial, it
-does not contain much information, except for the [last
-part](#adding-the-problem-to-a-codeforces-mashup).
+does not contain much information, except for the [last part](#adding-the-problem-to-a-codeforces-mashup).
 
 To see these two UI parts in details, let's move on the following part.
 
 ## Adding the problem statement
+
 Before adding the problem statement, notice that in the General Info page, there
 are also input boxes for the input/output files, the time and memory limits. In
 the original problem, the time limit is 2s, and the rest are the same, so we
 should now change the time to 2000ms. **Remember to press `Save`**.
 
-{% include image.html caption="Input boxes for IO files, time and memory limit
+<include-image caption="Input boxes for IO files, time and memory limit
 in the General Info page"
-file="polygon-problem-general-info-limits.png" width="16cm" %}
-
+src="./img/polygon-problem-general-info-limits.png" width="16cm" />
 
 ### The statement page
 
@@ -296,12 +316,12 @@ By clicking the `Statement` option in the head bar, a page asking us to choose
 the language for statement will appear. We can choose English and put the
 original problem statement. Polygon asks us to choose the language because it
 can manage the problem statements in various languages, making it suitable for
-prepare problems for competition  on an international scale.
+prepare problems for competition on an international scale.
 
 After choosing the language, the following page appears.
 
-{% include image.html caption="Problem statement page" 
-alt="problem-statement-page" file="polygon-problem-statement-page.png" %}
+<include-image caption="Problem statement page" 
+alt="problem-statement-page" src="./img/polygon-problem-statement-page.png" />
 
 First of all, if you look at the last panel of the right column again, there are
 new files added by Polygon. The content of these newly added files can be edited
@@ -330,18 +350,19 @@ The `Delete Current` is for deleting this statement, and `Create New` is for
 creating new statement in another language.
 
 ### $\TeX$
+
 To write the statement, Polygon supports [$\TeX$][tex] -- a markup language that
 has a lot of options for document formatting. The coolest thing that makes
 $\TeX$ stands out is its _math mode_ for writing mathematical formula, making
 $\TeX$ a great language for writing statement. Another reason for supporting
-$\TeX$ is for generating PDF version of the statement. 
+$\TeX$ is for generating PDF version of the statement.
 
 On Polygon, For the PDF format, you can use any $\TeX$ commands you like. But
 since $\TeX$ is not a language for the web, Polygon only supports minimal set of
 commands for the web format.
 
 If you don't know $\TeX$, Polygon also includes a small manual right in the
-statement  page, so do check it out. The syntax of $\TeX$ is also simple: it is
+statement page, so do check it out. The syntax of $\TeX$ is also simple: it is
 plain text, but if you need some special formatting, you can use $\TeX$ command
 with the syntax `\commandName{Texts}`.
 
@@ -352,12 +373,7 @@ style) syntax, and for writing a formula in an individual paragraph, use the
 will result the formula $\sum \frac{1}{n}$ inside this paragraph, while `$$\sum
 \frac{1}{n}$$` will result
 
-{% comment %}
-Using div here because kramdown putting everything inside a <p> tag
-{% endcomment %}
-<div>
 $$\sum\frac{1}{n}$$
-</div>
 
 There are a lot of commands, but again, you don't need to be an expert in $\TeX$
 to learn them. You can see a list of commands for math mode in [this wiki
@@ -370,12 +386,13 @@ are cloning that problem.
 
 The followings are part of the legend, the input format and the output format:
 
-{% include customhighlight.html caption="Legend" ext="tex" collapsed=true
-  content="
+::: code-group
+
+```tex [Legend]
 You are given an array $a$ of $n$ positive integers. You can use the following operation as many times as you like: select any integer $1 \le k \le n$ and do one of two things:
 \begin{itemize}
 \item decrement by one $k$ of the first elements of the array.
-\item decrement by one $k$ of the last elements of the array. 
+\item decrement by one $k$ of the last elements of the array.
 \end{itemize}
 
 For example, if $n=5$ and $a=[3,2,2,1,4]$, then you can apply one of the following operations to it (not all possible options are listed below):
@@ -383,14 +400,13 @@ For example, if $n=5$ and $a=[3,2,2,1,4]$, then you can apply one of the followi
 \begin{itemize}
 \item decrement from the first two elements of the array. After this operation $a=[2,1,2,1,4]$;
 \item decrement from the last three elements of the array. After this operation $a=[3,2,1,0,3]$;
-\item decrement from the first five elements of the array. After this operation $a=[2,1,1,0,3]$; 
+\item decrement from the first five elements of the array. After this operation $a=[2,1,1,0,3]$;
 \end{itemize}
 
 Determine if it is possible to make all the elements of the array equal to zero by applying a certain number of operations.
-" %}
+```
 
-{% include customhighlight.html caption="Input" ext="tex" collapsed=true 
-content="
+```tex [Input]
 The first line contains one positive integer $t$ ($1 \le t \le 30000$) --- the number of test cases. Then $t$ test cases follow.
 
 Each test case begins with a line containing one integer $n$ ($1 \le n \le 30000$) --- the number of elements in the array.
@@ -398,39 +414,40 @@ Each test case begins with a line containing one integer $n$ ($1 \le n \le 30000
 The second line of each test case contains $n$ integers $a_1, a_2, \ldots, a_n$ ($1 \le a_i \le 10^6$).
 
 The sum of $n$ over all test cases does not exceed $30000$.
-"
-%}
+```
 
-{% include customhighlight.html caption="Output" ext="tex" collapsed=true
-content="
+```tex [Output]
 For each test case, output on a separate line:
 \begin{itemize}
 \item \t{YES}, if it is possible to make all elements of the array equal to zero by applying a certain number of operations.
-\item \t{NO}, otherwise. 
+\item \t{NO}, otherwise.
 \end{itemize}
 
 The letters in the words \t{YES} and \t{NO} can be outputed in any case.
-" %}
+```
+
+:::
 
 There is no example explanation in the original statement, but let's try to
 write one:
 
-{% include customhighlight.html caption="Notes" ext="tex" collapsed=true
-content="
+:::code-group
+```tex [Notes]
 In the first case, the given array $a$ is $[1, 2, 1]$. We can do the following operations:
 \begin{enumerate}
 \item decrement from the \bf{first} two elements of the array. After this operation $a = [0, 1, 1]$.
 \item decrement from the \bf{last} two elements of the array. After this operation $a = [0, 0, 0]$.
 \end{enumerate}
 Therefore, the answer is \t{YES}.
-" %}
+```
+:::
 
 This test case is simple. For more complicated cases, I recommend using _table_
 or _images_. So now let's add this case to the example: $[3, 2, 1, 2]$. Here is
 what the explanation for this case might look like using table:
 
-{% include customhighlight.html caption="Notes for new cases" ext="tex" collapsed=true
-content="
+:::code-group
+```tex [Notes for new cases]
 In the last case, the array $a$ is $[3, 2, 1, 2]$. The following table demonstrate the order of operations.
 
 % Hello there. This is a line comment in TeX!
@@ -439,23 +456,24 @@ In the last case, the array $a$ is $[3, 2, 1, 2]$. The following table demonstra
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
-Step              & Decremented elements  & The array $a$ after \\ \hline
-Before first step &                       & $[3, 2, 1, 2]$ \\ \hline
-1                 & \bf{first} 4          & $[2, 1, 0, 1]$ \\ \hline
-2                 & \bf{first} 1          & $[1, 1, 0, 1]$ \\ \hline
-3                 & \bf{last}  1          & $[1, 1, 0, 0]$ \\ \hline
-4                 & \bf{first} 2          & $[0, 0, 0, 0]$ \\ \hline
+Step & Decremented elements & The array $a$ after \\ \hline
+Before first step & & $[3, 2, 1, 2]$ \\ \hline
+1 & \bf{first} 4 & $[2, 1, 0, 1]$ \\ \hline
+2 & \bf{first} 1 & $[1, 1, 0, 1]$ \\ \hline
+3 & \bf{last} 1 & $[1, 1, 0, 0]$ \\ \hline
+4 & \bf{first} 2 & $[0, 0, 0, 0]$ \\ \hline
 \end{tabular}
 \end{center}
-" %}
+```
+:::
 
-{% include image.html caption="Problem statement edit with preview"
-file="polygon-problem-statement-edit-with-preview.png"
-%}
+<include-image caption="Problem statement edit with preview"
+src="./img/polygon-problem-statement-edit-with-preview.png"
+/>
 
-{% include image.html caption="Problem statement notes"
-file="polygon-problem-statement-notes.png"
-%}
+<include-image caption="Problem statement notes"
+src="./img/polygon-problem-statement-notes.png"
+/>
 
 You can see that there is no Example tests here. That is because the Example
 tests must also be added in the [`Tests` section](#adding-the-example-tests),
@@ -471,14 +489,16 @@ can do it by yourself as a little exercise. Polygon also supports making
 tutorial in web format and PDF format, as well as in various languages.
 
 ### Our second commit
+
 I think it is not redundant to remind about the importance of the commit. Here
 we have added the problem statement, which is a complete work. Making a commit
 now is a reasonable action. The commit message for this version can be something
 like `Add problem statement`.
 
 ### _But I want to add the examples now!_
+
 I usually wait until [the validator](#test-validation) and [the model
-solution](#model-solution) ready to add the example tests. That way, only the
+solution](#the-model-solution) ready to add the example tests. That way, only the
 input data of the example tests need to be entered. Polygon will validate the
 example test, as well as generate the output for us.
 
@@ -492,8 +512,10 @@ statement. Just **remember** to replace the custom output with the generated
 output.
 
 Before continuing, here is the test.
-{% include customhighlight.html caption="Example test input" collapsed=true
-content="
+
+::: code-group
+
+```txt [Example test input]
 5
 3
 1 2 1
@@ -505,75 +527,75 @@ content="
 5 2 1 10
 4
 3 2 1 2
+```
 
-" %}
-  
-{% include customhighlight.html caption="Example test output" collapsed=true
-content="
+```txt [Example test output]
 YES
 YES
 NO
 YES
 YES
+```
 
-" %}
-
+:::
 
 Now, go to the `Create tests` page, by clicking the options `Tests` on the top
 bar. On this page, click `Add tests`.
 
 For more details on this page, see [Adding the tests](#adding-the-tests).
 
-{% include image.html caption="The Create tests page. Click the `Add Tests` link"
-  file="polygon-create-tests-page-add-example-guide.png"
-%}
+<include-image caption="The Create tests page. Click the `Add Tests` link"
+  src="./img/polygon-create-tests-page-add-example-guide.png"
+/>
 
-After that, the following page will appear. 
+After that, the following page will appear.
 
-{%include image.html caption="The add test page"
-  file="polygon-add-test-page.png" %}
-  
+<include-image caption="The add test page"
+  src="./img/polygon-add-test-page.png" />
+
 Put the input data into the `Data` box. The input data will be
 
 To mark this test as an example, check `Use in statements` checkbox. There will
 be a text asking us if we wanted to use custom content for input or output.
 Click it to specify our output.
 
-{%include image.html caption="`Use in statements checkbox` checked "
-  file="polygon-add-test-page-use-in-statement-checkbox.png" %}
-  
+<include-image caption="`Use in statements checkbox` checked "
+  src="./img/polygon-add-test-page-use-in-statement-checkbox.png" />
+
 There will be two more boxes appear. Since we will specify our output by hand,
 we will us the second box only. And because we don't have a validator, a checker
 and a model solution yet, we _must_ uncheck the checkbox `Verify output for
-statements`. 
+statements`.
 
-{% include image.html caption = "Example test with custom output"
-file="polygon-add-test-page-added-example-test-custom-output.png" %}
+<include-image caption = "Example test with custom output"
+src="./img/polygon-add-test-page-added-example-test-custom-output.png" />
 
 Click save, then return to the `Statements` page. The example test will appear.
 
-{: .notes }
+::: info
 The first box, `Input in statement`, can be used when we have the model
 solution, in that case the output will be generated using the input from the
 `Data` box, and the input shown in the statement is from the `Input in
 statement` box.
+:::
 
 #### Viewing our result
+
 Because we have added the example, we might as well see our result.
 
 In the `Statements` page, there are a few view options: `In latex`, `In HTML` or
 `in PDF`. To see in our in the web format, click `In HTML`, and in the PDF
 format, click `In PDF`.
-  
-{% include image.html caption = "View statement options"
-file="polygon-problem-statement-page-view-options.png" %}
+
+<include-image caption = "View statement options"
+src="./img/polygon-problem-statement-page-view-options.png" />
 
 If you wanted to see the web format _live_, see the [very last
 section](#adding-the-problem-to-a-codeforces-mashup) of this tutorial. I also
 exported the latest PDF version, click [here][problem-statement-pdf] to see it.
 
-
 ## Test validation
+
 Test validation is always an important step in contest preparation. A test
 generator could still be buggy, and might generate invalid tests. So test
 validation is a way to prevent this kind of mistake, and potentially (but not
@@ -588,21 +610,24 @@ recommended to use [`testlib.h`][testlib.h] to write validators. `testlib.h` not
 only eases the writing validator process, but also it make the validation
 message more readable.
 
-{: .notes }
+::: info
 I put this part before the test generation part, because a validator is
 _generally easy to write_, while the test generation is the hardest part.
+:::
 
-{: .notes }
+::: info
 Codeforces also allows [hacking][Codeforces-hacking] during contests, and the
 hack tests will also be validated, using the author's validator.
+:::
 
 ### The `Select validator` page
+
 When you click the `Validator` option on the top bar, here is validator page
 will look like.
 
-{% include image.html caption="Select validator page" alt="select-validator-page" 
-file="polygon-validator-page.png"
-%}
+<include-image caption="Select validator page" alt="select-validator-page" 
+src="./img/polygon-validator-page.png"
+/>
 
 We can see that the Polygon's developers are nice enough to put on some example
 for us to see, as well as a little guide. I also recommend to read that guide
@@ -621,60 +646,65 @@ But now let's write the validator first.
 
 ### The validator's implementation
 
-{%include customhighlight.html  file="validator.cpp"
-  caption="validator.cpp"
-%}
+:::code-group
+<<< ./code-fragments/validator.cpp
+:::
 
 The validator is simple. But there are some notes for the validator:
-- There should be a variable name for each `inf.read*` function call. This will
-  produce more readable error messages.
-- There should be a message for each `ensuref` function call. The `f` here means
-  _format_, the same as `printf` and `scanf`, and it use the same format as
-  `printf`. This is for readability too.
-- The use of `setTestCase()` function is also for readability.
-- The white-spaces (space, EOL character) should be check properly. For normal
-  problems solved with `Pascal` or `C++`, spaces are generally not important. But
-  for the other languages like `Python`, `Java`, `Kotlin`, the input it often
-  read by lines and the tokens are split by spaces. Trailing and duplicated
-  spaces can cause these solutions to fail.
-- If you don't call `inf.readEof()`, there will also be an error for not
-  confirming the input has been fully read.
-  
-{: .notes }
+
+-   There should be a variable name for each `inf.read*` function call. This will
+    produce more readable error messages.
+-   There should be a message for each `ensuref` function call. The `f` here means
+    _format_, the same as `printf` and `scanf`, and it use the same format as
+    `printf`. This is for readability too.
+-   The use of `setTestCase()` function is also for readability.
+-   The white-spaces (space, EOL character) should be check properly. For normal
+    problems solved with `Pascal` or `C++`, spaces are generally not important. But
+    for the other languages like `Python`, `Java`, `Kotlin`, the input it often
+    read by lines and the tokens are split by spaces. Trailing and duplicated
+    spaces can cause these solutions to fail.
+-   If you don't call `inf.readEof()`, there will also be an error for not
+    confirming the input has been fully read.
+
+::: info
 The rule about white spaces and EOF mentioned above is called the _well-formed
 policy_. More on that [later](#the-create-tests-page).
+:::
 
 Now we can add this validator to Polygon. **Remember to click `Set validator`**
 for confirming the validator to Polygon.
 
-{: .notes }
+::: info
 Polygon also produces some warnings. Warnings are not error, but fixing them is
 a good practice. For example if you don't put the variable name for `test-case`,
 this message will appear when you hover your mouse over the validator name.
-^
-{% include image.html caption="Polygon's warning for validator"
-alt="polygon-warning-for-validator" file="polygon-validator-warning.png" %}
+:::
 
-{: .notes.no-before }
+<include-image caption="Polygon's warning for validator"
+alt="polygon-warning-for-validator" src="./img/polygon-validator-warning.png" />
+
+::: tip
 And also note that <span style="color: orange">orange</span> things are often
 hoverable, and might be some warnings.
+:::
 
 For editing the validator, you can click to the validator's name on the right
 panel. To go to the validator page again, you can click `validator` option on
 the top bar, or click the `(None)` link to the right of the validator name.
 
 ### Adding validator tests
+
 Yes, the thing that we are using to validate the tests should also be tested!
 The validator is a program too, and it is written by human. And we human are
 very often making mistake. But the validator testing process is not complicated,
-since the validator is often not a complicated program. 
+since the validator is often not a complicated program.
 
 To add tests, click `Add test` in the `validator page`. The page for adding the
 tests looks like this.
 
-{% include image.html caption="Create validator test page"
+<include-image caption="Create validator test page"
 alt="create-validator-test-page"
-file="polygon-create-validator-test-page.png" %}
+src="./img/polygon-create-validator-test-page.png" />
 
 The first input box is for the id of the test. The checkbox `Use testset and
 group:` is for a problem with multiple test sets and group, like problem with
@@ -684,29 +714,31 @@ validator tests instead of one, separated by 3 equal signs (`===`).
 
 Here are the tests.
 
-{% include customhighlight.html caption="Inputs" 
-  file="validation-test.txt" collapsed=true %}
+::: code-group
+<<< ./code-fragments/validation-test.txt [Inputs]
 
-{: .notes }
+<<< ./code-fragments/validation-test-verdicts.txt [Verdicts]
+:::
+
+::: info
 The last line has an extra line break.
-  
-{% include customhighlight.html caption="Verdicts" 
-  file="validation-test-verdicts.txt" collapsed=true %}
-  
+:::
+
 For each of the `inf.read*` and `ensuref` function calls, I add two tests for it
 -- one with a value lower than the lower bound, and one with a value higher than
 the upper bound. The _description_ for the test is as follows.
-- The first two are for testing the value of `test-count`.
-- The next two are for testing the value of `n`.
-- And the following two are for the value of `a`.
-- The next test is to test a very small test.
-- The next test is for testing the `ensuref` statement, that is, ensuring if the
-  sum of `n` does not exceed $30000$.
-- And finally, I add another small random test.
+
+-   The first two are for testing the value of `test-count`.
+-   The next two are for testing the value of `n`.
+-   And the following two are for the value of `a`.
+-   The next test is to test a very small test.
+-   The next test is for testing the `ensuref` statement, that is, ensuring if the
+    sum of `n` does not exceed $30000$.
+-   And finally, I add another small random test.
 
 The rule of thumb is the tests must [cover][test-coverange] what should be tested, and in this
 case they are the `inf.read*` and `ensuref` function calls.
-  
+
 If you notice, there are test that does not follow the format, like in the
 second test I only put the number of test cases there. But here I wanted to test
 the constraints only, and we can consider the validator correct when it produce
@@ -716,14 +748,15 @@ already have two tests, but more can be added.
 After adding the tests, you can go back to the `Validator page` and run the
 tests. Here is the validator test result.
 
-{% include image.html alt="validation-test-result"
+<include-image alt="validation-test-result"
   caption="Validation test result"
-  dir=page.old_image_dir file="validation-test-result.png"
-%}
+  src="./img/validation-test-result.png"
+/>
 
 **Remember** to check the verdicts and the Validator comments carefully.
 
 ### Our third commit
+
 You know the drill by now. We have added the validator, with its tests, so it is
 a good moment to make another commit. The commit message can be `Add validator
 with validator tests`.
@@ -737,6 +770,7 @@ commit. After fixing the bug, you can create another commit like `Fix
 validator bug ...`. Again, we should treat the it as a _diary_ or _journal_.
 
 ## The checker
+
 A checker is a program for checking whether or not _an answer_ is correct. What
 is the correctness anyway? For most of the time, this means the answer of the
 participant is _the same_ as the jury's (or the author's) answer. But that is
@@ -749,9 +783,10 @@ vertices are reachable using the path, and if the path is truly the shortest.
 Before going further, let's look at the `Select checker` page.
 
 ### The `Select checker` page
-{% include image.html caption="`Select checker` page"
-  alt="select-checker-page" file="polygon-checker-selection-page.png" %}
-  
+
+<include-image caption="`Select checker` page"
+  alt="select-checker-page" src="./img/polygon-checker-selection-page.png" />
+
 The page is almost identical as the `Select validator` page, with the same
 functionalities, as well as the examples. And I also recommend to read the
 [guide][checker-guide] for writing checker with `testlib.h` before writing your
@@ -763,9 +798,10 @@ checked against the answer of jury, and there are some checkers for some typical
 output formats.
 
 ### The standard checkers
-{% include image.html caption="List of standard checkers"
-  alt="list-of-standard-checkers" file="polygon-standard-checkers.png" %}
-  
+
+<include-image caption="List of standard checkers"
+  alt="list-of-standard-checkers" src="./img/polygon-standard-checkers.png" />
+
 For most cases, you can actually always choose the checker `wcmp.cpp` (words
 comparator (?)), since comparing integers for most cases is the same as comparing
 words (or tokens). But with different kind of input, it make more sense to use
@@ -780,10 +816,12 @@ In our case, we can use the checker `nyesno.cpp` (not `yesno.cpp`, since we are
 comparing **sequence** of `YES` and `NO` tokens, and not just one!). Selecting
 it then we are done with the checker part.
 
-{: .notes }
+::: info
 After selecting the checker, it is possible to see the checker's source code.
+:::
 
 ### Writing our own checker
+
 It is always recommended to use the standard checkers when possible, because the
 standard checker is _well tested_ and produces readable error messages. But when
 the answer is non-unique, we must write our own.
@@ -797,6 +835,7 @@ test cases. That is, our checker should check if the number of read token is the
 same as the number of test cases.
 
 #### The `readAns` paradigm
+
 This is one part in the [guide for writing checker][checker-guide]. The main
 idea is, when writing a checker, it is a good practice to write a function for
 reading and (_partially_) checking the answer from a stream, and use it to read
@@ -824,23 +863,20 @@ That's being said, the `readAns` paradigm **should always be used** when
 creating a custom checker to reduce the risk of errors.
 
 #### The checker's implementation
-{% include customhighlight.html caption="checker.cpp"  
-file="checker.cpp" %}
-{% comment %}
-{: .notes }
-I use [clang-format], so don't notice the _weird_ parameter
-indentation formatting.
-{% endcomment %}
 
-{% comment %}  This part is removed since `setTestCase` is used instead.
+:::code-group
+<<< ./code-fragments/checker.cpp
+:::
 
-{: .notes }
-The function `englishEnding(number)` is for getting the _order_ ending
-of a number. For example, `englishEnding(1) == "st"`, `englishEnding(3) = "rd"`,
-`englishEnding(10) == "th"`. This is undocumented in [the guide][checker-guide],
-but it is on the [feature list in the source code of
-`testlib.h`](https://github.com/MikeMirzayanov/testlib/blob/f28d52804011c5dca2e62fbe7cff45888579b0e8/testlib.h#L114)
-{% endcomment %}
+<!-- This part is removed since `setTestCase` is used instead. -->
+<!--  -->
+<!-- ::: info -->
+<!-- The function `englishEnding(number)` is for getting the _order_ ending -->
+<!-- of a number. For example, `englishEnding(1) == "st"`, `englishEnding(3) = "rd"`, -->
+<!-- `englishEnding(10) == "th"`. This is undocumented in [the guide][checker-guide], -->
+<!-- but it is on the [feature list in the source code of -->
+<!-- `testlib.h`](https://github.com/MikeMirzayanov/testlib/blob/f28d52804011c5dca2e62fbe7cff45888579b0e8/testlib.h#L114) -->
+<!-- ::: -->
 
 If you have seen the source code of `nyesno.cpp`, I have borrowed some part from
 it. With the dependence on the number of test cases, as well as using the
@@ -855,30 +891,32 @@ validator), and the answer should also be correct before passing to the checker.
 And in case of failure, that's mean the there might be a bug in the checker or
 the solution, as we have discussed above.
 
-{: .notes }
+::: info
 In the checker, we don't need to _strictly_ follow the input format as
 we have done in the validator. In other words, we don't need to read the spaces
 or `EOLN` characters. That is because `testlib.h` only forces strict input
 format when calling `registerValidator`, while that is not the case with
 `registerTestlibCmd`. And also the test was validated by the `validator` anyway
 before passing to the `checker`.
-
+:::
 
 #### Adding the checker tests
+
 As in the case of the validator, we must also test the checker. And as before,
 the tests must [cover][test-coverange] the functionalities that we wanted to
 test. And in this case:
-- The token format (should be `YES` or `NO` case _insensitive_).
-- The number of tokens (should not be less or more than the number of test
-  cases).
-- The participant's answer and the jury's answer must be matched.
+
+-   The token format (should be `YES` or `NO` case _insensitive_).
+-   The number of tokens (should not be less or more than the number of test
+    cases).
+-   The participant's answer and the jury's answer must be matched.
 
 To add the tests, click the `Add test` link to go to the `Create checker test`
 page.
 
-{% include image.html caption="Create checker test" alt="create-checker-test"
-  file="polygon-create-checker-test-page.png" %}
-  
+<include-image caption="Create checker test" alt="create-checker-test"
+  src="./img/polygon-create-checker-test-page.png" />
+
 Here there are input boxes for the `Input`, the `Output` and the `Answer`. It is
 not simple as with the `validator` case, so we can not specify multiple tests
 within a text area.
@@ -892,20 +930,18 @@ Here are the tests. For space-saving, each test's parts are put into one file
 with the separator `===section===`. Also the verdict `CRASHED` corresponds to
 the `_fail` verdict in `testlib.h`.
 
-
 Here are the results of the tests.
 
-{% include_relative 
-  _embed-contents/2022-03-09-polygon-codeforces-tutorial/checker-tests.liquid 
-%}
+<!-- @include: ./checker-tests.md -->
 
-{% include image.html caption="Checker tests results"
+<include-image caption="Checker tests results"
 alt="checker-tests-results"
-file="polygon-checker-test-result.png" %}
+src="./img/polygon-checker-test-result.png" />
 
 **Remember** to check the verdicts and the Checker comments carefully.
 
 ### A commit again
+
 Let's do the commit with the message `Add checker with checker tests`. As
 before, of course we can split this commit into two smaller ones like in the
 validator case. Or there might also be a bug in our code, which should also be
@@ -913,14 +949,15 @@ fixed and saved with another commit. This part is completely similar to the
 validator. But it is up to _you_ to decide when is the right time to make a
 commit.
 
-## The model solution
-A model solution is required in order to generate the output for the tests. 
+## The model solution {#the-model-solution}
+
+A model solution is required in order to generate the output for the tests.
 Arccording to the [editorial][CF1442-editorial], the solution is quite short.
 Here is the full solution, quoted from the editorial.
 
 > The problem sounds like this -- check that there are increasing and decreasing
 > arrays, the element-wise sum of which is equal to the given array.
-> 
+>
 > This problem can be solved greedily. Let's maximize each element of the
 > decreasing array (let's call this array $a$, and the increasing one $b$).
 > Suppose initial array is $v$ and we have solved the problem on a prefix of
@@ -932,44 +969,47 @@ Here is the full solution, quoted from the editorial.
 
 Because it is very short, here are the solutions in Python and C++.
 
-{% include customhighlight.html caption="py_solution.py"
-  file="solution.py" collapsed=true
-%}
+::: code-group
 
-{% include customhighlight.html caption="solution.cpp"
-  file="solution.cpp" collapsed=true
-%}
+<<< ./code-fragments/solution.py [py_solution.py]
+
+<<< ./code-fragments/solution.cpp
+
+:::
 
 ### Adding the solutions to Polygon
+
 To add the solutions to Polygon, click the option `Solutions files` on the top
 bar, or on the right panel, `None` or `(0/0)` link at the `Solutions` section.
 
-{: .notes }
+::: info
 `None` and `(0/0)` are displayed when there is no solution yet. When there are
 solutions, `None` will be replaced with the name of the `Model solution`, and
 `(0/0)` will be replaced by `(x/y)`, where $x$ is the total number of solutions,
 and $y$ is the number of the correct solutions.
+:::
 
-{% include image.html caption="Solutions page" alt="solutions-page"
-  file="polygon-solutions-page.png" %}
-  
+<include-image caption="Solutions page" alt="solutions-page"
+  src="./img/polygon-solutions-page.png" />
+
 The page is simple. There is a link to add the solutions. Now let's add the
 above two solutions first. Here is the page after adding the solutions.
 
-{% include image.html caption="Solutions page after adding solutions" alt="solutions-page-after-adding-solutions"
-  file="polygon-solutions-page-after-adding-solutions.png" %}
+<include-image caption="Solutions page after adding solutions" alt="solutions-page-after-adding-solutions"
+  src="./img/polygon-solutions-page-after-adding-solutions.png" />
 
-{: .notes }
+::: info
 The solution name (without the extension part) must be all different.
-  
+:::
+
 By default, the first uploaded solution will be the `Main correct` (or model)
 solution, and other solution will be just be `Correct` solution. Even though
 there can be more than one correct solutions, the `Main correct solution` will
 be used to generate the output. You can change the solution type by click the
 `Change?` option at the `Type` column for each solution.
 
-{% include image.html caption="Solution types"
-alt="solution-types" file="polygon-solution-types.png" %}
+<include-image caption="Solution types"
+alt="solution-types" src="./img/polygon-solution-types.png" />
 
 I think the types are self-explanatory, since most of them are normal verdicts
 in a contest. There are _more_ general verdict like `Incorrect` means that the
@@ -985,21 +1025,25 @@ incorrect solutions_, while must remain correct for all _correct solutions_ to
 pass.
 
 ### More commits!
+
 We make a commit with the message `Add two correct solutions`.
 
 ## Stress testing. Our first test generator.
+
 Before adding the tests, we must ensure the correctness of the model solution
 first, because the model solution is used to generate the output of the tests.
 In this section, we are going to test the correctness of the model solution with
 stress testing.
 
 ### What is stress testing?
+
 [Here][stress-testing] is the Wikipedia page about stress testing. In
 competitive programming, stress testing is used not for all of the reason stated
 in the Wikipedia page, but there is a main point:
-- to confirm mathematical model is accurate enough in predicting breaking points
-  or safe usage limits
-  
+
+-   to confirm mathematical model is accurate enough in predicting breaking points
+    or safe usage limits
+
 Stress testing on Polygon is conducted with multiple solutions (can also be
 incorrect solution). The output of these solution will be checked against the
 output of the **model solution**. The tests for stress testing is also generated
@@ -1038,28 +1082,29 @@ conclude that there is an answer. Such simulation can be implemented with
 recursion, but to make it a little faster, we can also use _memorization_ --
 that is, storing all visited states.
 
-{% include customhighlight.html caption="brute-force.cpp"
-  file="brute-force.cpp" collapsed=true
-%}
+:::code-group
+<<< ./code-fragments/brute-force.cpp
+:::
 
 We add this solution to Polygon the same was as in the previous section, but we
 set the _type_ of this solution to _Time limit exceeded_, because it can
 produce correct result, but it will run very slow on a big test case.
 
 ### Our first generator
+
 #### The `Files` page
+
 To add a generator to Polygon, we must use the `Files` page (from the `Files`
 option on the top bar) instead of the `Tests` page. In the `Files` page, there
 are also added source files like our `validator.cpp` and `checker.cpp`, as well
 as `testlib.h`. The other files are for PDF file generation with $\LaTeX$.
 
-{% include image.html caption="The Files page" alt="the-files-page"
-  file="polygon-files-page.png" %}
-  
+<include-image caption="The Files page" alt="the-files-page"
+  src="./img/polygon-files-page.png" />
+
 As before, the Polygon developers are very nice, leaving us some examples, as
 well as [the guide][generator-guide] for writing a generator with testlib.h.
 Please read [the guide][generator-guide] before continuing.
-
 
 #### Functionalities for a test generator
 
@@ -1069,6 +1114,7 @@ generator, but also the future generators, and also for this part -- stress
 testing.
 
 ##### Re-usability
+
 A generator is used not only to generate a test, but also multiple tests. And
 with a single generator we hope to generate a variety of tests. In this problem,
 for example, the test cases should have different lengths, the array elements
@@ -1086,18 +1132,15 @@ Recently, `testlib.h` supports a new way of way (or the old way but _fancier_)
 of passing and getting the arguments, called **`opts`**. For more details about
 **`opts`**, and see it in action, please refer to [this guide][opts-guide].
 
-{% comment %} Removed since it is not used in this tutorial
-
-For **`opts`**, I wanted to point out that there is an function that is not
-mentioned in the guide.
-
-- `has_opt(key)` returns `true` if there is an option with the name `key`.
-
-With this function, we can specify default options as well, which will save us
-some efforts passing the arguments.
-
-{% endcomment %}
-
+<!-- Removed since it is not used in this tutorial -->
+<!--  -->
+<!-- For **`opts`**, I wanted to point out that there is an function that is not -->
+<!-- mentioned in the guide. -->
+<!--  -->
+<!-- -   `has_opt(key)` returns `true` if there is an option with the name `key`. -->
+<!--  -->
+<!-- With this function, we can specify default options as well, which will save us -->
+<!-- some efforts passing the arguments. -->
 
 ##### Random number generation
 
@@ -1105,7 +1148,7 @@ The tests are often _randomly_ generated by a generator. As you may have known
 before, the process for generating the random number (random number generation
 -- or RNG for short) of a computer program is [pseudo-random][pseudo-rng].
 The numbers generated by a computer program is not completely random, but they
-must based on some initial value, called [a seed][random-seed]. 
+must based on some initial value, called [a seed][random-seed].
 
 For RNG, the [testlib.h generator guide][generator-guide] already provides functions for
 generating random numbers. But they did not specify how exactly the generator
@@ -1125,22 +1168,23 @@ both the _shape_ of the test, as well as the random seed!
 
 #### The first generator's implementation
 
-{% include customhighlight.html caption="gen-totally-random.cpp"
-  file="gen-totally-random.cpp"
-%}
+:::code-group
+<<< ./code-fragments/gen-totally-random.cpp
+:::
 
 This generator accepts 4 arguments/options:
-- `test-count` -- the number of of test cases.
-- `sum-n` -- the sum of array lengths over all test cases.
-- `min-a` and `max-a` -- the minimum value and maximum value for array's
-  elements.
 
-The generator will generate `test-count` _totally random_ arrays. To determine 
-the length for each array, I use `rnd.partition()` function. 
+-   `test-count` -- the number of of test cases.
+-   `sum-n` -- the sum of array lengths over all test cases.
+-   `min-a` and `max-a` -- the minimum value and maximum value for array's
+    elements.
 
-- `rnd.partition(size, sum, [min_part=1])` returns a vector of the given
-  size, the sum of whose elements must equal the second parameter, and elements
-  must not be lower than `min_part`.
+The generator will generate `test-count` _totally random_ arrays. To determine
+the length for each array, I use `rnd.partition()` function.
+
+-   `rnd.partition(size, sum, [min_part=1])` returns a vector of the given
+    size, the sum of whose elements must equal the second parameter, and elements
+    must not be lower than `min_part`.
 
 This function is not in the [testlib.h generator guide][generator-guide],
 because this function is added after the guide. See [the feature
@@ -1158,16 +1202,16 @@ suitable for stress testing.
 Let's run it locally to generate a test with 5 test cases, the sum of length is
 20, and the value range is from 1 to 5.
 
-{% include customhighlight.html caption="gen-totally-random example"
-  file="out/gen-totally-random-example.sh.out" ext="sh"
-%}
+<<< ./code-fragments/out/gen-totally-random-example.sh.out{txt}
 
 It is looking good. Let's add it to Polygon, via the `Files` page.
 
 ### Adding the stress test
+
 #### The stresses page
-{% include image.html caption="The stresses page" alt="the-stresses-page"
-  file="polygon-stresses-page.png" %}
+
+<include-image caption="The stresses page" alt="the-stresses-page"
+  src="./img/polygon-stresses-page.png" />
 
 This page can be accessed via the `Stresses` option on the top bar. The layout
 of the stresses page is similar to the previous pages: one table, and one
@@ -1175,44 +1219,49 @@ button to add an item.
 
 Let's add a stress to Polygon.
 
-{% include image.html alt="stress-against-brute-force"
+<include-image alt="stress-against-brute-force"
   caption="Stress against brute-force solution"
-  file="polygon-add-stress.png"
-  %}
-  
+  src="./img/polygon-add-stress.png"
+  />
+
 In this page:
-- The `Script pattern` input allows us to write a script pattern for test
-  generation. Here the script pattern is
+
+-   The `Script pattern` input allows us to write a script pattern for test
+    generation. Here the script pattern is
+
 ```
 gen-totally-random -test-count [1..10] -sum-n 20 -min-a 1 -max-a 5
 ```
+
 Polygon also supports minimal random parameters generation. Here I wanted the
 `test-count` to be a random number between $1$ and $10$. A fixed `sum-n` and
 a randomized `test-count` are good to randomize the test cases `n` without
 worrying about the constraints.
-- There are also `Time limit` and `Memory limit` input boxes, because the
-  stress-tested solution might not work well under the original problem's
-  constraints.
-- The `Total time limit` is the total time to do stresses. If `60 seconds` is
-  chosen, the stress will repeatedly run till the $1$ minute mark is reached.
-- Finally, Polygon allows us to choose which solutions to run. Note that it is
-  **not necessary** to add the model solution to the stress, since Polygon will
-  use its output to check the other solutions anyway. But sometime it might
-  still be a good idea, in case of changing the model solution.
+
+-   There are also `Time limit` and `Memory limit` input boxes, because the
+    stress-tested solution might not work well under the original problem's
+    constraints.
+-   The `Total time limit` is the total time to do stresses. If `60 seconds` is
+    chosen, the stress will repeatedly run till the $1$ minute mark is reached.
+-   Finally, Polygon allows us to choose which solutions to run. Note that it is
+    **not necessary** to add the model solution to the stress, since Polygon will
+    use its output to check the other solutions anyway. But sometime it might
+    still be a good idea, in case of changing the model solution.
 
 For the configuration as in the image, click `Save and Run` to run the stress.
 After at least $2$ minutes it will produce the `OK ` result. It might be higher
 than $2$ minutes because of some other reasons, for example, if you update the
 generators or solutions, recompilation will take time.
 
-{% include image.html alt="the-stress-result"
+<include-image alt="the-stress-result"
   caption="The stress result"
-  file="polygon-first-stress.png"
-  %}
-  
-{: .notes }
+  src="./img/polygon-first-stress.png"
+  />
+
+::: info
 Polygon will not refresh itself _for most of the time_, so you must press
 refresh by yourself.
+:::
 
 #### Finding countertest
 
@@ -1224,18 +1273,18 @@ lower time limit for the brute-force solution to have `TLE` verdict.
 
 After a few seconds after running, we will receive the following table.
 
-{% include image.html alt="the-new-stress-result"
+<include-image alt="the-new-stress-result"
   caption="The new-stress result"
-  file="polygon-second-stress.png"
-  %}
-  
+  src="./img/polygon-second-stress.png"
+  />
+
 By clicking the `view` link of the new stress, we got the following page.
 
-{% include image.html alt="view-of-the-second-stress"
+<include-image alt="view-of-the-second-stress"
   caption="View of the second stress"
-  file="polygon-stress-view-counter-test.png"
-  %}
-  
+  src="./img/polygon-stress-view-counter-test.png"
+  />
+
 In the page, it says that the brute-force solution run too long to generate a
 result, hence the `TL` verdict. If you see the `Countertest` row, there is a
 command, but now it has an additional string after it. This is the mechanism of
@@ -1244,13 +1293,16 @@ the end of the command, the _random seed_ will be different even for a fixed
 specified set of options.
 
 ### Commit, commit, commit!
+
 We can _safely_ conclude that our solution is correct and contains no bug. Now
 we can do a commit, for example, `Add brute-force solution and 2 stresses`. And
 of course, it is better to split it into smaller commits, but again, we can do
 the commit here to not break the flow of the post.
 
 ## Test generation
+
 ### A better test generator
+
 We already have a generator. But that generator in general is not good. A random
 array is very unlikely to have an answer `YES`, and we need to fix that. How
 about we _don't_ generate the array, but the _increasing array_ $a$ and
@@ -1258,16 +1310,18 @@ _decreasing array_ $b$ as in the editorial, then summing them up? Doing so will
 guarantee to have the answer `YES` because that is what the problem **is
 asking** the participant to do.
 
-{: .notes }
+::: info
 In the editorial, the name of the _increasing array_ is actually $b$ and the
 _decreasing_ one is $a$. While making this blog, I have their names wrong. In my
 defense, making $a$ the increasing array is more natural than the other way
 around. So I'll keep it this way.
+:::
 
 For this algorithm, there are some problems when reusing the code from
 `gen-totally-random.cpp`
-- We can not use `min-a` and `max-a` for this algorithm.
-- That are only `YES` tests, how about the `NO` tests?
+
+-   We can not use `min-a` and `max-a` for this algorithm.
+-   That are only `YES` tests, how about the `NO` tests?
 
 The first problem can be _partially_ solved by adding the value for
 arrays $a$ and $b$ separately. For the second problem, we are going to generate
@@ -1277,9 +1331,9 @@ are `YES`, and how many are `NO`.
 
 Here is the generator with the above idea.
 
-{%include customhighlight.html caption="gen-v1.cpp"
-  file="gen-v1.cpp"
-%}
+:::code-group
+<<< ./code-fragments/gen-v1.cpp
+:::
 
 In this current version, all the `YES` tests are at the beginning, while all the
 `NO` tests are at the end. Even though it is not good for a test, but it does
@@ -1287,9 +1341,8 @@ help us seeing the result of the test easier. And we will fix this for the
 future version of the generator, but let's keep this for now.
 
 Let's run it
-{%include customhighlight.html caption="gen-v1 example"
-  file="out/gen-v1-example.sh.out" ext="sh"
-%}
+
+<<< ./code-fragments/out/gen-v1-example.sh.out{txt}
 
 Here the first two tests are `YES` and the rest are `NO`. I purposely choose a
 larger range so the test that should not be `YES` will be more likely to produce
@@ -1298,10 +1351,12 @@ the `NO` answer.
 This generator works, so let's add this to Polygon.
 
 ### Adding the tests
+
 #### The `Create tests` page
-{% include image.html caption="The create tests page" alt="the-create-tests-page"
-file="polygon-create-tests-page.png"
-%}
+
+<include-image caption="The create tests page" alt="the-create-tests-page"
+src="./img/polygon-create-tests-page.png"
+/>
 
 Similarly to the other pages, there is a table, and a button to add the tests.
 But in this page there are more elements than the other pages.
@@ -1312,10 +1367,10 @@ Polygon will also automatically validate the tests according to this policy. If
 you click on the question mark near the `Test well-formed` text, there is a
 pop-up window appears, explaining the policy.
 
-{% include image.html caption="Polygon's test well-formed policy explaination"
+<include-image caption="Polygon's test well-formed policy explaination"
 alt="polygon-test-well-formed-policy-explaination"
-file="polygon-well-formed-policy.png"
-%}
+src="./img/polygon-well-formed-policy.png"
+/>
 
 The other two checkboxes is for adding points and groups, and mainly used for
 other format like IOI, where there are subtasks and each subtasks has different
@@ -1335,15 +1390,16 @@ The `Preview Tests` is for, you guess it, previewing the tests. We will see it
 later after generating the tests.
 
 #### Adding the example tests
+
 Now let's click the `Add Test` link. Here is the page looks like.
 
-{%include image.html caption="The add test page" alt="the-add-test-page"
-  file="polygon-add-test-page.png" %}
-  
+<include-image caption="The add test page" alt="the-add-test-page"
+  src="./img/polygon-add-test-page.png" />
+
 Above, there are options to add tests from an archive or files. This is suitable
 for existing contests with available tests, but it is not recommended when we
 already have the test generators. An archive or files will be very big, making
-them hard to maintain. 
+them hard to maintain.
 
 Notice that there is an option called `type`, which let's us to choose to add
 the test either manually or with a script again. Since we are adding the example
@@ -1352,8 +1408,8 @@ test, we choose to add the test manually.
 Remember that beside the original example, we also added a test case when
 writing the statement. Here will be our test input.
 
-{% include customhighlight.html caption="Example test input" collapsed=true
-content="
+::: code-group
+```txt [Example test input]
 5
 3
 1 2 1
@@ -1365,15 +1421,15 @@ content="
 5 2 1 10
 4
 3 2 1 2
-
-" %}
+```
+:::
 
 Since this is the example test, we should click the check box `Use in
 statements` as well. After that the page should look like this.
 
-{%include image.html caption="The add test page after adding the a test"
+<include-image caption="The add test page after adding the a test"
 alt="the-add-test-page-after-adding-a-test"
-file="polygon-add-test-page-added-test.png" %}
+src="./img/polygon-add-test-page-added-test.png" />
 
 There is also an option for specifying custom output. This feature is useful
 for problem with non-unique outputs.
@@ -1382,20 +1438,22 @@ Click the `Create` button to add the example test. Now if you go to the
 `Statement` page again and see the statement, the example test will appear.
 
 ### Writing the test generation script
+
 Each command in the script on Polygon is similar to when we are executing the
-generator locally. The differences is the generator name, which we only specify 
+generator locally. The differences is the generator name, which we only specify
 its name, and the _output_ file, denoted by the syntax `> [id]` where `[id]` is
 the test number, or `> $` for automatically id generation.
 
 A few first tests might be these.
 
-{% include customhighlight.html caption="First few tests"
-content="
+:::code-group
+```txt [First few tests]
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 1 -max-b 10 > $
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 100 -max-b 1000 > $
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
 gen-v1 -test-count 300 -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
-" %}
+```
+:::
 
 Here are 4 tests, the array length of the test cases in these tests is $100$ on
 average, with $50\%$ of the cases with the result `YES`, and the value size for
@@ -1406,6 +1464,7 @@ must copy and paste a lot and change the test cases little by little.
 Fortunately, Polygon has a solution for that.
 
 #### Introducing FreeMarker.
+
 [FreeMarker] is the template engine used on Polygon, and in this case for
 _generating_ the script for test generation. There is a brief manual about
 FreeMarker to the right of the script input box, and please do check it out
@@ -1414,20 +1473,22 @@ language. This tutorial will demonstrate some of its power in writing the test
 generation script.
 
 #### Making the lengths varies
+
 This can be done by altering the `test-count` option. For that, we can use the `<#list>`
 tag, which is equivalent to a for loop.
 
-{% include customhighlight.html caption="Altering the testCount"
-content="
+::: code-group
+```xml [Altering the <code>testCount</code>]
 <#assign testCount = 10000 >
 <#list 1..5 as i>
-  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 1 -max-b 10 > $
-  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 100 -max-b 1000 > $
-  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
-  gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
+gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 1 -max-b 10 > $
+gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 1 -max-a 10 -min-b 100 -max-b 1000 > $
+gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
+gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count 150 -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
 <#assign testCount = testCount / 10>
 </#list>
-" %}
+```
+:::
 
 There is some problem with this: the `yes-count` is the same. One way to fix it
 is to replace `150` of `yes-count` with the expression `${testCount / 2}`. But
@@ -1438,9 +1499,8 @@ which is equivalent to array/vector in a normal programming language.
 We will create a sequence of a pairs `(testCount, yesCount)`. To simplify, we
 will create a 2D sequence instead. The script will then look like this.
 
-{% include customhighlight.html caption="Altering the testCount and yesCount
-with sequence"
-content="
+::: code-group
+```xml [Altering the <code>testCount</code> and <code>yesCount</code>]
 <#assign testAndYesCounts = [
   [10000, 5000],
   [100, 50],
@@ -1455,18 +1515,18 @@ content="
   gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count ${yesCount} -min-a 100 -max-a 1000 -min-b 1 -max-b 10 > $
   gen-v1 -test-count ${testCount} -sum-n 30000 -yes-count ${yesCount} -min-a 100 -max-a 1000 -min-b 100 -max-b 1000 > $
 </#list>
-" %}
+```
+:::
 
 With this approach, we have more control over the test. Here we generated $16$
-tests, as opposed to the previous method which generated $20$ tests. 
+tests, as opposed to the previous method which generated $20$ tests.
 
 #### Making the value range varies
+
 We can as well use sequence of pairs to specifies the value ranges, and use
 loops to iterate over them.
 
-{% include customhighlight.html caption="Altering the value ranges with sequences
-and loops"
-content="
+```txt [Altering the value ranges with sequences and loops]
 <#assign testAndYesCounts = [
   [10000, 5000],
   [100, 50],
@@ -1487,7 +1547,7 @@ content="
     </#list>
   </#list>
 </#list>
-" %}
+```
 
 This script will produce $4 \times 3 \times 3 = 36$ tests. FreeMarker really
 helps us writing the script more easily. With just a little code, we can produce
@@ -1495,9 +1555,9 @@ a large amount of tests!
 
 #### Preview the tests
 
-{% include image.html caption="Test review" alt="test-review"
-  file="polygon-test-review-page.png" %}
-  
+<include-image caption="Test review" alt="test-review"
+  src="./img/polygon-test-review-page.png" />
+
 For each test, Polygon will show a few first character of the input, as well as
 the output. Seeing the whole test is a lot, but a few first line is enough for
 online reviewing. It also allows to download the tests to review it more
@@ -1508,58 +1568,62 @@ example, if you happened to add another range for the value range like `[500000,
 1000000]` in the script, then there will be an error because `1000000 + 1000000`
 will exceed the maximum value of array.
 
-{% include image.html caption="Test review with errors"
+<include-image caption="Test review with errors"
 alt="test-review-with-errors"
-  file="polygon-test-review-with-error.png" %}
-  
+  src="./img/polygon-test-review-with-error.png" />
+
 It is a bit hard to see the error in a small box, so you can download the test
 to see it locally, or maybe run that command on your computer and do the
 validation locally.
 
 ### Commit! Commit more! Commit forever!
+
 The commit message can be `Add a better generator with tests`. But as always, it
 should be broken down, like when you add the generator and when you add the
 tests.
 
 ## Final touches
+
 We basically have done everything to prepare a problem, from writing the
 statement to generate the tests. If you look at the right panel again, there are
 sections that we have not touched yet. They are `Package`, `Verification`,
 `Review problem` and `Show warnings`.
 
-{% include image.html caption="The right panel after"
-  file="polygon-right-pane-after.png"
-%}
+<include-image caption="The right panel after"
+  src="./img/polygon-right-pane-after.png"
+/>
 
 ### Show warnings
+
 Remember about the warning when writing the `validator`? By clicking the link,
 we are directed to the page containing all the warnings. We have done a good job
 not to leave any warnings in the other section, but the section `Show warning`
 is still <span style="color: orange">orange</span>. That because there is a small
 thing that Polygon recommends us to do: add the tags to the problem.
 
-{% include image.html caption="Warnings page"
-file="polygon-warnings-page.png"
-%}
+<include-image caption="Warnings page"
+src="./img/polygon-warnings-page.png"
+/>
 
 To add the `tags` for the problem, we can go to the `General info` page.
-{% include image.html caption="Adding tags in the General info page"
-file="polygon-problem-general-info-page-add-tags.png" %}
+<include-image caption="Adding tags in the General info page"
+src="./img/polygon-problem-general-info-page-add-tags.png" />
 
 The tags doesn't seem to be useful, but one of their use on Polygon is for
 `Searching`. There is a `Search` option on the top bar in the **home page**
 (when you logged in).
 
-{% include image.html caption="The search page" file="polygon-search.png" %}
+<include-image caption="The search page" src="./img/polygon-search.png" />
 
 After adding the tags, you can make a commit as well.
 
 ### Review problem
+
 By clicking the link in the section `Review problem` of the right panel, a page
 shows up with three columns: problem statement, validator and checker.
 
-{% include image.html caption="Review problem page"
-file="polygon-problem-review-page.png" %}
+<include-image caption="Review problem page"
+src="./img/polygon-problem-review-page.png" />
 
 I purposely capture this image **before** adding the tags, to show that in this
 page, warnings also appear as well. There are only validator and checker besides
@@ -1569,19 +1633,20 @@ input are correctly checked by the validator, as well as if the checker
 correctly checks the output.
 
 ### Invocation
+
 There is an option call `Invocation` on the top bar of the problem. When
 clicked, this page shows up.
 
-{% include image.html caption="Invocation page"
-file="polygon-invocation-page.png" %}
+<include-image caption="Invocation page"
+src="./img/polygon-invocation-page.png" />
 
 This page is for running some/all solutions against the some/all tests. When
 clicking `Want to run solutions?`, two tables will appear, one for choosing
 solution, and one for choosing the tests. After choosing, click on `Run
 judgement` to run them.
 
-{% include image.html caption="Choose to run all solutions against all tests"
-file="polygon-invocation-run-all-solutions-against-all-tests.png" %}
+<include-image caption="Choose to run all solutions against all tests"
+src="./img/polygon-invocation-run-all-solutions-against-all-tests.png" />
 
 After that, there will be a new item on the table. Click the `view` link of the
 items to see the running result. The solutions are also ran on the fly, so you
@@ -1592,16 +1657,18 @@ There are some useful information at the end of the table though, like the
 number of passed tests, the resource usages for each solution. There are also
 scores if you use scoring.
 
-{% include image.html caption="Invocation result"
-file="polygon-invocation-result.png" %}
+<include-image caption="Invocation result"
+src="./img/polygon-invocation-result.png" />
 
 There are also notes about the color coding. Base on that you can adjust the  
 time and memory limit accordingly.
 
-{: .notes }
+::: info
 The invocation page is not shared among the authors of the problem.
+:::
 
 ### Verification
+
 If you click the `(start)` link of the `Verify` section in the right panel, it
 seems like nothing happen. But actually, Polygon will create **a new
 invocation** for all solutions and all tests, which can be seen in the
@@ -1610,8 +1677,8 @@ invocation result and compare it to the solutions verdicts. If everything
 matches, then the verification is **success**. Otherwise it is **failed**,
 meaning something is wrong, and you should fix it.
 
-{% include image.html caption="Verification failed with reason"
-file="polygon-verification-failed.png" %}
+<include-image caption="Verification failed with reason"
+src="./img/polygon-verification-failed.png" />
 
 We got **failed** verdict, because while we mark the solution `brute-force.cpp`
 as `TLE`, it has `MLE` verdict for the $10$-th test. To fix it, we should change
@@ -1619,17 +1686,18 @@ the verdict of the `brute-force` solution into `Time limit exeeced or Memory
 limit exceeded` (or `TLE or MLE`). After fixing and re-run verification, we will
 get the `OK` result.
 
-{% include image.html caption="Verfication ok"
-file="polygon-verification-ok.png" %}
+<include-image caption="Verfication ok"
+src="./img/polygon-verification-ok.png" />
 
-### Package 
+### Package
+
 A package is a zip file, containing all of the files of the problem, in the
 same directory as on Polygon. Codeforces in particular will use the package file
 to import the problem from Polygon, making it very easy to add problems to
 Codeforces.
 
-{% include image.html caption="The package page"
-file="polygon-package-page.png" %}
+<include-image caption="The package page"
+src="./img/polygon-package-page.png" />
 
 These are the same old tables with an adding buttons. Beside the table for
 packages, recently there is also a table for the problem material. [See
@@ -1652,16 +1720,17 @@ because it is for a version, not _half_ version. Make sure to commit changes
 before creating a package. That being said, you can create any package for any
 version, whichever you like, and Polygon will store the package for you.
 
-{% include image.html caption="Create a new standard package"
-file="polygon-package-page-create-new-package.png" %}
+<include-image caption="Create a new standard package"
+src="./img/polygon-package-page-create-new-package.png" />
 
 You can download the package and see it for yourselves.
 
-### Adding the problem to a Codeforces mashup
+### Adding the problem to a Codeforces mashup {#adding-the-problem-to-a-codeforces-mashup}
+
 To create a Mashup on Codeforces, go to `Gym > Mashup > Create new mashup`.
 
-{% include image.html caption="Codeforces create a new mashup"
-file="codeforces-create-mashup-page.png" %}
+<include-image caption="Codeforces create a new mashup"
+src="./img/codeforces-create-mashup-page.png" />
 
 There is a note about how to add the problem to Codeforces. We must grant the
 access of the problem to the user `codeForces` on Polygon.
@@ -1670,13 +1739,13 @@ On the top bar of the problem on Polygon, click `Manage Acess`. (And yes, there
 is a table with an adding button). Click `Add users` and type `codeforces`
 and then click `Add users` button.
 
-{% include image.html caption="Manage access page with codeforces added"
-file="polygon-manage-access-page.png" %}
+<include-image caption="Manage access page with codeforces added"
+src="./img/polygon-manage-access-page.png" />
 
 The link to this problem on Polygon is on the second panel of the right column.
 
-{% include image.html caption="The link to the problem in the second panel"
-file="polygon-the-second-pane.png" %}
+<include-image caption="The link to the problem in the second panel"
+src="./img/polygon-the-second-pane.png" />
 
 Click it to copy the link, and paste it to the mashup creation page. Click
 `Create Mashup Contest` to finally create the contest. That is, you finally
@@ -1687,6 +1756,7 @@ And [Here][contest-invitation] is the invitation to the mashup, which is the
 result of this post.
 
 ## Conclusion
+
 There are more things that Polygon can do, and one of them is managing contests.
 But for problem preparation only, this post provides basic knowledges. I know
 that this post is _very long_, but I do hope that I have explained everything
@@ -1700,17 +1770,16 @@ please stay tuned!
 ---
 
 ## Special thanks
-I want to give special thanks to Nikolay [KAN][cf-KAN-profile]{:
-.cf-user.legendary} Kalinin for proofreading, as well as giving very wonderful
+
+I want to give special thanks to Nikolay <cf-handle nickname="KAN" maxRank="true" /> Kalinin for proofreading, as well as giving very wonderful
 comments and feedback! I think I could not go this far to make this blog post
 without him.
 
-Shout out to [MikeMirzayanov][cf-MikeMirzayanov-profile]{:.cf-user.admin} and
+Shout out to <cf-handle nickname="MikeMirzayanov" rank="headquater"/> and
 the Codeforces team for making Polygon! There are still more and more features
 being added, even during the writing process of this post.
 
 And thank you for reading this post!
-
 
 [contest-invitation]: https://codeforces.com/contestInvitation/0b42bfbee9fb4479e24492e688458a1bfa30c835
 [Polygon]: https://polygon.codeforces.com/
@@ -1736,10 +1805,8 @@ And thank you for reading this post!
 [FreeMarker-sequence]: https://freemarker.apache.org/docs/dgui_template_exp.html#dgui_template_exp_direct_seuqence
 [polygon-updates-02-2022]: https://codeforces.com/blog/entry/100519
 [codeforces-hacking]: https://codeforces.com/blog/entry/6249?#comment-116329
-[problem-statement-pdf]: {{page.image_dir}}/extreme-subtraction-clone-r12-en.pdf
+[problem-statement-pdf]: extreme-subtraction-clone-r12-en.pdf
 [cf-KAN-profile]: https://codeforces.com/profile/KAN
 [cf-MikeMirzayanov-profile]: https://codeforces.com/profile/MikeMirzayanov
 
-{% comment %}
-vim: spell wrap
-{% endcomment %}
+<!-- vim: spell wrap -->

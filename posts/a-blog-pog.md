@@ -1,7 +1,9 @@
 ---
-layout: custompost
+layout: blog-post
 title: "A blog? Pog!"
-date: 2021-07-26 11:25:00 +0300
+date: '2021-07-26T11:25:00+03:00'
+aside: false
+sidebar: false
 ---
 
 Yay I created a blog! But that's actually might be it for now. I sometimes wanted to write, but
@@ -9,6 +11,8 @@ I don't know where to dump all of the things. Those things might be gone for goo
 a blog is a appropriate place just for thought dumping. Also I actually wanted to create this
 for a while now, but I don't have time. Now it is summer, and I have time, so I wanted to try
 this out.
+
+<!-- more -->
 
 What will I write about tho? Now I'm actually known for doing competitive programming (CP). But
 I might not write about it thought. There are actually a great amount of quality posts just about
@@ -24,7 +28,7 @@ that writing just this post in both languages is tiresome. But if things are get
 
 That's it for now.
 
-```c++
+```cpp
 #include <iostream>
 int main() {
     std::cout << "Bye" << std::endl;
