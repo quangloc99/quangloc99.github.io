@@ -43,13 +43,11 @@ Might be about math. Might be about art. Who knows?`,
         outline: {
             level: [2, 3],
         },
-        nav: [
-            { text: 'About', link: '/about' },
-        ],
+        nav: [{ text: 'About', link: '/about' }],
         socialLinks: [
             { icon: 'github', link: 'https://github.com/quangloc99' },
             { icon: 'discord', link: 'https://discord.com/users/501085823480102925' },
-            { icon: 'facebook', link: 'https://www.facebook.com/TQLoc' }
+            { icon: 'facebook', link: 'https://www.facebook.com/TQLoc' },
         ],
     },
 });

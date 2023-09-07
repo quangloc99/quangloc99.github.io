@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-    import { onMounted } from 'vue';
     import { computed } from 'vue';
     import VPDoc from 'vitepress/dist/client/theme-default/components/VPDoc.vue';
     import { useData } from 'vitepress';
