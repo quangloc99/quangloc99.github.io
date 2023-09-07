@@ -18,6 +18,10 @@ export default defineConfigWithTheme<Config>({
     description: `
 Just a personal blog. Might be about my job. Might be about my hobby.
 Might be about math. Might be about art. Who knows?`,
+    
+    sitemap: {
+        hostname: 'https://quangloc99.github.io',
+    },
 
     markdown: {},
 
