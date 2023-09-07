@@ -22,6 +22,9 @@ Might be about math. Might be about art. Who knows?`,
     sitemap: {
         hostname: 'https://quangloc99.github.io',
     },
+    srcExclude: [
+        'legacy-jekyll-component/**/*',
+    ],
 
     markdown: {},
 

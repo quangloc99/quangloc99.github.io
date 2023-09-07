@@ -3,6 +3,7 @@ import type { Config } from '../index';
 
 export function useSiteRedirect(redirectMap: MaybeRefOrGetter<Config['redirects']>) {
     const shouldRedirect = computed(() => {
+        if (typeof window === 'undefined') return false;
         const redirectMapValue = toValue(redirectMap);
         for (const { srcPart, dest } of redirectMapValue) {
             if (window.location.href.indexOf(srcPart) === -1) continue;
