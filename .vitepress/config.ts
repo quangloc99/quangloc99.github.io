@@ -51,7 +51,9 @@ Might be about math. Might be about art. Who knows?`,
             { icon: 'facebook', link: 'https://www.facebook.com/TQLoc' },
         ],
         redirects: [
-            { srcRegex: '2022\/03\/08\/polygon-codeforces-tutorial', dest: '/posts/polygon-codeforces-tutorial/' },
+            { srcPart: '2022\/03\/08\/polygon-codeforces-tutorial', dest: '/posts/polygon-codeforces-tutorial/index.html' },
+            { srcPart: '2021\/10\/01\/im-red-now-what', dest: '/posts/im-red-now-what/index.html'},
+            { srcPart: '2021/07/30/my-CP-debugging-template.html', dest: '/posts/my-CP-debugging-template.html' },
         ],
     },
 });

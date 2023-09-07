@@ -23,7 +23,7 @@ export default theme;
 
 export type Config = DefaultThemeType.Config & {
     redirects?: {
-        srcRegex: string;
+        srcPart: string;
         dest: string;
     }[];
 };
