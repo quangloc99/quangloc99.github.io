@@ -1,20 +1,21 @@
 <script lang="ts" setup>
+    import { computed } from 'vue';
     import DefaultTheme from 'vitepress/theme';
+    import { useData } from 'vitepress';
+    import type { Config } from './index';
 
     const { Layout } = DefaultTheme;
+    const { theme } = useData<Config>();
 
-    const redirectMap = [
-        { srcPart: '2022/03/08/polygon-codeforces-tutorial', dest: '/posts/polygon-codeforces-tutorial/' },
-    ];
-
-    let shouldRedirect = false;
-    for (const { srcPart, dest } of redirectMap) {
-        if (window.location.href.indexOf(srcPart) > -1) {
+    const shouldRedirect = computed(() => {
+        if (!theme.value.redirects) return false;
+        for (const { srcRegex, dest } of theme.value.redirects) {
+            if (!window.location.href.match(new RegExp(srcRegex))) continue;
             window.location.href = `${dest}${window.location.hash}${window.location.search}`;
-            shouldRedirect = true;
-            break;
+            return true;
         }
-    }
+        return false;
+    });
 </script>
 
 <template>

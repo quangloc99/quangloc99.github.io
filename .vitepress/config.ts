@@ -1,4 +1,5 @@
-import { defineConfig } from 'vitepress';
+import { defineConfig, defineConfigWithTheme } from 'vitepress';
+import { Config } from './theme';
 
 const MathJaxSetting = {
     tex: {
@@ -11,7 +12,7 @@ const MathJaxSetting = {
     },
 };
 
-export default defineConfig({
+export default defineConfigWithTheme<Config>({
     // site-level options
     title: 'Darkkcyan blog',
     description: `
@@ -48,6 +49,9 @@ Might be about math. Might be about art. Who knows?`,
             { icon: 'github', link: 'https://github.com/quangloc99' },
             { icon: 'discord', link: 'https://discord.com/users/501085823480102925' },
             { icon: 'facebook', link: 'https://www.facebook.com/TQLoc' },
+        ],
+        redirects: [
+            { srcRegex: '2022\/03\/08\/polygon-codeforces-tutorial', dest: '/posts/polygon-codeforces-tutorial/' },
         ],
     },
 });
