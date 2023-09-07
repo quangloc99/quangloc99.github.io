@@ -2035,6 +2035,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"markdown-it-implicit-figures@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "markdown-it-implicit-figures@npm:0.12.0"
+  checksum: 97882b7ebce3bfb136751789d2eac26aea7be8b75609dd53415a6bf02d8636fed62d1bba631dda46259f0118c399d24e524507dcf7021e573b6b5ebd126d37d6
+  languageName: node
+  linkType: hard
+
 "mime@npm:^1.6.0":
   version: 1.6.0
   resolution: "mime@npm:1.6.0"
@@ -2471,6 +2478,7 @@ __metadata:
     eslint: ^8.48.0
     eslint-plugin-vue: ^9.17.0
     http-server: ^14.1.1
+    markdown-it-implicit-figures: ^0.12.0
     prettier: ^3.0.3
     typescript: ^5.2.2
     vitepress: ^1.0.0-rc.10

@@ -24,7 +24,8 @@
         if (props.src) return props.src;
         if (!props.file) return props.file;
         if (frontmatter.value.image_dir) return props.file;
-        return `${frontmatter.value.image_dir}/${props.file}`;
+        const path = `${frontmatter.value.image_dir}/${props.file}`;
+        return new URL(`${path}`, import.meta.url).href;
     });
 </script>
 

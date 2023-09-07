@@ -17,6 +17,7 @@
         "blog:preview": "vitepress preview ."
     },
     "dependencies": {
+        "markdown-it-implicit-figures": "^0.12.0",
         "vue-utterances": "^0.3.4"
     }
 }

@@ -5,8 +5,6 @@ date: '2022-03-09T00:00:00+03:00'
 tags: [en, polygon, codeforces, testlib, cp]
 customhighlight:
     wrap: true
-old_image_dir: /assets/2022-02-19-test-generation-guide
-mathjax: true
 toc:
     upper_header_level: 3
 ---
@@ -14,6 +12,8 @@ toc:
 <script lang="ts" setup>
 import { useData } from 'vitepress';
 const { frontmatter } = useData();
+
+
 </script>
 
 This is the first part of my series on problem preparation for a programming
@@ -131,9 +131,7 @@ array. Array generation is simple, but in some cases, is not easy. In part 2 and
 
 When entering Polygon, we are greeted with a simple page like this.
 
-<include-image caption="Polygon home page" alt="polygon-home-page"
-  src="./img/polygon-home-page.png"
-/>
+![Polygon home page](./img/polygon-home-page.png)
 
 On the head bar (the bar with blue color), there are several options. Polygon
 allows us to manage individual problems, as well as group them into one contest.
@@ -148,18 +146,14 @@ this list, there are problems owned by us. There are also problems that are
 shared with us, meaning the problem's owner grant us the access to it. That's
 why there are already some problems like `example-a-plus-b` in that page.
 
-<include-image caption="Polygon problems page"
-  alt="polygon-problems-page"
-  src="./img/polygon-problems-page.png" />
+![polygon-problems-page](./img/polygon-problems-page.png "Polygon problems page")
 
 In the row having our problem, under the column `Working Copy` we click `Start` to
 start working with it.
 
 ## Problem general info page
 
-<include-image caption="Problem general info page"
-  alt="problem-general-info-page"
-  src="./img/polygon-problem-general-info-page.png" />
+![polygon-general-info-page](./img/polygon-problem-general-info-page.png "Polygon general info page")
 
 > “A user interface is like a joke. If you have to explain it, it’s not that
 > good”. — Martin Leblanc
@@ -216,8 +210,12 @@ _temporary_.
 Now we can go back to the General Info page to see one detail there. Here is we
 wanted to see.
 
-<include-image caption="The commit panel" alt="the-commit-panel"
-  src="./img/polygon-commit-pane.png" width="8cm" />
+![the-commit-panel](./img/polygon-commit-pane.png "The commit panel")
+<style module>
+    img[alt="the-commit-panel"] {
+        width: 8cm;
+    }
+</style>
 
 This is the last panel of the right column. Every lines in this panel starts with
 `ADDED`, and that means all the files and folders shown in this panel are newly
@@ -248,8 +246,7 @@ practice to always write a message.
 There were not much going on during this first commit. So one _popular_ commit
 message is `Initial commit`.
 
-<include-image caption="Commit page" alt="commit-page"
-  src="./img/polygon-commit-page.png" width="90%"/>
+![commit-page](./img/polygon-commit-page.png "Commit page")
 
 There is also a check box for _not_ sending an email notification. If leaved
 unchecked, an email with full `DIFF` will be sent to your email, as well as this
@@ -280,11 +277,9 @@ Keep committing regularly.
 There are two more significant UI parts that we should care about: the head bar
 and the first panel of the right column.
 
-<include-image caption="The head bar" alt="the-head-bar"
-  src="./img/polygon-problem-head-bar.png" />
+![the-head-bar](./img/polygon-problem-head-bar.png "The head bar")
 
-<include-image caption="The first panel" alt="the-first-panel"
-  src="./img/polygon-problem-main-pane.png" width="8cm" />
+![the-first-panel](./img/polygon-problem-main-pane.png "The first panel")
 
 These two UI parts share some options. For example, the option `Statement` in
 the head bar also lead to the same page as clicking the word `None` near the
@@ -306,9 +301,7 @@ are also input boxes for the input/output files, the time and memory limits. In
 the original problem, the time limit is 2s, and the rest are the same, so we
 should now change the time to 2000ms. **Remember to press `Save`**.
 
-<include-image caption="Input boxes for IO files, time and memory limit
-in the General Info page"
-src="./img/polygon-problem-general-info-limits.png" width="16cm" />
+![](./img/polygon-problem-general-info-limits.png "Input boxes for IO files, time and memory limit in the General Info page")
 
 ### The statement page
 
@@ -320,8 +313,7 @@ prepare problems for competition on an international scale.
 
 After choosing the language, the following page appears.
 
-<include-image caption="Problem statement page" 
-alt="problem-statement-page" src="./img/polygon-problem-statement-page.png" />
+![problem-statement-page](./img/polygon-problem-statement-page.png "Problem statement page")
 
 First of all, if you look at the last panel of the right column again, there are
 new files added by Polygon. The content of these newly added files can be edited
@@ -467,13 +459,9 @@ Before first step & & $[3, 2, 1, 2]$ \\ \hline
 ```
 :::
 
-<include-image caption="Problem statement edit with preview"
-src="./img/polygon-problem-statement-edit-with-preview.png"
-/>
+![](./img/polygon-problem-statement-edit-with-preview.png "Problem statement edit with preview")
 
-<include-image caption="Problem statement notes"
-src="./img/polygon-problem-statement-notes.png"
-/>
+![](./img/polygon-problem-statement-notes.png "Problem statement notes")
 
 You can see that there is no Example tests here. That is because the Example
 tests must also be added in the [`Tests` section](#adding-the-example-tests),
@@ -544,14 +532,11 @@ bar. On this page, click `Add tests`.
 
 For more details on this page, see [Adding the tests](#adding-the-tests).
 
-<include-image caption="The Create tests page. Click the `Add Tests` link"
-  src="./img/polygon-create-tests-page-add-example-guide.png"
-/>
+![](./img/polygon-create-tests-page-add-example-guide.png "The Create tests page. Click the `Add Tests` link")
 
 After that, the following page will appear.
 
-<include-image caption="The add test page"
-  src="./img/polygon-add-test-page.png" />
+![](./img/polygon-add-test-page.png "The add test page")
 
 Put the input data into the `Data` box. The input data will be
 
@@ -559,16 +544,14 @@ To mark this test as an example, check `Use in statements` checkbox. There will
 be a text asking us if we wanted to use custom content for input or output.
 Click it to specify our output.
 
-<include-image caption="`Use in statements checkbox` checked "
-  src="./img/polygon-add-test-page-use-in-statement-checkbox.png" />
+![](./img/polygon-add-test-page-use-in-statement-checkbox.png "`Use in statements checkbox` checked ")
 
 There will be two more boxes appear. Since we will specify our output by hand,
 we will us the second box only. And because we don't have a validator, a checker
 and a model solution yet, we _must_ uncheck the checkbox `Verify output for
 statements`.
 
-<include-image caption = "Example test with custom output"
-src="./img/polygon-add-test-page-added-example-test-custom-output.png" />
+![](./img/polygon-add-test-page-added-example-test-custom-output.png "Example test with custom output")
 
 Click save, then return to the `Statements` page. The example test will appear.
 
@@ -587,8 +570,7 @@ In the `Statements` page, there are a few view options: `In latex`, `In HTML` or
 `in PDF`. To see in our in the web format, click `In HTML`, and in the PDF
 format, click `In PDF`.
 
-<include-image caption = "View statement options"
-src="./img/polygon-problem-statement-page-view-options.png" />
+![](./img/polygon-problem-statement-page-view-options.png "View statement options")
 
 If you wanted to see the web format _live_, see the [very last
 section](#adding-the-problem-to-a-codeforces-mashup) of this tutorial. I also
@@ -625,9 +607,7 @@ hack tests will also be validated, using the author's validator.
 When you click the `Validator` option on the top bar, here is validator page
 will look like.
 
-<include-image caption="Select validator page" alt="select-validator-page" 
-src="./img/polygon-validator-page.png"
-/>
+![select-validator-page](./img/polygon-validator-page.png "Select validator page")
 
 We can see that the Polygon's developers are nice enough to put on some example
 for us to see, as well as a little guide. I also recommend to read that guide
@@ -680,8 +660,7 @@ a good practice. For example if you don't put the variable name for `test-case`,
 this message will appear when you hover your mouse over the validator name.
 :::
 
-<include-image caption="Polygon's warning for validator"
-alt="polygon-warning-for-validator" src="./img/polygon-validator-warning.png" />
+![polygon-warning-for-validator](./img/polygon-validator-warning.png "Polygon's warning for validator")
 
 ::: tip
 And also note that <span style="color: orange">orange</span> things are often
@@ -702,9 +681,7 @@ since the validator is often not a complicated program.
 To add tests, click `Add test` in the `validator page`. The page for adding the
 tests looks like this.
 
-<include-image caption="Create validator test page"
-alt="create-validator-test-page"
-src="./img/polygon-create-validator-test-page.png" />
+![create-validator-test-page](./img/polygon-create-validator-test-page.png "Create validator test page")
 
 The first input box is for the id of the test. The checkbox `Use testset and
 group:` is for a problem with multiple test sets and group, like problem with
@@ -748,10 +725,7 @@ already have two tests, but more can be added.
 After adding the tests, you can go back to the `Validator page` and run the
 tests. Here is the validator test result.
 
-<include-image alt="validation-test-result"
-  caption="Validation test result"
-  src="./img/validation-test-result.png"
-/>
+![validation-test-result](./img/validation-test-result.png "Validation test result")
 
 **Remember** to check the verdicts and the Validator comments carefully.
 
@@ -784,8 +758,7 @@ Before going further, let's look at the `Select checker` page.
 
 ### The `Select checker` page
 
-<include-image caption="`Select checker` page"
-  alt="select-checker-page" src="./img/polygon-checker-selection-page.png" />
+![select-checker-page](./img/polygon-checker-selection-page.png "`Select checker` page")
 
 The page is almost identical as the `Select validator` page, with the same
 functionalities, as well as the examples. And I also recommend to read the
@@ -799,8 +772,7 @@ output formats.
 
 ### The standard checkers
 
-<include-image caption="List of standard checkers"
-  alt="list-of-standard-checkers" src="./img/polygon-standard-checkers.png" />
+![list-of-standard-checkers](./img/polygon-standard-checkers.png "List of standard checkers")
 
 For most cases, you can actually always choose the checker `wcmp.cpp` (words
 comparator (?)), since comparing integers for most cases is the same as comparing
@@ -914,8 +886,7 @@ test. And in this case:
 To add the tests, click the `Add test` link to go to the `Create checker test`
 page.
 
-<include-image caption="Create checker test" alt="create-checker-test"
-  src="./img/polygon-create-checker-test-page.png" />
+![create-checker-test](./img/polygon-create-checker-test-page.png "Create checker test")
 
 Here there are input boxes for the `Input`, the `Output` and the `Answer`. It is
 not simple as with the `validator` case, so we can not specify multiple tests
@@ -934,9 +905,7 @@ Here are the results of the tests.
 
 <!-- @include: ./checker-tests.md -->
 
-<include-image caption="Checker tests results"
-alt="checker-tests-results"
-src="./img/polygon-checker-test-result.png" />
+![checker-tests-results](./img/polygon-checker-test-result.png "Checker tests results")
 
 **Remember** to check the verdicts and the Checker comments carefully.
 
@@ -989,14 +958,12 @@ solutions, `None` will be replaced with the name of the `Model solution`, and
 and $y$ is the number of the correct solutions.
 :::
 
-<include-image caption="Solutions page" alt="solutions-page"
-  src="./img/polygon-solutions-page.png" />
+![solutions-page](./img/polygon-solutions-page.png "Solutions page")
 
 The page is simple. There is a link to add the solutions. Now let's add the
 above two solutions first. Here is the page after adding the solutions.
 
-<include-image caption="Solutions page after adding solutions" alt="solutions-page-after-adding-solutions"
-  src="./img/polygon-solutions-page-after-adding-solutions.png" />
+![solutions-page-after-adding-solutions](./img/polygon-solutions-page-after-adding-solutions.png "Solutions page after adding solutions")
 
 ::: info
 The solution name (without the extension part) must be all different.
@@ -1008,8 +975,7 @@ there can be more than one correct solutions, the `Main correct solution` will
 be used to generate the output. You can change the solution type by click the
 `Change?` option at the `Type` column for each solution.
 
-<include-image caption="Solution types"
-alt="solution-types" src="./img/polygon-solution-types.png" />
+![solution-types](./img/polygon-solution-types.png "Solution types")
 
 I think the types are self-explanatory, since most of them are normal verdicts
 in a contest. There are _more_ general verdict like `Incorrect` means that the
@@ -1099,8 +1065,7 @@ option on the top bar) instead of the `Tests` page. In the `Files` page, there
 are also added source files like our `validator.cpp` and `checker.cpp`, as well
 as `testlib.h`. The other files are for PDF file generation with $\LaTeX$.
 
-<include-image caption="The Files page" alt="the-files-page"
-  src="./img/polygon-files-page.png" />
+![the-files-page](./img/polygon-files-page.png "The Files page")
 
 As before, the Polygon developers are very nice, leaving us some examples, as
 well as [the guide][generator-guide] for writing a generator with testlib.h.
@@ -1210,8 +1175,7 @@ It is looking good. Let's add it to Polygon, via the `Files` page.
 
 #### The stresses page
 
-<include-image caption="The stresses page" alt="the-stresses-page"
-  src="./img/polygon-stresses-page.png" />
+![the-stresses-page](./img/polygon-stresses-page.png "The stresses page")
 
 This page can be accessed via the `Stresses` option on the top bar. The layout
 of the stresses page is similar to the previous pages: one table, and one
@@ -1219,10 +1183,7 @@ button to add an item.
 
 Let's add a stress to Polygon.
 
-<include-image alt="stress-against-brute-force"
-  caption="Stress against brute-force solution"
-  src="./img/polygon-add-stress.png"
-  />
+![stress-against-brute-force](./img/polygon-add-stress.png "Stress against brute-force solution")
 
 In this page:
 
@@ -1253,10 +1214,7 @@ After at least $2$ minutes it will produce the `OK ` result. It might be higher
 than $2$ minutes because of some other reasons, for example, if you update the
 generators or solutions, recompilation will take time.
 
-<include-image alt="the-stress-result"
-  caption="The stress result"
-  src="./img/polygon-first-stress.png"
-  />
+![the-stress-result](./img/polygon-first-stress.png "The stress result")
 
 ::: info
 Polygon will not refresh itself _for most of the time_, so you must press
@@ -1273,17 +1231,11 @@ lower time limit for the brute-force solution to have `TLE` verdict.
 
 After a few seconds after running, we will receive the following table.
 
-<include-image alt="the-new-stress-result"
-  caption="The new-stress result"
-  src="./img/polygon-second-stress.png"
-  />
+![the-new-stress-result](./img/polygon-second-stress.png "The new-stress result")
 
 By clicking the `view` link of the new stress, we got the following page.
 
-<include-image alt="view-of-the-second-stress"
-  caption="View of the second stress"
-  src="./img/polygon-stress-view-counter-test.png"
-  />
+![view-of-the-second-stress](./img/polygon-stress-view-counter-test.png "View of the second stress")
 
 In the page, it says that the brute-force solution run too long to generate a
 result, hence the `TL` verdict. If you see the `Countertest` row, there is a
@@ -1354,9 +1306,7 @@ This generator works, so let's add this to Polygon.
 
 #### The `Create tests` page
 
-<include-image caption="The create tests page" alt="the-create-tests-page"
-src="./img/polygon-create-tests-page.png"
-/>
+![the-create-tests-page](./img/polygon-create-tests-page.png "The create tests page")
 
 Similarly to the other pages, there is a table, and a button to add the tests.
 But in this page there are more elements than the other pages.
@@ -1367,10 +1317,7 @@ Polygon will also automatically validate the tests according to this policy. If
 you click on the question mark near the `Test well-formed` text, there is a
 pop-up window appears, explaining the policy.
 
-<include-image caption="Polygon's test well-formed policy explaination"
-alt="polygon-test-well-formed-policy-explaination"
-src="./img/polygon-well-formed-policy.png"
-/>
+![polygon-test-well-formed-policy-explaination](./img/polygon-well-formed-policy.png "Polygon's test well-formed policy explaination")
 
 The other two checkboxes is for adding points and groups, and mainly used for
 other format like IOI, where there are subtasks and each subtasks has different
@@ -1393,8 +1340,7 @@ later after generating the tests.
 
 Now let's click the `Add Test` link. Here is the page looks like.
 
-<include-image caption="The add test page" alt="the-add-test-page"
-  src="./img/polygon-add-test-page.png" />
+![the-add-test-page](./img/polygon-add-test-page.png "The add test page")
 
 Above, there are options to add tests from an archive or files. This is suitable
 for existing contests with available tests, but it is not recommended when we
@@ -1427,9 +1373,7 @@ writing the statement. Here will be our test input.
 Since this is the example test, we should click the check box `Use in
 statements` as well. After that the page should look like this.
 
-<include-image caption="The add test page after adding the a test"
-alt="the-add-test-page-after-adding-a-test"
-src="./img/polygon-add-test-page-added-test.png" />
+![the-add-test-page-after-adding-a-test](./img/polygon-add-test-page-added-test.png "The add test page after adding the a test")
 
 There is also an option for specifying custom output. This feature is useful
 for problem with non-unique outputs.
@@ -1555,8 +1499,7 @@ a large amount of tests!
 
 #### Preview the tests
 
-<include-image caption="Test review" alt="test-review"
-  src="./img/polygon-test-review-page.png" />
+![test-review](./img/polygon-test-review-page.png "Test review")
 
 For each test, Polygon will show a few first character of the input, as well as
 the output. Seeing the whole test is a lot, but a few first line is enough for
@@ -1568,9 +1511,7 @@ example, if you happened to add another range for the value range like `[500000,
 1000000]` in the script, then there will be an error because `1000000 + 1000000`
 will exceed the maximum value of array.
 
-<include-image caption="Test review with errors"
-alt="test-review-with-errors"
-  src="./img/polygon-test-review-with-error.png" />
+![test-review-with-errors](./img/polygon-test-review-with-error.png "Test review with errors")
 
 It is a bit hard to see the error in a small box, so you can download the test
 to see it locally, or maybe run that command on your computer and do the
@@ -1589,9 +1530,7 @@ statement to generate the tests. If you look at the right panel again, there are
 sections that we have not touched yet. They are `Package`, `Verification`,
 `Review problem` and `Show warnings`.
 
-<include-image caption="The right panel after"
-  src="./img/polygon-right-pane-after.png"
-/>
+![](./img/polygon-right-pane-after.png "The right panel after")
 
 ### Show warnings
 
@@ -1601,19 +1540,17 @@ not to leave any warnings in the other section, but the section `Show warning`
 is still <span style="color: orange">orange</span>. That because there is a small
 thing that Polygon recommends us to do: add the tags to the problem.
 
-<include-image caption="Warnings page"
-src="./img/polygon-warnings-page.png"
-/>
+![](./img/polygon-warnings-page.png "Warnings page")
 
 To add the `tags` for the problem, we can go to the `General info` page.
-<include-image caption="Adding tags in the General info page"
-src="./img/polygon-problem-general-info-page-add-tags.png" />
+
+![](./img/polygon-problem-general-info-page-add-tags.png "Adding tags in the General info page")
 
 The tags doesn't seem to be useful, but one of their use on Polygon is for
 `Searching`. There is a `Search` option on the top bar in the **home page**
 (when you logged in).
 
-<include-image caption="The search page" src="./img/polygon-search.png" />
+![](./img/polygon-search.png "The search page")
 
 After adding the tags, you can make a commit as well.
 
@@ -1622,8 +1559,7 @@ After adding the tags, you can make a commit as well.
 By clicking the link in the section `Review problem` of the right panel, a page
 shows up with three columns: problem statement, validator and checker.
 
-<include-image caption="Review problem page"
-src="./img/polygon-problem-review-page.png" />
+![](./img/polygon-problem-review-page.png "Review problem page")
 
 I purposely capture this image **before** adding the tags, to show that in this
 page, warnings also appear as well. There are only validator and checker besides
@@ -1637,16 +1573,14 @@ correctly checks the output.
 There is an option call `Invocation` on the top bar of the problem. When
 clicked, this page shows up.
 
-<include-image caption="Invocation page"
-src="./img/polygon-invocation-page.png" />
+![](./img/polygon-invocation-page.png "Invocation page")
 
 This page is for running some/all solutions against the some/all tests. When
 clicking `Want to run solutions?`, two tables will appear, one for choosing
 solution, and one for choosing the tests. After choosing, click on `Run
 judgement` to run them.
 
-<include-image caption="Choose to run all solutions against all tests"
-src="./img/polygon-invocation-run-all-solutions-against-all-tests.png" />
+![](./img/polygon-invocation-run-all-solutions-against-all-tests.png "Choose to run all solutions against all tests")
 
 After that, there will be a new item on the table. Click the `view` link of the
 items to see the running result. The solutions are also ran on the fly, so you
@@ -1657,8 +1591,7 @@ There are some useful information at the end of the table though, like the
 number of passed tests, the resource usages for each solution. There are also
 scores if you use scoring.
 
-<include-image caption="Invocation result"
-src="./img/polygon-invocation-result.png" />
+![](./img/polygon-invocation-result.png "Invocation result")
 
 There are also notes about the color coding. Base on that you can adjust the  
 time and memory limit accordingly.
@@ -1677,8 +1610,7 @@ invocation result and compare it to the solutions verdicts. If everything
 matches, then the verification is **success**. Otherwise it is **failed**,
 meaning something is wrong, and you should fix it.
 
-<include-image caption="Verification failed with reason"
-src="./img/polygon-verification-failed.png" />
+![](./img/polygon-verification-failed.png "Verification failed with reason")
 
 We got **failed** verdict, because while we mark the solution `brute-force.cpp`
 as `TLE`, it has `MLE` verdict for the $10$-th test. To fix it, we should change
@@ -1686,8 +1618,7 @@ the verdict of the `brute-force` solution into `Time limit exeeced or Memory
 limit exceeded` (or `TLE or MLE`). After fixing and re-run verification, we will
 get the `OK` result.
 
-<include-image caption="Verfication ok"
-src="./img/polygon-verification-ok.png" />
+![](./img/polygon-verification-ok.png "Verfication ok")
 
 ### Package
 
@@ -1696,8 +1627,7 @@ same directory as on Polygon. Codeforces in particular will use the package file
 to import the problem from Polygon, making it very easy to add problems to
 Codeforces.
 
-<include-image caption="The package page"
-src="./img/polygon-package-page.png" />
+![](./img/polygon-package-page.png "The package page")
 
 These are the same old tables with an adding buttons. Beside the table for
 packages, recently there is also a table for the problem material. [See
@@ -1720,8 +1650,7 @@ because it is for a version, not _half_ version. Make sure to commit changes
 before creating a package. That being said, you can create any package for any
 version, whichever you like, and Polygon will store the package for you.
 
-<include-image caption="Create a new standard package"
-src="./img/polygon-package-page-create-new-package.png" />
+![](./img/polygon-package-page-create-new-package.png "Create a new standard package")
 
 You can download the package and see it for yourselves.
 
@@ -1729,8 +1658,7 @@ You can download the package and see it for yourselves.
 
 To create a Mashup on Codeforces, go to `Gym > Mashup > Create new mashup`.
 
-<include-image caption="Codeforces create a new mashup"
-src="./img/codeforces-create-mashup-page.png" />
+![](./img/codeforces-create-mashup-page.png "Codeforces create a new mashup")
 
 There is a note about how to add the problem to Codeforces. We must grant the
 access of the problem to the user `codeForces` on Polygon.
@@ -1739,13 +1667,11 @@ On the top bar of the problem on Polygon, click `Manage Acess`. (And yes, there
 is a table with an adding button). Click `Add users` and type `codeforces`
 and then click `Add users` button.
 
-<include-image caption="Manage access page with codeforces added"
-src="./img/polygon-manage-access-page.png" />
+![](./img/polygon-manage-access-page.png "Manage access page with codeforces added")
 
 The link to this problem on Polygon is on the second panel of the right column.
 
-<include-image caption="The link to the problem in the second panel"
-src="./img/polygon-the-second-pane.png" />
+![](./img/polygon-the-second-pane.png "The link to the problem in the second panel")
 
 Click it to copy the link, and paste it to the mashup creation page. Click
 `Create Mashup Contest` to finally create the contest. That is, you finally

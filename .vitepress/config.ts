@@ -1,5 +1,6 @@
 import { defineConfig, defineConfigWithTheme } from 'vitepress';
 import { Config } from './theme';
+import implicitFigures from 'markdown-it-implicit-figures';
 
 const MathJaxSetting = {
     tex: {
@@ -18,15 +19,24 @@ export default defineConfigWithTheme<Config>({
     description: `
 Just a personal blog. Might be about my job. Might be about my hobby.
 Might be about math. Might be about art. Who knows?`,
-    
+
     sitemap: {
         hostname: 'https://quangloc99.github.io',
     },
-    srcExclude: [
-        'legacy-jekyll-component/**/*',
-    ],
+    srcExclude: ['legacy-jekyll-component/**/*'],
 
-    markdown: {},
+    markdown: {
+        config(md) {
+            md.use(implicitFigures, {
+                dataType: false, // <figure data-type="image">, default: false
+                figcaption: 'title', // <figcaption>alternative text</figcaption>, default: false
+                keepAlt: true, // <img alt="alt text" .../><figcaption>alt text</figcaption>, default: false
+                lazyLoading: false, // <img loading="lazy" ...>, default: false
+                link: true, // <a href="img.png"><img src="img.png"></a>, default: false
+                tabindex: true,
+            });
+        },
+    },
 
     head: [
         [
@@ -58,8 +68,11 @@ Might be about math. Might be about art. Who knows?`,
             { icon: 'facebook', link: 'https://www.facebook.com/TQLoc' },
         ],
         redirects: [
-            { srcPart: '2022\/03\/08\/polygon-codeforces-tutorial', dest: '/posts/polygon-codeforces-tutorial/index.html' },
-            { srcPart: '2021\/10\/01\/im-red-now-what', dest: '/posts/im-red-now-what/index.html'},
+            {
+                srcPart: '2022/03/08/polygon-codeforces-tutorial',
+                dest: '/posts/polygon-codeforces-tutorial/index.html',
+            },
+            { srcPart: '2021/10/01/im-red-now-what', dest: '/posts/im-red-now-what/index.html' },
             { srcPart: '2021/07/30/my-CP-debugging-template.html', dest: '/posts/my-CP-debugging-template.html' },
         ],
     },

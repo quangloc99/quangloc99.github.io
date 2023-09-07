@@ -32,3 +32,14 @@
         </template>
     </VPDoc>
 </template>
+
+<style>
+    figure {
+        text-align: center;
+        display: block;
+    }
+    img {
+        border: 1px solid gray;
+        margin: 0 auto;
+    }
+</style>
