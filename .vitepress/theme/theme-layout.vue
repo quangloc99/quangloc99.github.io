@@ -61,7 +61,7 @@
 <style scoped>
     .theme-switcher-curtain {
         height: 100vh;
-        position: absolute;
+        position: fixed;
         z-index: 1000000;
         top: 0;
 
