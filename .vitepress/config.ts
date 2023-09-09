@@ -1,6 +1,7 @@
 import { defineConfig, defineConfigWithTheme } from 'vitepress';
 import { Config } from './theme';
 import implicitFigures from 'markdown-it-implicit-figures';
+import makdownItKatex from 'markdown-it-katex';
 
 const MathJaxSetting = {
     tex: {
@@ -35,25 +36,33 @@ Might be about math. Might be about art. Who knows?`,
                 link: true, // <a href="img.png"><img src="img.png"></a>, default: false
                 tabindex: true,
             });
+            md.use(makdownItKatex);
         },
     },
 
     head: [
+        // [
+        //     'script',
+        //     {
+        //         src: 'https://polyfill.io/v3/polyfill.min.js?features=es6',
+        //     },
+        // ],
+        // [
+        //     'script',
+        //     {
+        //         id: 'MathJax-script',
+        //         async: 'true',
+        //         src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',
+        //     },
+        // ],
+        // ['script', {}, `MathJax = ${JSON.stringify(MathJaxSetting)}`],
         [
-            'script',
+            'link',
             {
-                src: 'https://polyfill.io/v3/polyfill.min.js?features=es6',
+                rel: 'stylesheet',
+                href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css',
             },
         ],
-        [
-            'script',
-            {
-                id: 'MathJax-script',
-                async: 'true',
-                src: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',
-            },
-        ],
-        ['script', {}, `MathJax = ${JSON.stringify(MathJaxSetting)}`],
     ],
 
     themeConfig: {

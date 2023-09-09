@@ -341,7 +341,7 @@ screen, namely the statement, the validator and the checker. More on that [later
 The `Delete Current` is for deleting this statement, and `Create New` is for
 creating new statement in another language.
 
-### $\TeX$
+### TeX
 
 To write the statement, Polygon supports [$\TeX$][tex] -- a markup language that
 has a lot of options for document formatting. The coolest thing that makes

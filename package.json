@@ -18,6 +18,10 @@
     },
     "dependencies": {
         "markdown-it-implicit-figures": "^0.12.0",
+        "markdown-it-katex": "^2.0.3",
         "vue-utterances": "^0.3.4"
+    },
+    "resolutions": {
+        "katex": "^0.16.8"
     }
 }
