@@ -230,7 +230,7 @@ Cách import trên là khá xâu, nhưng nó work. Mình cũng chưa rõ nó có
 ở runtime không (nó có duplicate component không?). Nhưng do mình sẽ không dùng,
 mà thay vào đó là mình wrap nó vào component khác.
 
-Một điểm hơi khó chịu nữa là component `VPDoc` của Vitepress lại không cho 
+Một điểm hơi khó chịu nữa là component `VPDoc` của Vitepress lại không cho
 customize component bằng tham số, mà thay vào đó lại là customization bằng
 frontmatter. Như vậy configuration cho trang home page nó không gói gọn trong
 cái home layout của mình, mà mình phải thêm vào frontmatter cho home page để tắt
@@ -264,10 +264,39 @@ bật có thể chỉ ra:
    một xâu cho trước. Nó mạnh hơn hẳn so với Jekyll, khi mà Jekyll chỉ giới hạn
    mỗi đoạn văn đầu tiên.
 
+[vitepress-exceprt-pr]: https://github.com/vuejs/vitepress/issues/2688
+
 Với data này mình có thể include nó vào trang home page, render nó với styling riêng.
 Kết quả thì bạn có thể quay lại trang home page xem :rofl:.
 
-[vitepress-exceprt-pr]: https://github.com/vuejs/vitepress/issues/2688
+### Blog post
+
+Tương tự như home page, mình cũng cần một layout cho blog post. Layout này cũng
+sẽ được mở rộng từ layout mặc định `doc`. Và như đề cập ở trên, layout sẽ tên là
+`blog-post`, cũng là để filter luôn ra những file Markdown nào là một blog post.
+
+Hiện tại có hai thứ mình cần customize cho blog post :
+
+1. Có tiêu đề và ngày ở đầu bài viết.
+2. Ẩn `sidebar` và cho `aside` sang trái.
+
+Tiêu chí 1 thì đã dễ dàng đạt được, cái này thì mình chèn luôn vào component
+`blog-post` của mình. Tiêu chí hai tưởng chừng khó, như mình đề cập ở trên,
+config chủ yếu là từ frontmatter. Tuy nhiên nếu như mình không có nội dung gì
+của sidebar, thì thật ra sidebar sẽ tự ẩn. Và mình có thể config `aside` sang
+trái ở [file config.ts][blog-config-ts-left-aside]
+
+[blog-config-ts-left-aside]: https://github.com/quangloc99/quangloc99.github.io/blob/cc332508d79420158ab00518260bd41e870d6dbb/.vitepress/config.ts#L69
+
+Nhưng có các phần khác mà mình vẫn muốn cho thêm vào, nhưng chưa có thời gian:
+
+- Nút để xem post trước đó/tiếp theo.
+- Tags.
+
+Những phần này mình sẽ cho vào trong tương lai, vì mình cũng đã thấy có các 
+blog dùng Vitepress làm điều này. Ở thời điểm hiện tại thì mọi thứ đã hoạt 
+động rồi (thì mình mới có bài viết cho các bạn chứ :wink:).
+
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [github-page]: https://pages.github.com/
 [Jekyll]: https://jekyllrb.com/
