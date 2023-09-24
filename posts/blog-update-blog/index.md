@@ -53,13 +53,13 @@ trọng hình thức. Vì đây là static site generator, mình quản lý toà
 của blog, bao gồm cả theme, do đó mình hoàn toàn có thể thực hiện modding site
 của mình. Do đó là mình đã thêm kha khá component cho trang blog, như là
 theme-switcher, table of content, import file code từ ngoài, comment section,
-...  Từ bài viết cuối của mình là mình còn có những component đang viết dở, song
+... Từ bài viết cuối của mình là mình còn có những component đang viết dở, song
 mình không tiếp tục mod nữa mà mình đi làm những thứ khác, bỏ quên chúng luôn.
 Về những component đã thêm vào, mình còn document chúng lại. Các bạn có thể đọc
 file [README.md][old-blog-readme] cũ tại đây để xem những component mình đã thêm
 vào.
 
-![Presentation](./img/megamind-presentation.gif "Presentation!")
+![Presentation](./img/megamind-presentation.gif 'Presentation!')
 
 Đó là khoảng 1 năm về trước. Bây giờ khi nhìn lại, mình nhận ra rằng nếu mod
 như vậy lại rất khổ sở. Mình không biết Ruby (ngôn ngữ mà [Jekyll] sử dụng)
@@ -102,34 +102,34 @@ Nếu như bạn nhìn vào trang blog của mình và chưa biến nó giống 
 thì mình xin giới thiệu chiếc static site generator [Vitepress]! Vitepress
 đã đạt, thậm chí vượt qua tiêu chí mình mà mình chọn static site generator:
 
-- Sử dụng [Vue][Vuejs] Front-end framework. Như mình đã đề cập ở trên, mình
-muốn sử dụng một framework để mod dễ dàng hơn. Thậm chí tool này còn được tạo
-ra chính bởi team tạo ra Vue, được sử dụng bởi team Vue để viết documentation.
-Nên đây là tool rất tín!
+-   Sử dụng [Vue][Vuejs] Front-end framework. Như mình đã đề cập ở trên, mình
+    muốn sử dụng một framework để mod dễ dàng hơn. Thậm chí tool này còn được tạo
+    ra chính bởi team tạo ra Vue, được sử dụng bởi team Vue để viết documentation.
+    Nên đây là tool rất tín!
 
-- Ngôn ngữ lập trình cho Front-end chính là `JavaScript` và `TypeScript`. Việc
-có `TypeScript` là một điểm cộng rất lớn. Mình đã tiếp xúc rất nhiều với
-`TypeScript` trong vòng một năm vừa qua, và quan điểm của mình là có typing lúc
-nào cũng tốt hơn.  (btw mình tự tin nói rằng mình thông thạo `TypeScript`. Sẽ có
-blog về `TypeScript`.  Soon :tm:)
+-   Ngôn ngữ lập trình cho Front-end chính là `JavaScript` và `TypeScript`. Việc
+    có `TypeScript` là một điểm cộng rất lớn. Mình đã tiếp xúc rất nhiều với
+    `TypeScript` trong vòng một năm vừa qua, và quan điểm của mình là có typing lúc
+    nào cũng tốt hơn. (btw mình tự tin nói rằng mình thông thạo `TypeScript`. Sẽ có
+    blog về `TypeScript`. Soon :tm:)
 
-- Well, ngôn ngữ lập trình cho phần core và configuration cũng là `TypeScript`
-luôn. Mình có thể mod thêm phần core và configuration nếu muốn (và tất nhiên là
-có mod rồi).
+-   Well, ngôn ngữ lập trình cho phần core và configuration cũng là `TypeScript`
+    luôn. Mình có thể mod thêm phần core và configuration nếu muốn (và tất nhiên là
+    có mod rồi).
 
 Tất nhiên mình cũng đã tham khảo qua các lựa chọn khác. Sau khi Google thì mình
 đã tìm ra trang tổng hợp được các [site generator][site-generator-list]. Các lựa
 chọn nổi bật như sau:
 
-- Hugo: tool viết bằng Go và được shill là alternative mạnh cho Jekyll. Mình chưa
-đi sâu vào tool này tho, nhưng khi biết Vitepress thì mình nghĩ là sẽ không đi vào
-sâu hơn nữa.
-- Hexo: actually same as above.
-- Gasby: đây là tool có phần Front-end dựa trên React. Không phải mình anti-React,
-nhưng có thể nói mình _thạo_ Vue hơn (dù thật ra mình cũng mù hai cái ngang nhau).
-- Vuepress: đây là tiền thân của Vitepress. Do Vitepress rõ ràng là tool mới hơn,
-nên Vuepress _nằm ngoài phương trình_.
-- Các tool còn lại: đều hướng đến việc viết documentation hơn là việc viết blog.
+-   Hugo: tool viết bằng Go và được shill là alternative mạnh cho Jekyll. Mình chưa
+    đi sâu vào tool này tho, nhưng khi biết Vitepress thì mình nghĩ là sẽ không đi vào
+    sâu hơn nữa.
+-   Hexo: actually same as above.
+-   Gasby: đây là tool có phần Front-end dựa trên React. Không phải mình anti-React,
+    nhưng có thể nói mình _thạo_ Vue hơn (dù thật ra mình cũng mù hai cái ngang nhau).
+-   Vuepress: đây là tiền thân của Vitepress. Do Vitepress rõ ràng là tool mới hơn,
+    nên Vuepress _nằm ngoài phương trình_.
+-   Các tool còn lại: đều hướng đến việc viết documentation hơn là việc viết blog.
 
 :::details Ngoài lề
 Danh sách các tool generator kia cũng có nhiều tool thú vị, được viết trên nhiều
@@ -141,15 +141,133 @@ Tất nhiên Vitepress cũng có trở ngại khác. Vitepress cũng là tool s�
 để viết documentation hơn là được sử dụng để viết blog. Tuy nhiên cũng đã có các
 _attempts_ sử dụng Vitepress cho blogging:
 
-- [Theme Vitepress cho blog][vitepressblog].
-- [Project template cho Vitepress][vitepress-blog-starter].
-- [Một danh sách các blog cá nhân sử dụng Vitepress trên Github](https://github.com/topics/vitepress-blog).
+-   [Theme Vitepress cho blog][vitepressblog].
+-   [Project template cho Vitepress][vitepress-blog-starter].
+-   [Một danh sách các blog cá nhân sử dụng Vitepress trên Github](https://github.com/topics/vitepress-blog).
 
 Như vậy có thể tự tin khẳng định Vitepress cũng là tool phù hợp cho việc blogging.
 Với mục đích là mod site, nên mình cũng không sử dụng các template/theme có sẵn.
 Thay vào đó là mình bắt tay vào mod từ đầu. Tất nhiên các project trên cũng được
-sử dụng với mục đích tham khảo :joy:.
+sử dụng với mục đích tham khảo :wink:.
 
+## Mod Viteperss cho blogging
+
+Như mình đã đề cập, Vitepress được tạo ra chủ yhướng đến documentation. Như
+vậy vẫn cần _sửa sang_ lại chút mới dùng như blog engine được. Nói là mod
+Vitepress, nhưng thật ra là mod theme mặc định của Vitepress. Lý do mình
+chọn theme mặc định của Vitepress cũng tương tự việc chọn theme mặc định của Jekyll:
+nó đã có sẵn, và nó _đẹp_ một cách khách quan.
+
+### Home page
+
+#### Layout cho home page
+
+Theme mặc định của Vitepress cho phép định nghĩa _layout_. Dựa vào
+[documentation `layout` của Vitepress][vitepress-layout-docs], ta có 3 layout
+được support là `home`, `doc` và `page`.
+
+[vitepress-layout-docs]: https://vitepress.dev/reference/default-theme-layout
+
+Nhìn vào là ta có thể nghĩ đến việc dùng `home` layout luôn, tuy nhiên `home`
+layout này cũng là `home` layout dành cho documentation chứ không phải blog. Chỉ
+cần nhìn vào trang chủ của [Vitepress] đã có thể thấy nó không phải là blog rồi.
+
+![Vitepress home page](./img/vitepress-homepage.png 'Vitepress home page, sử dụng home layout')
+
+Do đó ta cần mod. May mắn thay, `layout` có thể được định nghĩa bởi developer (ở
+đây chính là mình), bằng cách khai báo component của mình toàn cục. Và tất nhiên
+mình cũng không làm một component layout từ đầu. Thay vào đó, mình sẽ mở rộng
+layout đã có sẵn.
+
+Hai layout còn lại được cấp bởi Vitepress là `doc` và `page`. Layout `doc` được
+sử dụng để viết một trang documentation, và `page` là một trang trống hoàn toàn.
+Ù vậy là ta sẽ mở rộng layout `page` làm layout `home-page` của ta? Sai rùi
+:skull:! Theo documentation, `page` là một trang _rỗng_, tức là sẽ không có
+styling sẵn. Style chắc chắn mà mình cần là phần cân trang ở giữa, và styling
+cho Markdown. Như vậy lựa chọn duy nhất mà ta chỉ có thể cân nhắc là `doc`, tức
+là layout mặc định luôn :weary:.
+
+Tuy nhiên `doc` lại là sự lựa chọn OK nhất. Thoạt đầu khi nhìn vào một trang doc
+(của chính Vitepress documentation luôn), ta có thể thấy nhiều yếu tố không cần
+thiết, như phần `sidebar` và `aside` (phần có mục lúc động). Tuy nhiên các phần
+này có thể bật tắt được [thông qua frontmatter][vitepress-docs-frontmatter-sidebar].
+
+[vitepress-docs-frontmatter-sidebar]: https://vitepress.dev/reference/frontmatter-config#sidebar
+
+Vậy làm sao để mở rộng một layout? Ta có thể tạo một component mới, import
+component layout ta muốn mở rộng vào, và xào nấu tiếp 🤤. Ù xong chỗ này có vấn
+đề hơi khó chịu: Vitepress không export hết các component để ta import vào :neutral_face:.
+Mình đã giải quyết vấn đề này bằng cách import component từ chính file định nghĩa
+component `doc` ra thay vì import từ package.
+
+<!--
+Welp the following part is actually hack, as import code snippet by lines
+is currently unsupported.
+-->
+
+```ts{2}
+<!-- @include: @/.vitepress/theme/layouts/blog-home.vue{1,8}-->
+// ...
+<!-- @include: @/.vitepress/theme/layouts/blog-home.vue{21,22}-->
+// ...
+```
+
+::: details Fun fact khi viết blog
+
+Vitepress có thỗ trợ [import code snippet][vitepress-docs-import-code-snippet],
+với code region. Tuy nhiên mình không dùng nó, vì code trên mình include thẳng
+từ file component ngay trong chính repo này luôn! Ở đây mình có hack một chút,
+là mình sử dụng [`<!-- @include -->`][vitepress-docs-file-inclusion] file, và
+cho nó vào TypeScript code block. Works like a champ, và thậm chí mình nhét
+đoạn code trên nó là inclusion từ 2 đoạn khác nhau. Tuy nhiên hack vẫn là hack!
+
+[vitepress-docs-import-code-snippet]: https://vitepress.dev/guide/markdown#import-code-snippets
+[vitepress-docs-file-inclusion]: https://vitepress.dev/guide/markdown#markdown-file-inclusion
+
+:::
+
+Cách import trên là khá xâu, nhưng nó work. Mình cũng chưa rõ nó có ảnh hưởng gì
+ở runtime không (nó có duplicate component không?). Nhưng do mình sẽ không dùng,
+mà thay vào đó là mình wrap nó vào component khác.
+
+Một điểm hơi khó chịu nữa là component `VPDoc` của Vitepress lại không cho 
+customize component bằng tham số, mà thay vào đó lại là customization bằng
+frontmatter. Như vậy configuration cho trang home page nó không gói gọn trong
+cái home layout của mình, mà mình phải thêm vào frontmatter cho home page để tắt
+`sidebar` và `aside` đi. Nhưng do mình có mỗi một trang như vậy, nên không ảnh
+hưởng quá nhiều. Tỉ dụ mà layout component này được dùng ở nhiều chỗ hơn, đó sẽ
+là vấn đề. :pensive:
+
+#### Danh sách các posts
+
+Tuy bài viết trên trang này mới chỉ đếm được trên đầu ngón tay, tuy nhiên vẫn
+phải hiện chúng nó ra thì người đọc mới biết để click vào đọc được.
+
+Vitepress có tính năng tên là [Build-time Data loading][vitepress-docs-data-loading],
+cho phép ta viết một đoạn code load (hoặc sinh) dữ liệu từ nguồn nào đó, sau
+đó data này sẽ được cho vào site blog dưới dạng dữ liệu tĩnh! Tính năng đã hỗ
+trợ sẵn việc load các file Markdown và parse nó rồi, do đó mình chỉ việc sử dụng thôi.
+
+[vitepress-docs-data-loading]: https://vitepress.dev/guide/data-loading
+
+::: details `.vitepress/theme/static-data/posts.data.ts`
+<<< @/.vitepress/theme/static-data/posts.data.ts
+:::
+
+Mình khoe file thôi chứ sẽ không giải thích nội dung file đâu. Nhưng có tính năng nổi
+bật có thể chỉ ra:
+
+1. Mình chỉ lọc ra các file Markdown nào có `layout` là `blog-post`. Ở đây tự dưng có
+   cái `layout` có tên phù hợp như thế này nên việc lọc như vậy khá logic.
+2. Tính năng đoạn trích của Vitepress khá mạnh. Sau [PR 2688][vitepress-exceprt-pr],
+   người viết đã có thể giới hạn được nội dung đoạn trích một cách tùy ý thông qua
+   một xâu cho trước. Nó mạnh hơn hẳn so với Jekyll, khi mà Jekyll chỉ giới hạn
+   mỗi đoạn văn đầu tiên.
+
+Với data này mình có thể include nó vào trang home page, render nó với styling riêng.
+Kết quả thì bạn có thể quay lại trang home page xem :rofl:.
+
+[vitepress-exceprt-pr]: https://github.com/vuejs/vitepress/issues/2688
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [github-page]: https://pages.github.com/
 [Jekyll]: https://jekyllrb.com/
