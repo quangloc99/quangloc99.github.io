@@ -332,21 +332,22 @@ thể tự định nghĩa các trường để dùng với component có sẵn h
 
 #### Date
 
-Ngoài `layout` là cần thay đổi, và `title` là cần giữ, thì thứ cần thay đổi
-nhất là trường `date`. Trường `date` trong Jekyll có format như thế này:
+Ngoài `layout` là cần thay đổi, và `title` là cần giữ, thì thứ cần thay đổi nhất
+là trường `date`. Trường `date` trong Jekyll có format như thế này:
 
 ```
 YYYY-MM-DD HH:MM:SS +/-TTTT
 ```
 
-Và tất nhiên là Vitepress không parse được :sob:. Well, thật ra không phải
-là Vitepress. Mình là người quản lý field này khi gather các post, do đó
-mình là người quyết định điều này. Và quyết định của mình ở đây là cắm luôn
-trường này vào constructor `Date` của Javascript. Đến đây thì thật ra rât thú vị:
-Node parse được format kia, còn browser của mình (Firefox) thì không :rofl:.
+Và tất nhiên là Vitepress không parse được :sob:. Well, thật ra không phải là
+Vitepress. Mình là người quản lý field này khi gather các post, do đó mình là
+người quyết định điều này. Và quyết định của mình ở đây là cắm luôn trường này
+vào constructor `Date` của Javascript. Đến đây thì thật ra rât thú vị: Node
+parse được format kia, còn browser của mình (Firefox) thì không :rofl:.
 
-Nhưng vì mình mới có duy nhất 4 posts, nên mình quyết định sửa hết các date
-về format khác bằng tay. Và mình quyết định đi với [ISO 8601 format][mdn-date-string-format].
+Nhưng vì mình mới có duy nhất 4 posts, nên mình quyết định sửa hết các date về
+format khác bằng tay. Và mình quyết định đi với
+[ISO 8601 format][mdn-date-string-format].
 Lý do đây là format khá gần với format trên, nó chuẩn, và người thì vẫn đọc được.
 
 [mdn-date-string-format]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format
@@ -354,14 +355,73 @@ Lý do đây là format khá gần với format trên, nó chuẩn, và người
 #### Các trường khác
 
 Một vài component mình viết ra bằng Liquid đều có phụ thuộc vào frontmatter.
-Một điểm hay là khi mình bỏ hết các component đó đi, thay bằng component
-viết bằng Vue, mình không cần các Frontmatter đó nữa, bởi vì cơ bản đó là _hack_.
+Một điểm hay là khi mình bỏ hết các component đó đi, thay bằng component viết
+bằng Vue, mình không cần các Frontmatter đó nữa, bởi vì cơ bản đó là _hack_.
 
 Ví dụ cấu trúc trước của blog của mình là nhóm hết ảnh vào chung 1 thư mục,
-nhưng đáng lẽ ra nó lại nên đi kèm với blog. Mình có một trường ở
-frontmatter specify đường dẫn chung đến thư mục chứa ảnh, và có một
-component load ảnh từ đó. Với cấu trúc cây thư mục mới hợp lý hơn, mình
-không cần còn làm điều này nữa :partying_face:.
+nhưng đáng lẽ ra nó lại nên đi kèm với blog. Mình có một trường ở frontmatter
+specify đường dẫn chung đến thư mục chứa ảnh, và có một component load ảnh từ
+đó. Với cấu trúc cây thư mục mới hợp lý hơn, mình không cần còn làm điều này nữa
+:partying_face:.
+
+### LaTeX
+
+Là một blog về kĩ thuật, CP, và những thứ liên quan, thì việc có thể viết biểu
+thức một cách đẹp đẽ (ví dụ $\sum_{i = 1}^n a_i^2$) là điểu không thể thiếu.
+Điều này đã có thể làm sử dụng các công cụ như [Mathjax] hoặc [Katex].  Với
+Jekyll, mình sử dụng [Mathjax], và việc render làm ở ngay trên trình duyệt web
+(client-side rendering).  Tuy nhiên Vitepress _chưa_ hỗ trợ gõ biểu thức như
+vậy.
+
+:::details Disclaimer
+Ngay tại thời điểm viết blog này thì Vitepress [đã hộ trợ viết biểu
+thức][Vitepress-docs-math] với Mathjax. Tuy nhiên mình sẽ chưa switch sang với
+lý do ghi ở dưới.
+
+[Vitepress-docs-math]: https://vitepress.dev/guide/markdown#math-equations
+:::
+
+Tất nhiên khi migrate thì mình lại cần xem xét lại nên sử dụng math rendering
+engine nào. [Mathjax] được quảng cáo là có nhiều tính năng và command hơn hẳn so
+với [Katex]. Còn [Katex] có selling point là render rất nhanh.
+
+Vì trước dùng Mathjax, nên lần này mình cũng thử dùng Mathjax. Để cho đơn giản,
+phương án đầu tiên vẫn là client-side rendering. Chỉ cần include file script
+Mathjax vào là nó tự render.
+
+Tuy nhiên nó có một vấn đề không nhỏ: Vitepress, ở thời điểm hiện tại, cho ra
+single page application :smiling_face_with_tear:. Điều này có nghĩa là Mathjax
+chỉ sống dậy ở lúc nó được load, đọc toàn bộ page, render nó, và lại xuống mồ
+không dậy nữa. Khi đổi sang một page khác, biểu thức toán không được render.
+
+Ok, sau khi google một hồi, mình tìm được [issue này ngay trên Vitepress
+repo][vitepress-issue-529].  Issue có nói đến cách dùng thêm một plugin cho
+markdown engine mà Vitepress dùng để render các biểu thức toán của các post ra
+trước (prerender).  Như vậy không cần phải render các biểu thức ngay lúc người
+dùng đọc nữa.
+
+[vitepress-issue-529]: https://github.com/vuejs/vitepress/issues/529
+
+Mình làm theo thì nó _kinda work_? Có small issue, về mặt rendering. Đây nhiện
+tại nếu mình viết biểu thức `$a \ne 0$` thì nó sẽ cho ra $a \ne 0$. Nhưng nếu
+bạn nhìn vào cùng biểu thức, prerender sử dụng Mathjax, ngay trên chính trang
+Vitepress, thì nó _có vẻ lệch một chút_.
+
+![vitepress-math-equation](./img/vitepress-doc-math-mathjax.png "Biểu thức toán prerendered bởi Mathjax hơi cao hơn một chút so với hàng chữ.")
+
+Vì số lượng biểu thức toán của mình [ở một blog
+khác](../polygon-codeforces-tutorial/) nó khá lớn, nên điều này khá hữu hình đối
+với mình. Như vậy mình quyết định sử dụng Katex plugin thay thế, và giờ nó work
+smooth as butter :butter:.
+
+Ù nhưng mà mình không nói downside nhỉ? Downside của việc prerender (với
+Vitepress), là mình cần include cái file styling cho biểu thức ở _mọi trang_.
+Như vậy trang không có biểu thức toán (như trang homepage), vẫn sẽ có cái file
+CSS của Katex được load. Cái này nó không costly đến thế, bởi vì browser sẽ
+cache lại cho bạn. Nhưng đây là downside mà mình thấy đáng nói.
+
+[Mathjax]: https://www.mathjax.org/
+[Katex]: https://katex.org/
 
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
