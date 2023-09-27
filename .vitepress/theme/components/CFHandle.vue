@@ -12,15 +12,14 @@
     const { nickname, rank, displayMaxRank, prefixWithRank } = toRefs(props);
 
     function useRank() {
+        // TODO make rank reactive?
         if (rank?.value) return rank;
-
         const { userInfo, error } = useCFUserInfo(nickname);
         return computed(() => {
             if (error.value) {
                 console.error(error.value);
                 return undefined;
             }
-            console.log(userInfo);
             return displayMaxRank.value ? userInfo.value?.maxRank : userInfo.value?.rank;
         });
     }
