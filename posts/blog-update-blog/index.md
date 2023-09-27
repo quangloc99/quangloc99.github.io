@@ -423,6 +423,117 @@ cache lại cho bạn. Nhưng đây là downside mà mình thấy đáng nói.
 [Mathjax]: https://www.mathjax.org/
 [Katex]: https://katex.org/
 
+### Text boxes và collapsible
+
+Vitepress có hỗ trợ các loại text box như:
+
+::: info Cái này
+Lorem ipsum dolor sit amet.
+:::
+
+::: tip Hoặc cái này
+Lorem ipsum dolor sit amet.
+:::
+
+::: warning Hay là cái này
+Lorem ipsum dolor sit amet.
+:::
+
+::: danger Hoặc cái này
+Lorem ipsum dolor sit amet.
+:::
+
+Nên là có cái text block info trước đó là mình bỏ được luôn.
+
+Tương tự, Vitepress cũng có phần text block mà đóng mở được, mình cũng đã demo
+với các bạn từ đầu blog đến giờ. Mình cũng đã bó component collapse cũ đi. Tuy
+nhiên mình muốn nói là cái collapsible cũ của mình _đỉnh hơn_, do nó có
+animation, còn cái của Vitepress thì chưa có :rofl:
+
+### Code block
+
+Jekyll có cho phép include một file khác vào post đang viết. Tuy nhiên việc
+include một đoạn code lại hơi khó khăn.
+
+- Đầu tiên là include đoạn code vào xong thì cần bọc nó lại trong khối code
+(bắt đầu và kết thúc bằng ba dấu \`). Như thế phải specify cả file extension,
+thì hoặc là cho phép mình định nghĩa bằng tay, hoặc là làm sao đó cắt
+được phần đuôi của đường dẫn file ra.
+- Tiếp là tên file, hoặc là một đoạn chữ mô tả đoạn code. Phần này markdown
+code block cũng không có sẵn. Muốn nó nổi bật hơn thì ngoài thêm tên file vào,
+cần phải style nó riêng.
+- Tiếp đó là mình muốn đoạn code collapsible.
+  - Cái này sử dụng component collapsible mà mình đã làm.
+- Tiếp nữa là dường dẫn đến file.
+  - Phần này phức tạp hơn tưởng tượng. Mình cần cắt đường dẫn làm 2 phần:
+  phần directory, và phần _còn lại_ (có thể là tên file, hoặc subdirectory).
+  - Phần directory thì có thể fallback về trường được định nghĩa ở frontmatter,
+  để làm directory mặc định.
+- Một vấn đề nữa là mình muốn sử dụng component này với cả inline content
+thay vì mỗi content từ file.
+- Và còn lại là vấn đề styling:
+  - Có line wrap cho code không?
+  - Có cắt dấu cách ở đầu và đuôi không?
+
+Mình đã làm tất cả các điều trên thành một component, again, với Liquid. Như
+đã đề cập, Liquid là một ngôn ngữ lập trình, và có thể handle hết các
+custom logic. Như vậy thì nó _work_, nhưng again, nó không tốt lắm.
+
+Viteperss thật ra đã giải quyết đến 90% vấn đề ở trên rồi. Tỉ dụ mình
+có một đoạn code, có tên file, và để nó trong phần collapsible, thì ví dụ
+đây luôn:
+
+:::details Code siêu khủng
+
+:::code-group
+
+```cpp{5} [helloworld.cpp]
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  cout << "Hello world!" << endl;  // [!code focus]
+}
+```
+
+```py [helloworld.py]
+print('Hello world!')
+```
+
+```ts [helloworld.ts]
+console.log('Hello world!');
+```
+
+:::
+
+Nhìn vào đây các bạn cũng có thể thấy Vitepress cho nhiều thứ hơn: code tab và
+highlight/focus vào các dòng. Thậm chí là có cả tính năng [_diff_
+code][vitepress-doc-codediff].  Việc chèn file cũng không phải là vấn đề luôn.
+Thứ nó không đáp ứng được là phần code wrapping, nhưng thiếu tính năng này mình
+cũng không thấy ảnh hưởng quá nhiều. Thậm chí mình có thể tự mod thêm nếu cần
+thiết!
+
+[vitepress-doc-codediff]: https://vitepress.dev/guide/markdown#colored-diffs-in-code-blocks
+
+Tất nhiên Vitepress hỗ trợ về mặt code như thế này thật ra khá dễ hiểu,
+suy cho cùng Vitepress cũng hướng đến việc documentation. Ù thế thật ra việc
+cho một dev viêt blog kĩ thuật cũng không khác gì viết documentation lắm :wink:.
+
+### Table of content (ToC)
+
+Phần này cũng bỏ luôn, do cái component aside mà Vitepress cũng cấp nó đã làm
+chính điều đó rồi.
+
+Cái table of content của mình nó vừa _khủng_ hơn vừa _sida_ hơn tí. _Khủng_ là
+vì nó còn track cả percentage việc đọc một section, thay vì highlight mỗi
+section đang đọc như Vitepress. Và ngoài ra nó cũng có đoạn đóng mở cho mobile.
+Well thật ra Vitepress cũng làm được điều đó, nhưng phải là với màn hình của
+mobile, này chứ cửa sổ browser trên máy tính mà thu chưa đủ nhỏ nó không hiện
+đóng mở cái ToC.
+
+Phần mà cái ToC của mình nó sida là cái styling cho cái burger button mình
+làm bằng tay, và styling hơi bị xấu :sweat_smile:.
+
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
 [Jekyll-minima]: https://github.com/jekyll/minima
