@@ -259,12 +259,30 @@ bật có thể chỉ ra:
 
 1. Mình chỉ lọc ra các file Markdown nào có `layout` là `blog-post`. Ở đây tự dưng có
    cái `layout` có tên phù hợp như thế này nên việc lọc như vậy khá logic.
-2. Tính năng đoạn trích của Vitepress khá mạnh. Sau [PR 2688][vitepress-exceprt-pr],
+2. Tính năng đoạn trích của Vitepress khá mạnh. Sau [issue 2688][vitepress-exceprt-issue],
    người viết đã có thể giới hạn được nội dung đoạn trích một cách tùy ý thông qua
    một xâu cho trước. Nó mạnh hơn hẳn so với Jekyll, khi mà Jekyll chỉ giới hạn
    mỗi đoạn văn đầu tiên.
 
-[vitepress-exceprt-pr]: https://github.com/vuejs/vitepress/issues/2688
+    :::details Spoilers
+    Có một điểm này về đoạn trích, mà ban đầu mình còn tưởng nó là bug, là nó không
+    render hết 100% page, rồi mơi cắt đoạn trích ra.
+
+    Đều mình muốn nói ở đây chính là tạo link reference của markdown. Ví dụ:
+
+    ```md
+    Blog khủng nhất của mình tại [đây][link-to-blog].
+
+    [link-to-blog]: ../polygon-codeforces-tutorial/
+    ```
+
+    Nếu như link ở tít dưới cuối bài viết, vậy khi cắt mỗi đoạn đầu tiên ra, Vitepress
+    sẽ không include hết reference vào. May thay là mình có thể kéo reference lên
+    cùng với đoạn trích (trên đoạn `<!-- more -->`), và như thế nó mới render
+    đúng link.
+    :::
+
+[vitepress-exceprt-issue]: https://github.com/vuejs/vitepress/issues/2688
 
 Với data này mình có thể include nó vào trang home page, render nó với styling riêng.
 Kết quả thì bạn có thể quay lại trang home page xem :rofl:.
