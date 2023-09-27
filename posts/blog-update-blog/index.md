@@ -59,7 +59,9 @@ Về những component đã thêm vào, mình còn document chúng lại. Các b
 file [README.md][old-blog-readme] cũ tại đây để xem những component mình đã thêm
 vào.
 
-![Presentation](./img/megamind-presentation.gif 'Presentation!')
+:::details Presentation!
+![Presentation](./img/megamind-presentation.gif)
+:::
 
 Đó là khoảng 1 năm về trước. Bây giờ khi nhìn lại, mình nhận ra rằng nếu mod
 như vậy lại rất khổ sở. Mình không biết Ruby (ngôn ngữ mà [Jekyll] sử dụng)
@@ -561,6 +563,40 @@ và cũng không cần sử dụng đến [view transition API][vitepress-doc-vi
 như đã demo trong Vitepress documentation.
 
 [vitepress-doc-view-transition-api]: https://vitepress.dev/guide/extending-default-theme#using-view-transitions-api
+
+### Include images
+
+Mình cũng có riêng một component để include image vào. Tuy là markdown đã có cách
+để chèn hình ảnh vào, tuy nhiên mình vẫn cần custom logic cho một số thứ như:
+
+- Đường dẫn đến ảnh.
+  - Vấn đề này tương tự như cái code block, và nó cũng tự dưng được xử lý bởi
+    việc tái cấu trúc lại cây thư mục.
+- Caption và alt text cho ảnh.
+- Căn lề giữa cho ảnh.
+
+Tuy nhiên việc đổi component này sang vue không ổn lắm. Lý do là vue parse cái
+link của từng image cho việc bundling dễ dàng hơn. Khi mình làm một component
+để chèn ảnh, vue không xác định được là cái param truyền vào component là
+link của một ảnh, do đó mình không thấy ảnh đâu :sob:.
+
+May thay, mình lại tìm được một plugin mới cho `markdown-it` engine, nó là
+[markdown-it-implicit-figures](https://www.npmjs.com/package/markdown-it-implicit-figures).
+Plugin cung cấp thêm cú pháp để định nghĩa caption và alt text một cách dễ dàng.
+Do đó mình nhận ra có cách giải quyết vấn đề khác nữa là có thể tạo ra
+một cú pháp đặc biệt bằng cách viết plugin cho `markdown-it`. Tuy nhiên nó
+hơi extreme, vì đa số thời gian thì mình có thể dùng vue component.
+
+:::details Lại một chi tiết nữa của Vitepress
+Vitepress có `dev` mode và `build`/`preview` mode. Mọi thứ work ở `dev` mode
+thật ra chưa chắc đã hoạt động khi build, bởi vì khi `build` là Vitepress sẽ
+làm một số việc khác, include việc bundling kia.
+
+Cái này làm tốn của mình kha khá thời gian. Đầu tiên mình đã tạo ra một
+component vue rồi. Mình không check preview mà mình push lên github luôn.
+Lúc vừa migrate sang xong thì mình mới nhận ra là tất cả các ảnh đều không
+được load. Vậy mình phải migrate toàn bộ ảnh _bằng tay_ :skull:.
+:::
 
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
