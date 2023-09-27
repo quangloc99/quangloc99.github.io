@@ -11,7 +11,7 @@
     const { nickname, rank, displayMaxRank } = toRefs(props);
 
     function useRank() {
-        if (rank.value) return rank;
+        if (rank?.value) return rank;
 
         const { userInfo, error } = useCFUserInfo(nickname);
         return computed(() => {
@@ -20,7 +20,7 @@
                 return undefined;
             }
             console.log(userInfo);
-            return displayMaxRank ? userInfo.value?.maxRank : userInfo.value?.rank;
+            return displayMaxRank.value ? userInfo.value?.maxRank : userInfo.value?.rank;
         });
     }
 
