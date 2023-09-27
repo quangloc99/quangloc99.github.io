@@ -534,6 +534,34 @@ mobile, này chứ cửa sổ browser trên máy tính mà thu chưa đủ nhỏ
 Phần mà cái ToC của mình nó sida là cái styling cho cái burger button mình
 làm bằng tay, và styling hơi bị xấu :sweat_smile:.
 
+### Theme switcher
+
+Bạn có thể thấy nút đổi theme (tối <-> sáng) ở góc trên bên phải, khi ấn vào sẽ
+cho ra một effect đặc biệt. Mình gọi nó là _đóng mở rèm_, và mình migrate cái
+effect này sang.
+
+Trước đó mình code bằng JS với SCSS. Tất nhiên lúc đó còn hơi gà nên code cũng
+hơi kém, nhưng phần khác do không có framework. Giờ code bằng Typescript, có
+framework, thì việc định nghĩa animation lại vô cùng đơn giản.
+
+Về chi tiết triển khai các bạn xem tại [file này](https://github.com/quangloc99/quangloc99.github.io/blob/cc332508d79420158ab00518260bd41e870d6dbb/.vitepress/theme/theme-layout.vue).
+Mình sẽ không thêm vào blog vì mình sẽ không giải thích chi tiết code.
+
+Nó đơn giản hơn vì các lý do sau:
+
+- Mình dịnh nghĩa CSS và JS/TS cùng một chỗ.
+  - Mình có thể pass biến TypeScript vào CSS, trong case này là thời gian,
+    như vậy một hằng số được định nghĩa ở duy nhất 1 chỗ.
+- Mình dùng `Promise` để sleep, do đó code logic định nghĩa được rõ ràng hơn.
+  - Ở triển khai cũ, mình phải lồng các callback vào với nhau với
+    setTimeout do lúc đó gà không biết dùng `Promise` :sob:.
+
+Mình chọn effect đổi theme này vì mình thích nó, nó không quá khó để triển khai,
+và cũng không cần sử dụng đến [view transition API][vitepress-doc-view-transition-api]
+như đã demo trong Vitepress documentation.
+
+[vitepress-doc-view-transition-api]: https://vitepress.dev/guide/extending-default-theme#using-view-transitions-api
+
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
 [Jekyll-minima]: https://github.com/jekyll/minima
