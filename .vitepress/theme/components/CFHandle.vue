@@ -6,9 +6,10 @@
             nickname: string;
             rank?: CFRank;
             displayMaxRank?: boolean;
+            prefixWithRank?: boolean;
         }>();
     
-    const { nickname, rank, displayMaxRank } = toRefs(props);
+    const { nickname, rank, displayMaxRank, prefixWithRank } = toRefs(props);
 
     function useRank() {
         if (rank?.value) return rank;
@@ -28,13 +29,15 @@
 </script>
 
 <template>
-    <a
-        class="cf-handle"
-        :class="computedRank?.replace(' ', '-') ?? ''"
-        :href="`https://codeforces.com/profile/${nickname}`"
-        target="_blank"
-        >{{ nickname }}</a
-    >
+    <span>
+        <span v-if="prefixWithRank">{{ computedRank ?? '' }}</span> <a
+            class="cf-handle"
+            :class="computedRank?.replace(' ', '-') ?? ''"
+            :href="`https://codeforces.com/profile/${nickname}`"
+            target="_blank"
+            >{{ nickname }}</a
+        >
+    </span>
 </template>
 
 <style>

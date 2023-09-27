@@ -624,6 +624,35 @@ Mình quên mất là phải comment theo page. Vì Vitepress tạo ra Single pa
 nên nếu không làm theo page, một khi mục comment đã load là tất cả phần
 comment đều giống nhau! Lại phải đội ơn Vue component một lần nữa!
 
+### Codeforces Handle
+
+Ở [blog trước đó](../polygon-codeforces-tutorial/), phần cuối các bạn có thể
+thấy có nickname, kèm theo styling tương ứng của người đó với màu của rank
+trên [Codeforces](https://codeforces.com/). Well, trước đó là mình hardcode màu.
+Giờ mình có thể tự tin nói là mình có một component, từ một nickname, sẽ
+tự lấy data trên Codeforces về, và style nó theo rank tương ứng!
+
+<script lang="ts" setup>
+  import { ref } from 'vue';
+  const nickname = ref('');
+  const displayMaxRank = ref(true);
+</script>
+
+Nhập nickname của bạn trên CF: <input :value="nickname" @change="event => nickname = event.target.value" style="border: 1px solid gray" /> (Enter)
+
+Hiển thị max rank: <input :value="displayMaxRank" @change="event => displayMaxRank = event.target.checked" type="checkbox" />
+
+---
+
+Nickname trên Codeforces của bạn với màu rank:
+<center>
+<cf-handle
+    :nickname="nickname"
+    :displayMaxRank="displayMaxRank"
+    prefixWithRank="true"
+/>
+</center>
+
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
 [Jekyll-minima]: https://github.com/jekyll/minima
