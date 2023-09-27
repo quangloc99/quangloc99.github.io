@@ -102,18 +102,18 @@ Nếu như bạn nhìn vào trang blog của mình và chưa biến nó giống 
 thì mình xin giới thiệu chiếc static site generator [Vitepress]! Vitepress
 đã đạt, thậm chí vượt qua tiêu chí mình mà mình chọn static site generator:
 
--   Sử dụng [Vue][Vuejs] Front-end framework. Như mình đã đề cập ở trên, mình
+- Sử dụng [Vue][Vuejs] Front-end framework. Như mình đã đề cập ở trên, mình
     muốn sử dụng một framework để mod dễ dàng hơn. Thậm chí tool này còn được tạo
     ra chính bởi team tạo ra Vue, được sử dụng bởi team Vue để viết documentation.
     Nên đây là tool rất tín!
 
--   Ngôn ngữ lập trình cho Front-end chính là `JavaScript` và `TypeScript`. Việc
+- Ngôn ngữ lập trình cho Front-end chính là `JavaScript` và `TypeScript`. Việc
     có `TypeScript` là một điểm cộng rất lớn. Mình đã tiếp xúc rất nhiều với
     `TypeScript` trong vòng một năm vừa qua, và quan điểm của mình là có typing lúc
     nào cũng tốt hơn. (btw mình tự tin nói rằng mình thông thạo `TypeScript`. Sẽ có
     blog về `TypeScript`. Soon :tm:)
 
--   Well, ngôn ngữ lập trình cho phần core và configuration cũng là `TypeScript`
+- Well, ngôn ngữ lập trình cho phần core và configuration cũng là `TypeScript`
     luôn. Mình có thể mod thêm phần core và configuration nếu muốn (và tất nhiên là
     có mod rồi).
 
@@ -121,15 +121,15 @@ Tất nhiên mình cũng đã tham khảo qua các lựa chọn khác. Sau khi G
 đã tìm ra trang tổng hợp được các [site generator][site-generator-list]. Các lựa
 chọn nổi bật như sau:
 
--   Hugo: tool viết bằng Go và được shill là alternative mạnh cho Jekyll. Mình chưa
+- Hugo: tool viết bằng Go và được shill là alternative mạnh cho Jekyll. Mình chưa
     đi sâu vào tool này tho, nhưng khi biết Vitepress thì mình nghĩ là sẽ không đi vào
     sâu hơn nữa.
--   Hexo: actually same as above.
--   Gasby: đây là tool có phần Front-end dựa trên React. Không phải mình anti-React,
+- Hexo: actually same as above.
+- Gasby: đây là tool có phần Front-end dựa trên React. Không phải mình anti-React,
     nhưng có thể nói mình _thạo_ Vue hơn (dù thật ra mình cũng mù hai cái ngang nhau).
--   Vuepress: đây là tiền thân của Vitepress. Do Vitepress rõ ràng là tool mới hơn,
+- Vuepress: đây là tiền thân của Vitepress. Do Vitepress rõ ràng là tool mới hơn,
     nên Vuepress _nằm ngoài phương trình_.
--   Các tool còn lại: đều hướng đến việc viết documentation hơn là việc viết blog.
+- Các tool còn lại: đều hướng đến việc viết documentation hơn là việc viết blog.
 
 :::details Ngoài lề
 Danh sách các tool generator kia cũng có nhiều tool thú vị, được viết trên nhiều
@@ -141,9 +141,9 @@ Tất nhiên Vitepress cũng có trở ngại khác. Vitepress cũng là tool s�
 để viết documentation hơn là được sử dụng để viết blog. Tuy nhiên cũng đã có các
 _attempts_ sử dụng Vitepress cho blogging:
 
--   [Theme Vitepress cho blog][vitepressblog].
--   [Project template cho Vitepress][vitepress-blog-starter].
--   [Một danh sách các blog cá nhân sử dụng Vitepress trên Github](https://github.com/topics/vitepress-blog).
+- [Theme Vitepress cho blog][vitepressblog].
+- [Project template cho Vitepress][vitepress-blog-starter].
+- [Một danh sách các blog cá nhân sử dụng Vitepress trên Github](https://github.com/topics/vitepress-blog).
 
 Như vậy có thể tự tin khẳng định Vitepress cũng là tool phù hợp cho việc blogging.
 Với mục đích là mod site, nên mình cũng không sử dụng các template/theme có sẵn.
@@ -293,12 +293,11 @@ Nhưng có các phần khác mà mình vẫn muốn cho thêm vào, nhưng chưa
 - Nút để xem post trước đó/tiếp theo.
 - Tags.
 
-Những phần này mình sẽ cho vào trong tương lai, vì mình cũng đã thấy có các 
-blog dùng Vitepress làm điều này. Ở thời điểm hiện tại thì mọi thứ đã hoạt 
+Những phần này mình sẽ cho vào trong tương lai, vì mình cũng đã thấy có các
+blog dùng Vitepress làm điều này. Ở thời điểm hiện tại thì mọi thứ đã hoạt
 động rồi (thì mình mới có bài viết cho các bạn chứ :wink:).
 
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
-[github-page]: https://pages.github.com/
 [Jekyll]: https://jekyllrb.com/
 [Jekyll-minima]: https://github.com/jekyll/minima
 [old-blog-readme]: https://github.com/quangloc99/quangloc99.github.io/blob/cc332508d79420158ab00518260bd41e870d6dbb/README.md
