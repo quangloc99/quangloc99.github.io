@@ -315,6 +315,54 @@ Những phần này mình sẽ cho vào trong tương lai, vì mình cũng đã 
 blog dùng Vitepress làm điều này. Ở thời điểm hiện tại thì mọi thứ đã hoạt
 động rồi (thì mình mới có bài viết cho các bạn chứ :wink:).
 
+## Migrate blog cũ sang engine mới
+
+Migrate thật ra nó sẽ vô cùng đơn giản. Chỉ cần thay đổi lại cấu trúc cây
+thư mục của repo này để các posts được route đến đúng là xong. Nhưng mọi thứ
+nó không đơn giản như vậy khi bạn mod rất nhiều thứ trong trang blog của bạn.
+
+Vậy điều mình làm thật ra là migrate hết các custom component của mình
+sang Vitepress.
+
+### Frontmatter
+
+Frontmatter là phần code nho nhỏ ở đầu mỗi Post, cho phép định nghĩa
+các metadata như tên của post, ngày viết, ... Người viết blog có
+thể tự định nghĩa các trường để dùng với component có sẵn hoặc tự tạo.
+
+#### Date
+
+Ngoài `layout` là cần thay đổi, và `title` là cần giữ, thì thứ cần thay đổi
+nhất là trường `date`. Trường `date` trong Jekyll có format như thế này:
+
+```
+YYYY-MM-DD HH:MM:SS +/-TTTT
+```
+
+Và tất nhiên là Vitepress không parse được :sob:. Well, thật ra không phải
+là Vitepress. Mình là người quản lý field này khi gather các post, do đó
+mình là người quyết định điều này. Và quyết định của mình ở đây là cắm luôn
+trường này vào constructor `Date` của Javascript. Đến đây thì thật ra rât thú vị:
+Node parse được format kia, còn browser của mình (Firefox) thì không :rofl:.
+
+Nhưng vì mình mới có duy nhất 4 posts, nên mình quyết định sửa hết các date
+về format khác bằng tay. Và mình quyết định đi với [ISO 8601 format][mdn-date-string-format].
+Lý do đây là format khá gần với format trên, nó chuẩn, và người thì vẫn đọc được.
+
+[mdn-date-string-format]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format
+
+#### Các trường khác
+
+Một vài component mình viết ra bằng Liquid đều có phụ thuộc vào frontmatter.
+Một điểm hay là khi mình bỏ hết các component đó đi, thay bằng component
+viết bằng Vue, mình không cần các Frontmatter đó nữa, bởi vì cơ bản đó là _hack_.
+
+Ví dụ cấu trúc trước của blog của mình là nhóm hết ảnh vào chung 1 thư mục,
+nhưng đáng lẽ ra nó lại nên đi kèm với blog. Mình có một trường ở
+frontmatter specify đường dẫn chung đến thư mục chứa ảnh, và có một
+component load ảnh từ đó. Với cấu trúc cây thư mục mới hợp lý hơn, mình
+không cần còn làm điều này nữa :partying_face:.
+
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
 [Jekyll-minima]: https://github.com/jekyll/minima
