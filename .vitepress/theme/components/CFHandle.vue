@@ -6,21 +6,21 @@
             nickname: string;
             rank?: CFRank;
             displayMaxRank?: boolean;
+            prefixWithRank?: boolean;
         }>();
     
-    const { nickname, rank, displayMaxRank } = toRefs(props);
+    const { nickname, rank, displayMaxRank, prefixWithRank } = toRefs(props);
 
     function useRank() {
-        if (rank.value) return rank;
-
+        // TODO make rank reactive?
+        if (rank?.value) return rank;
         const { userInfo, error } = useCFUserInfo(nickname);
         return computed(() => {
             if (error.value) {
                 console.error(error.value);
                 return undefined;
             }
-            console.log(userInfo);
-            return displayMaxRank ? userInfo.value?.maxRank : userInfo.value?.rank;
+            return displayMaxRank.value ? userInfo.value?.maxRank : userInfo.value?.rank;
         });
     }
 
@@ -28,13 +28,15 @@
 </script>
 
 <template>
-    <a
-        class="cf-handle"
-        :class="computedRank?.replace(' ', '-') ?? ''"
-        :href="`https://codeforces.com/profile/${nickname}`"
-        target="_blank"
-        >{{ nickname }}</a
-    >
+    <span>
+        <span v-if="prefixWithRank">{{ computedRank ?? '' }}</span> <a
+            class="cf-handle"
+            :class="computedRank?.replace(' ', '-') ?? ''"
+            :href="`https://codeforces.com/profile/${nickname}`"
+            target="_blank"
+            >{{ nickname }}</a
+        >
+    </span>
 </template>
 
 <style>
