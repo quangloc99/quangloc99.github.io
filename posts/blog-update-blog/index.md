@@ -538,9 +538,14 @@ làm bằng tay, và styling hơi bị xấu :sweat_smile:.
 
 ### Theme switcher
 
-Bạn có thể thấy nút đổi theme (tối <-> sáng) ở góc trên bên phải, khi ấn vào sẽ
-cho ra một effect đặc biệt. Mình gọi nó là _đóng mở rèm_, và mình migrate cái
-effect này sang.
+Jekyll thật ra không có theme switcher. Phần theme switcher của Jekyll là
+mình tự thêm vào. Minh đã phải modify file styling của Minima để include
+cả màu của theme sáng và tối, và sau đó thêm cái button chuyển đổi theme vào.
+
+Vitepress đã đi kèm với theme switcher. Bạn có thể thấy nút đổi theme (tối <->
+sáng) ở góc trên bên phải. Tuy nhiên khi ấn vào sẽ cho ra một effect đặc biệt.
+Mình gọi nó là _đóng mở rèm_, và mình migrate cái effect này sang từ trang blog
+cũ.
 
 Trước đó mình code bằng JS với SCSS. Tất nhiên lúc đó còn hơi gà nên code cũng
 hơi kém, nhưng phần khác do không có framework. Giờ code bằng Typescript, có
@@ -597,6 +602,27 @@ component vue rồi. Mình không check preview mà mình push lên github luôn
 Lúc vừa migrate sang xong thì mình mới nhận ra là tất cả các ảnh đều không
 được load. Vậy mình phải migrate toàn bộ ảnh _bằng tay_ :skull:.
 :::
+
+### Comment
+
+Mục comment cho blog của mình có sử dụng một cụ là [utterances](https://utteranc.es/).
+Đây là công cụ cho phép người dùng Github tạo comment. Khi có người dùng đầu tiên
+tạo comment vào một post, _utterances_ sẽ tạo một issue tương ứng trên chính trang
+github của blog, và lưu comment trên đó dưới dạng comment của issue.
+
+Trước đó mình embed luôn cái script từ trang của _utterances_. Tuy nhiên giờ
+mình dùng Vue rồi, mình dùng [component có sẵn](https://vue-utterances.js.org/)
+:sunglasses:.
+
+Không chỉ là giờ các comment cũ đợc giữ lại, thậm chí mình còn làm theme của
+component thay đổi theo theme của cả trang blog. Trước đó mình không làm được,
+mà thật ra phải refresh cả trang blog để có lại theme. Đội ơn Vue theme nói
+riêng và UI dev nói chung đã tạo ra khái niệm _reactivity_.
+
+Một điểm đáng đề cập là trước khi dùng Vue compoment, phần comment đã có bug.
+Mình quên mất là phải comment theo page. Vì Vitepress tạo ra Single page app,
+nên nếu không làm theo page, một khi mục comment đã load là tất cả phần
+comment đều giống nhau! Lại phải đội ơn Vue component một lần nữa!
 
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
