@@ -634,13 +634,13 @@ tự lấy data trên Codeforces về, và style nó theo rank tương ứng!
 
 <script lang="ts" setup>
   import { ref } from 'vue';
-  const nickname = ref('');
+  const nickname = ref('darkkcyan');
   const displayMaxRank = ref(true);
 </script>
 
 Nhập nickname của bạn trên CF: <input :value="nickname" @change="event => nickname = event.target.value" style="border: 1px solid gray" /> (Enter)
 
-Hiển thị max rank: <input :value="displayMaxRank" @change="event => displayMaxRank = event.target.checked" type="checkbox" />
+Hiển thị max rank: <input :checked="displayMaxRank" @change="event => displayMaxRank = event.target.checked" type="checkbox" />
 
 ---
 
@@ -652,6 +652,27 @@ Nickname trên Codeforces của bạn với màu rank:
     prefixWithRank="true"
 />
 </center>
+
+Lưu ý là với nickname không tồn tại, hoặc chưa thi bao giờ, thì rank sẽ không
+hiện.  Đặc biệt với role Head quater như <cf-handle nickname="MikeMirzayanov"
+rank="headquater" />, rank cũng không thể lấy được do Codeforces API không trả
+về rank. Tuy nhiên những trường hợp như thế này mình có có lựa chọn hardcode
+rank tương ứng, nhưng bạn có thể thấy đã làm với chính nickname headquater.
+
+## Vậy còn gì nữa?
+
+### Thay đổi đường link đến các bài viết cũ
+
+Jekyll có đường link đế tên các bài viết là bao gồm có cả ngày viết vào tên đường link.
+Ngược lại, Vietpress sử dụng chính cấu trúc của cây thư mục để route. Như vậy nếu sử
+dụng các đường link đến blog cũ thì trang blog sẽ hiện mã 404 :skull.
+
+Cách giải quyết hiện tại của mình là mình sẽ redirect các trang đó, nhưng ở client side.
+Ví dụ như bạn click vào <a href="/2021/10/01/im-red-now-what" target="_blank">link cũ này</a>,
+nếu trang được load nhanh nó sẽ hiện 404 trong chớp mắt và đổi sang tương ứng.
+
+Danh sách các đường link cần redirect là mình đang hardcode file config, và hopefully
+là mình không phải mở rộng danh sách đó nữa.
 
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
