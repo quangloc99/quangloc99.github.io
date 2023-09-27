@@ -665,7 +665,7 @@ rank tương ứng, nhưng bạn có thể thấy đã làm với chính nicknam
 
 Jekyll có đường link đế tên các bài viết là bao gồm có cả ngày viết vào tên đường link.
 Ngược lại, Vietpress sử dụng chính cấu trúc của cây thư mục để route. Như vậy nếu sử
-dụng các đường link đến blog cũ thì trang blog sẽ hiện mã 404 :skull.
+dụng các đường link đến blog cũ thì trang blog sẽ hiện mã 404 :skull:.
 
 Cách giải quyết hiện tại của mình là mình sẽ redirect các trang đó, nhưng ở client side.
 Ví dụ như bạn click vào <a href="/2021/10/01/im-red-now-what" target="_blank">link cũ này</a>,
@@ -673,6 +673,39 @@ nếu trang được load nhanh nó sẽ hiện 404 trong chớp mắt và đổ
 
 Danh sách các đường link cần redirect là mình đang hardcode file config, và hopefully
 là mình không phải mở rộng danh sách đó nữa.
+
+## Vậy là có blog _ngon_ rồi. Giờ làm gì?
+
+Trước tiên là update nhỏ về bản thân mình. Một năm vừa qua làm việc là mình làm
+việc với môi trường remote, nói cách khác là mình làm việc tại nhà. Tất nhiên
+mình cũng thi thoảng đi công tác, song mình thấy công việc hiện tại cũng khá
+thoải mái. Để ~~flex~~ thể hiện điều này, mình xin gửi tới các bạn tấm hình góc
+làm việc của mình :hugs:.
+
+![my-workspace](./img/workspace.jpg "Góc làm việc của mình khi đang soạn chính blog này.")
+
+Welp, do mình cũng không dùng mạng xã hội nên chắc chiếc blog này là nơi
+sống ảo duy nhất :stuck_out_tongue_closed_eyes:.
+
+Quay trở lại với blog. Mình mở blog này thật ra có mục đích đơn giản là nếu như
+mình có thứ gì đó muốn viết, vậy mình có một chỗ để viết. Có độc giả luôn là một
+điều tốt, tuy nhiên nó không phải là mục đích ưu tiên hàng đầu cho trang blog
+của mình. Nhưng để trang blog không có bài viết thì cũng không hay, nhất là khi
+bỏ ra bao nhiêu công nâng cấp trang blog rùi :skull:.
+
+Thật ra mình có nhiều ý tưởng, tuy nhiên thời gian triển khai thì không có
+(không phải làm remote là rảnh nha), cũng như không có quá nhiều động lực để
+làm.  Sau nhiều hồi suy ngẫm, mình nhận thấy rằng blog nên đi song song với
+những việc mình làm nhiều hơn là chỉ có ý tưởng nhưng lại để đấy. Ví dụ như công
+việc hiện tại của mình làm việc với TypeScript nhiều này, làm việc với API
+design này, thì đúng ra là mình nên viết về những chủ đề tương tự. Vì vậy những
+blog sau này mình sẽ viết về những thứ mình học, đọc, research, làm, và blog sẽ
+mang tính chất như một bài báo cáo _nho nhỏ_, nhưng hy vọng là có tính giải trí
+cao :cow:.
+
+Đó là về blog update. Chào các bạn mình đi ngủ đây. Nếu các bạn có ý định mod
+blog sang Vitepress giống mình thì mong post này sẽ giúp các bạn có các insight,
+và chúc các bạn hack vui vẻ!
 
 [static site generator]: https://en.wikipedia.org/wiki/Static_site_generator
 [Jekyll]: https://jekyllrb.com/
