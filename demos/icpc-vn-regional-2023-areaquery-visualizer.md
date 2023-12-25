@@ -4,7 +4,7 @@ title: Visualizer cho bài Area query ICPC Việt Nam Regional 2023
 aside: false
 ---
 
-Đây là demo nhỏ để mô phỏng bài [Area query][problem] với lời giải của mình. Chi tiết về demo ở phía dưới.
+Đây là demo nhỏ để mô phỏng bài [Area query][problem] với lời giải của mình. Chi tiết về demo ở phía dưới. Bạn hãy đọc bài blog [Lời giải bài Area Query - ICPC Việt Nam Regional 2023](/posts/icpc-vn-regional-2023-a-solution/) để biết thêm chi tiết.
 
 This is a small demo to visualize the [Area query][problem] with my solution. Details about the demo are below.
 

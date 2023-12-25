@@ -253,7 +253,7 @@ Mình cũng là người viết Validator cho bài này. Và kể ra Validator c
 
 Validator của mình cũng lợi dụng tính chất Euler tour của đường thăm và cũng sử dụng segment tree. Ở đây nếu như ta thêm đoạn $(u, v)$ và thì điểm $\mathtt{start}_{(u. v)}$ và điểm $\mathtt{start}_{(u, v)}$ cũng cần có cùng tập hợp cha. Bài toán kiểm tra hai tập hợp bằng nhau là một bài toán đã có lời giải, và ở đây mình sử dụng [XOR hash](https://codeforces.com/blog/entry/85900): khi một đoạn được thêm, ta xor đoạn tương ứng với nó bởi một số ngẫu nhiên $x$, và khi đoạn đó được bỏ đi ta lại xor với chính số $x$ đó.
 
-Để tăng sự tự tin thì thay vì mình dùng số 64 bit, mình đã dùng số 256 bit. Về mặt triển khai thì không tốn nhiều công hơn.
+Để tăng sự tự tin thì thay vì mình dùng số 64 bit, mình đã dùng số 256 bit. Về mặt triển khai thì không tốn nhiều công hơn.kj
 
 [wiki-tree-euler-tour]: https://en.wikipedia.org/wiki/Euler_tour_technique
 [cf-tree-euler-tour]: https://codeforces.com/blog/entry/18369
