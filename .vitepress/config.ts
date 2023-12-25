@@ -70,7 +70,10 @@ Might be about math. Might be about art. Who knows?`,
         outline: {
             level: [2, 3],
         },
-        nav: [{ text: 'About', link: '/about' }],
+        nav: [
+            { text: 'About', link: '/about' },
+            { text: 'Demos', link: '/demos/'}
+        ],
         socialLinks: [
             { icon: 'github', link: 'https://github.com/quangloc99' },
             { icon: 'discord', link: 'https://discord.com/users/501085823480102925' },
