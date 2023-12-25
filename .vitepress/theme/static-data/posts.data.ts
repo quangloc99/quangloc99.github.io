@@ -2,8 +2,8 @@ import { createContentLoader, ContentData } from 'vitepress';
 
 type Post = ContentData & {
     excerpt: string;
-    title: string | undefined;
-    date: Date | undefined;
+    title: string;
+    date: Date;
 };
 
 const stringOrUndefined = (value: unknown) => (typeof value == 'string' ? value : undefined);

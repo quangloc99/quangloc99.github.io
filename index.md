@@ -7,5 +7,3 @@ background: /img/background.png
 ---
 
 <Posts />
-
-
