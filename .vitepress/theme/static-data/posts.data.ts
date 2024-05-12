@@ -22,7 +22,7 @@ const postLoader = createContentLoader(postPattern, {
             .filter((value) => {
                 // exclude post that has name starts with `_`
                 const parts = value.url.split('/');
-                return !parts[parts.length - 1].startsWith('_');
+                return !parts.some(part => part.startsWith('_'));
             })
             .filter((value) => value.frontmatter.layout === 'blog-post')
             .map(
