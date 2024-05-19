@@ -182,5 +182,41 @@ Mình không bao giờ dùng numpad vì coding không cần sử dụng đến p
 
 No hard requirement :rofl:.
 
+### Chiếc máy mình đã sở hữu
 
+Trước đó mình đang sở hữu chiếc máy [Thinkpad T14 gen 3 (AMD)][thinkpad-t14-gen3-amd-psref].
 
+![](./img/old-t14-gen3-image.jpg)
+
+Tại thời điểm mua mình nghĩ chiếc máy này là ngon lắm rồi, nhưng sau khi dùng
+được một thời gian (khá ngắn), có một vài điểm chưa ổn lắm về máy.
+
+- Máy mình sử dụng chip AMD Ryzen 7 PRO 6850U. Tuy là chip U nhưng đa số thời gian
+mình thấy nó vẫn rất mạnh.
+- RAM 16GB. Dung lượng này đáp ứng đc khoảng 70% công việc của mình. Đôi lần mình
+sử dụng Vite song song với: browser, Discord và Neovim (có language server) thì
+nhiều khi RAM hết sạch!
+
+![](./img/old-t14-gen3-neofetch.png "Cấu hình máy Thinkpad T14 gen 3 của mình với Neofetch")
+
+> Btw RIP [Neofetch] :sob:.
+
+- Thời lượng pin **rất** thấp. Ở đây pin có 39.3Wh. Theo trang [specification][thinkpad-t14-gen3-amd-psref]
+thì vẫn có cấu hình với thời lượng pin là 52.5Wh.
+![](./img/old-t14-gen3-battery.png)
+
+- Màn hình là FHD nên không gian làm cũng ổn. Song độ sáng tối đa là 150 nits, nên làm việc
+nhiều khi phải tăng độ sáng màn lên. Ngoài ra sau một thời gian dùng mình thấy có dấu hiệu
+[image retention][wiki-image-persistence], và màn hình có những vệt đốm mờ. Mình cũng định
+đi sửa màn hình thế nào, song có lẽ là nên nâng cấp cả máy luôn.
+
+Đó là các điểm chính mình chưa hài lòng về máy. Về hoạt động bình thường thì
+máy vẫn rất ổn. Đặc biệt dù là chip U, song máy chạy rất nhanh, mình chạy code
+CP vẫn nhanh gấp đôi Codeforces server :rofl:. Cơ mà mấy điểm trên nó cũng gây
+không ít phiền toái khi mình sử dụng. Lý do cũng là vì những tham số trên mình
+cũng tìm hiểu chưa kĩ trước khi mua máy. Nên cuối cùng mình cũng quyết định 
+mua chiếc mới và lần này là tìm hiểu rất kĩ luôn :+1:.
+
+[thinkpad-t14-gen3-amd-psref]: https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14_Gen_3_AMD
+[Neofetch]: https://github.com/dylanaraps/neofetch
+[wiki-image-persistence]: https://en.wikipedia.org/wiki/Image_persistence
