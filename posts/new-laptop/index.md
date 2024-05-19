@@ -87,6 +87,15 @@ power consuption_. Mình sẽ thiên về chọn performance hơn để làm vi�
 Các thông số kĩ thuật hơn như tốc độ xử lý, số lượng core, ... cũng là tùy loại CPU.
 Khi chọn mình cũng sẽ so sánh các loại CPU với nhau, rồi cuối cùng mới đưa ra lụa chọn.
 
+#### GPU
+
+Với nhu cầu làm việc của mình thì có GPU luôn là lựa chọn tốt. Song mình cũng
+không cần GPU quá mạnh hoặc có tính năng nhật định. Mình không định sử dụng
+laptop để chơi game yêu cầu cấu hình cao, cũng như mình cũng không thiết kế đồ
+họa, hay làm machine learning. Nên về GPU mình hướng tới lựa chọn tầm trung.
+
+Về tham số cụ thể mình cũng sẽ dựa vào máy tính để quyết định.
+
 #### Tản nhiệt và quạt
 
 Mình cũng không có quá nhiều ý kiến về phần này. Nhưng sau tìm hiểu thì vãn có hai
