@@ -10,6 +10,16 @@ const config = {
     trailingComma: 'es5',
     useTabs: false,
     vueIndentScriptAndStyle: true,
+
+    overrides: [
+        {
+            files: "*.md",
+            options: {
+                printWidth: 80,
+                tabWidth: 2
+            }
+        }
+    ],
 };
 
 export default config;
