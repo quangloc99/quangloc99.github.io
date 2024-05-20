@@ -71,18 +71,18 @@ mình học lại cách đọc tên CPU, rồi sau lại quên luôn :rofl:. T�
 tự đặt ra vài tiêu chí, nhưng cũng như trên, mình sẽ xem máy trước rồi quyết định.
 
 - Intel vs AMD. Đây là hai hãng mà mình biết, và cũng không nên tìm hiểu sâu hơn,
-vì search ngoài hai hàng này trên Google cũng rất khó. Mình cũng không tìm hiểu quá
-sâu, nhưng dạo vài vòng thì có thấy rằng chip AMD không tốn hiều pin như Intel.
-Nên mình sẽ ngả hơn một tí về chọn AMD.
+  vì search ngoài hai hàng này trên Google cũng rất khó. Mình cũng không tìm hiểu quá
+  sâu, nhưng dạo vài vòng thì có thấy rằng chip AMD không tốn hiều pin như Intel.
+  Nên mình sẽ ngả hơn một tí về chọn AMD.
 - Brand modifier. Nôm na thì đây chính là `i3`, `i5`, `i7`, và `i9` với Intel.
-Với AMD đây là `Ryzen 3`, `Ryzen 5`, `Ryzen 7` và `Ryzen 9`. Mình chắc chắn sẽ không
-chọn `3` vì mình hướng tới performance. `5` không phải là lựa chọn tồn nhưng mình sẽ
-chọn `7` hoặc `9` nếu có thể.
+  Với AMD đây là `Ryzen 3`, `Ryzen 5`, `Ryzen 7` và `Ryzen 9`. Mình chắc chắn sẽ không
+  chọn `3` vì mình hướng tới performance. `5` không phải là lựa chọn tồn nhưng mình sẽ
+  chọn `7` hoặc `9` nếu có thể.
 - Thế hệ chip. Tất nhiên là thế hệ càng mới thì càng tốt rồi. Để đơn giản mình sẽ
-khoanh vùng lại hai thế hệ chip gần nhất.
+  khoanh vùng lại hai thế hệ chip gần nhất.
 - Hậu tố. Trong tên mỗi chip đều có 1 kí tự cuối để chỉ _sức mạnh_ của chip.
-Như `H` thể hiện đây là Chip _**H**igh performance_, còn `U` là _**U**ltra-low
-power consuption_. Mình sẽ thiên về chọn performance hơn để làm việc.
+  Như `H` thể hiện đây là Chip _**H**igh performance_, còn `U` là _**U**ltra-low
+  power consuption_. Mình sẽ thiên về chọn performance hơn để làm việc.
 
 Các thông số kĩ thuật hơn như tốc độ xử lý, số lượng core, ... cũng là tùy loại CPU.
 Khi chọn mình cũng sẽ so sánh các loại CPU với nhau, rồi cuối cùng mới đưa ra lụa chọn.
@@ -102,10 +102,10 @@ Mình cũng không có quá nhiều ý kiến về phần này. Nhưng sau tìm 
 điểm đối lập sau hiện lên:
 
 - Tiếng ồn quạt. Nếu như ồn quá thì việc dùng máy tính sẽ gây khó chịu. Dù nếu mình
-có đeo tai nghe thì nếu như mình phải mang đi làm ở chỗ khác cũng sẽ gây khó chịu cho
-mọi người.
-> Điểm này làm mình đến lúc mình học đại học. Quạt laptop của mình cũng ồn vừa phải,
-tuy nhiên nó lại hay quay liên tục. Nên mình mong muốn tránh phần này.
+  có đeo tai nghe thì nếu như mình phải mang đi làm ở chỗ khác cũng sẽ gây khó chịu cho
+  mọi người.
+  > Điểm này làm mình đến lúc mình học đại học. Quạt laptop của mình cũng ồn vừa phải,
+  > tuy nhiên nó lại hay quay liên tục. Nên mình mong muốn tránh phần này.
 - Tản nhiệt không tốt thì lại dẫn đến việc _throttling_, ảnh hưởng đến performance.
 
 Về lý tưởng thì mình muốn rằng đa số thời gian mình làm việc bình thường thì sẽ không
@@ -146,24 +146,25 @@ Lúc này mình tìm hiểu thì giờ mình thấy rằng màn hình cũng rấ
 
 - Kích thước. Well phần này mình nói ở trên rồi.
 - Độ phân giải (Resolution). Đến thời điểm hiện tại đã có những máy chỉ 16 inch
-nhưng có màn với độ phân giải 4K ($3840 \times 2160$). Tất nhiên công việc lập
-trình của mình không cần đến độ nét đến như vậy, nên tiêu chí ít nhất là màn
-FHD ($1920 \times 1080$), tức là mọi máy hiện tại đều có.
+  nhưng có màn với độ phân giải 4K ($3840 \times 2160$). Tất nhiên công việc lập
+  trình của mình không cần đến độ nét đến như vậy, nên tiêu chí ít nhất là màn
+  FHD ($1920 \times 1080$), tức là mọi máy hiện tại đều có.
 - Tần số quét (Refresh rate). Bây giờ không có màn nào có tần số quét ít hơn
-60hz cả. Nhưng khi dùng màn hình ngoài với tần số 165hz, kèm theo điện thoại có
-tần số 120hz, giờ mình cảm thấy 60hz lại _quá chậm_ :rofl:. Nên mình sẽ chọn
-màn có tần số cao hơn 60hz nếu có thể. Tất nhiên tần số quét cao cũng ảnh hưởng
-đến pin, nhưng các màn chắc chắn sẽ hỗ trợ sử dụng tần số quét thấp hơn nếu
-cần.
+  60hz cả. Nhưng khi dùng màn hình ngoài với tần số 165hz, kèm theo điện thoại có
+  tần số 120hz, giờ mình cảm thấy 60hz lại _quá chậm_ :rofl:. Nên mình sẽ chọn
+  màn có tần số cao hơn 60hz nếu có thể. Tất nhiên tần số quét cao cũng ảnh hưởng
+  đến pin, nhưng các màn chắc chắn sẽ hỗ trợ sử dụng tần số quét thấp hơn nếu
+  cần.
 - Độ sáng. Đây cũng là điểm mình ít để ý trước đây. Độ sáng màn được tính bằng nits.
-Về cơ bản thì 400 nits sẽ đủ để làm việc ngoài trời. Và mình nhận ra là các máy trước
-của mình cũng chưa đến 400 nits :weary:, nên đây cũng là tiêu chí tối thiểu của mình.
+  Về cơ bản thì 400 nits sẽ đủ để làm việc ngoài trời. Và mình nhận ra là các máy trước
+  của mình cũng chưa đến 400 nits :weary:, nên đây cũng là tiêu chí tối thiểu của mình.
 - Màu sắc và tương phản. Mình không phải designer (_yet_) nên phần này không
-quan trọng lắm.
+  quan trọng lắm.
 - Loại hiển thị. Đây chắc là phần cần chú ý nhất. Mình có tìm hiểu được các loại sau:
-  + IPS (In-Plane Switching).
-  + Mini LED
-  + OLED
+
+  - IPS (In-Plane Switching).
+  - Mini LED
+  - OLED
 
   Cụ thể các loại hiển thị khác nhau như thế nào chắc mình sẽ không trình bày ở
   đây (phần này dành cho độc giả :rofl:). Nhưng Mini LED và OLED sẽ cho hình
@@ -179,11 +180,12 @@ laptop này.
 
 Phần này nên là phần ít quan trọng nhất nếu mình chỉ tập chung vào cấu hình.
 Song mình có duy nhất 2 tiêu chí nhỏ:
+
 - Laptop không được nhìn quá _hầm hố_. Cụ thể ở đây các dòng Gaming bề ngoài
-nhìn bắt mắt nhưng hướng đến game thủ. Mình không thích sự hầm hố như vậy,
-again 
+  nhìn bắt mắt nhưng hướng đến game thủ. Mình không thích sự hầm hố như vậy,
+  again
 - Keyboard layout. Mình rất không thích có phần numpad trên bàn phím của mình.
-Mình không bao giờ dùng numpad vì coding không cần sử dụng đến phần đó.
+  Mình không bao giờ dùng numpad vì coding không cần sử dụng đến phần đó.
 
 > Macbook có thỏa mãn tiêu chí này :skull:.
 
@@ -201,29 +203,29 @@ Tại thời điểm mua mình nghĩ chiếc máy này là ngon lắm rồi, nh�
 được một thời gian (khá ngắn), có một vài điểm chưa ổn lắm về máy.
 
 - Máy mình sử dụng chip AMD Ryzen 7 PRO 6850U. Tuy là chip U nhưng đa số thời gian
-mình thấy nó vẫn rất mạnh.
+  mình thấy nó vẫn rất mạnh.
 - RAM 16GB. Dung lượng này đáp ứng đc khoảng 70% công việc của mình. Đôi lần mình
-sử dụng Vite song song với: browser, Discord và Neovim (có language server) thì
-nhiều khi RAM hết sạch!
+  sử dụng Vite song song với: browser, Discord và Neovim (có language server) thì
+  nhiều khi RAM hết sạch!
 
-![](./img/old-t14-gen3-neofetch.png "Cấu hình máy Thinkpad T14 gen 3 của mình với Neofetch")
+![](./img/old-t14-gen3-neofetch.png 'Cấu hình máy Thinkpad T14 gen 3 của mình với Neofetch')
 
 > Btw RIP [Neofetch] :sob:.
 
 - Thời lượng pin **rất** thấp. Ở đây pin có 39.3Wh. Theo trang [specification][thinkpad-t14-gen3-amd-psref]
-thì vẫn có cấu hình với thời lượng pin là 52.5Wh.
-![](./img/old-t14-gen3-battery.png)
+  thì vẫn có cấu hình với thời lượng pin là 52.5Wh.
+  ![](./img/old-t14-gen3-battery.png)
 
 - Màn hình là FHD nên không gian làm cũng ổn. Song độ sáng tối đa là 150 nits, nên làm việc
-nhiều khi phải tăng độ sáng màn lên. Ngoài ra sau một thời gian dùng mình thấy có dấu hiệu
-[image retention][wiki-image-persistence], và màn hình có những vệt đốm mờ. Mình cũng định
-đi sửa màn hình thế nào, song có lẽ là nên nâng cấp cả máy luôn.
+  nhiều khi phải tăng độ sáng màn lên. Ngoài ra sau một thời gian dùng mình thấy có dấu hiệu
+  [image retention][wiki-image-persistence], và màn hình có những vệt đốm mờ. Mình cũng định
+  đi sửa màn hình thế nào, song có lẽ là nên nâng cấp cả máy luôn.
 
 Đó là các điểm chính mình chưa hài lòng về máy. Về hoạt động bình thường thì
 máy vẫn rất ổn. Đặc biệt dù là chip U, song máy chạy rất nhanh, mình chạy code
 CP vẫn nhanh gấp đôi Codeforces server :rofl:. Cơ mà mấy điểm trên nó cũng gây
 không ít phiền toái khi mình sử dụng. Lý do cũng là vì những tham số trên mình
-cũng tìm hiểu chưa kĩ trước khi mua máy. Nên cuối cùng mình cũng quyết định 
+cũng tìm hiểu chưa kĩ trước khi mua máy. Nên cuối cùng mình cũng quyết định
 mua chiếc mới và lần này là tìm hiểu rất kĩ luôn :+1:.
 
 ## Chọn laptop
@@ -251,8 +253,8 @@ gần đây).
 
 ### Thinkpad Z16
 
-| ![](./img/ThinkPad_Z16_Gen_2_CT1_03.avif " ") | ![](./img/ThinkPad_Z16_Gen_2_CT1_05.avif " ")|
-| --- | --- |
+| ![](./img/ThinkPad_Z16_Gen_2_CT1_03.avif ' ') | ![](./img/ThinkPad_Z16_Gen_2_CT1_05.avif ' ') |
+| --------------------------------------------- | --------------------------------------------- |
 
 <center>
 Hình ảnh <a href="https://psref.lenovo.com/Product/ThinkPad/ThinkPad_Z16_Gen_2
@@ -266,9 +268,10 @@ Macbook. Máy có vỏ bằng kim loại. bốn góc đều vuông. Bàn phím k
 và nằm chính giữa là phần mình rất ứng.
 
 Cấu hình máy cũng khá hợp với tiêu chí của mình:
+
 - Máy 16 inch.
 - Máy có chip AMD thế hệ mới nhất (tại thời điểm viết) có đuôi HS. Cấu hình
-trải từ Ryzen 5 đến Ryzen 9.
+  trải từ Ryzen 5 đến Ryzen 9.
 - RAM máy _lên đến_ 64GB.
 - Màn hình có cả IPS và OLED. Thậm chí phiên bản OLED có cả cảm ứng.
 
