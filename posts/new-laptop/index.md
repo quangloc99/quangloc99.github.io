@@ -226,6 +226,115 @@ không ít phiền toái khi mình sử dụng. Lý do cũng là vì những tha
 cũng tìm hiểu chưa kĩ trước khi mua máy. Nên cuối cùng mình cũng quyết định 
 mua chiếc mới và lần này là tìm hiểu rất kĩ luôn :+1:.
 
+## Chọn laptop
+
+Phù giờ mới đến phần chính. Mình sẽ đi qua các lựa chọn mà mình đã xem qua, và
+đánh giá chúng. Mình có cảm giác phần này giống như là review cá nhân vậy.
+Nhưng các bạn hãy chỉ xem thôi chứ không nên coi review của mình là chính xác
+tuyệt đối. Suy cho cùng mình vẫn là noob :stuck_out_tongue_closed_eyes:.
+
+### Dòng máy Thinkpad
+
+Mình rất thích dòng máy này. Chính chiếc T14 gen 3 mà mình sở hữu cũng là
+Thinkpad. Dòng máy này của Lenovo lúc nào cũng có vẻ ngoài vuông vắn và cấu
+hình nhìn chung cũng rất OK. Một điểm rất nổi bật của dòng máy là bàn phím. Cảm
+giác gõ bàn phím được đánh giá là rất tốt, với hành trính phím sâu. Ngoài ra giữa
+bàn phím có một điểm track point màu đỏ để điều khiển chuột. Đây là điểm cộng rất
+lớn cho coder khi mà không cần phải di chuyển tay quá nhiều. Mình có sử dụng Vim
+để edit code nên đây là combo rất phù hợp với mình.
+
+Dòng máy cũng được biết đến là bền và khả năng nâng cấp tốt, song đây cũng
+không phải là những điểm mình hướng đến (và cũng không đúng lắm cho những mẫu
+gần đây).
+
+Đây vẫn là dòng máy mình hướng đến đầu tiên khi bắt tay vào chọn laptop.
+
+### Thinkpad Z16
+
+| ![](./img/ThinkPad_Z16_Gen_2_CT1_03.avif " ") | ![](./img/ThinkPad_Z16_Gen_2_CT1_05.avif " ")|
+| --- | --- |
+
+<center>
+Hình ảnh <a href="https://psref.lenovo.com/Product/ThinkPad/ThinkPad_Z16_Gen_2
+">Thinkpad Z16 gen 2</a> được lấy từ trang Lenovo
+</center>
+
+Khi mình nhìn thấy mẫu này phát là mình đã _yêu nó ngay từ cái nhìn đầu tiên_!
+
+Về ngoại hình mình có thể nói thẳng luôn là máy có nhiều nguồn cảm hứng từ
+Macbook. Máy có vỏ bằng kim loại. bốn góc đều vuông. Bàn phím không có numpad
+và nằm chính giữa là phần mình rất ứng.
+
+Cấu hình máy cũng khá hợp với tiêu chí của mình:
+- Máy 16 inch.
+- Máy có chip AMD thế hệ mới nhất (tại thời điểm viết) có đuôi HS. Cấu hình
+trải từ Ryzen 5 đến Ryzen 9.
+- RAM máy _lên đến_ 64GB.
+- Màn hình có cả IPS và OLED. Thậm chí phiên bản OLED có cả cảm ứng.
+
+Còn nhiều cấu hình khác mà mình chưa xem kĩ từ lúc bắt đầu xem như là pin, GPU,
+giá thành, ... Nhưng xem qua cấu hình trên, cộng với ngoại hình máy đẹp là
+mình đã muốn mua nó liền! Ngoài ra còn phiên bản gen 1 cũng không tồi. Nhưng nếu
+trên thị trường đã có gen 2 rồi thì mình sẽ cố lấy mẫu gen 2.
+
+#### Nhưng mà mua máy không đơn giản!
+
+Lúc mình xem chiếc này là mình đã quyết là phải mua bằng được mẫu này. Nhưng
+đâu ngờ mua máy lại khó đến như vậy :sob:. Kết quả là mình đã tốn khoảng 1
+tháng rưỡi tìm chỗ đặt và mua máy. Song không có chỗ nào **ở Việt Nam** bán máy
+này, hoặc có bán nhưng với cấu hình thấp hơn.
+
+Điều đầu tiên mình làm là lên trang chủ của Lenovo để đặt máy. Trang mà mình
+truy cập được là trang [này][thinkpad-z16-gen2-lenovo-us]. Mình hí hửng vào đặt
+hàng thì làm sao đấy nó không cho mình nhập địa chỉ Việt Nam. Và đúng thật, đây
+là trang Mĩ :rofl:. Đi dạo một hồi thì thấy máy chỉ bán ở một số vùng như Mĩ và
+Anh. Vùng Singapore cũng có bán, song cấu hình thấp hơn, như là RAM 16GB. Và
+điều buồn nhất là nếu truy cập vào trang Việt Nam thì trang sẽ không cho mua.
+Thay vào đó là trang liệt kê ra danh sách các nhà phân phối ở Việt Nam có bán.
+Như vậy là không có cách mua nào **ở Việt Nam** ngoài việc phải liên hệ với một
+shop thứ ba.
+
+[thinkpad-z16-gen2-lenovo-us]: https://www.lenovo.com/us/en/p/laptops/thinkpad/thinkpadz/lenovo-thinkpad-z16-gen-2-(16-inch-amd)/len101t0082?orgRef=https%253A%252F%252Fwww.google.com%252F
+
+Ở thời điểm viết bài thì khi search Google, các shop ở Việt Nam cũng bị một vấn
+đề tương tự: hoặc là ghi để đấy nhưng không có hàng, hoặc có hàng nhưng cấu
+hình thấp. Mình phải inbox đến vài trang, có trang phản hồi lại nhưng cũng nói
+là hết hàng, không đặt được, rồi còn có trang cũng không xem tin nhắn luôn!
+
+Đến khoảng sau 2 tuần tìm kiếm thì có một shop cho mình đặt (mình xin phép
+không tiết lộ shop), và shop sẽ xách tay từ Mĩ về. Lúc này mình đã hí hửng là
+máy sắp về tay mình rồi, dù giá cho chiếc này tại thời điểm đó khá chát (đã kèm
+theo tiền công xách tay). Nhưng chờ thêm 2 tuần nữa shop báo lại là bên Mĩ cũng
+hết hàng! Quá buồn :sob:.
+
+Phải nói là lúc đó là mình khá _tuyệt vọng_. Mình rất muốn sở hữu chiếc máy này
+_với cấu hình tốt nhất có thể_, nhưng xem ra không được. Lúc này mình phải tự
+thuyết phục bản thân là cấu hình _kém tí cũng được_. Như vậy nếu có thể thì
+mình sẽ không chọn cấu hình Ryzen 9 64GB RAM nữa. Thay vào đó là có thể Ryzen
+7, thậm chí 5, và RAM 32 GB. Nhưng tìm mãi cũng vẫn không có, nên mình còn có ý
+định xem cả mẫu gen 1.
+
+Có một chỗ cũng suýt đặt được, đó là trang [haistore.vn](https://haistore.vn).
+Đây là trang săn sale hàng công nghệ từ Mĩ về. Và có deal mẫu gen 1. Mình cũng
+có đặt nhưng mà kết quả cũng như trên -- hết hàng!
+
+Một giải pháp nữa mà mình cũng có nghĩ và nghiên cứu, đó chính là tìm dịch vụ
+mua hộ hàng (không chỉ mỗi hàng công nghệ). Và đúng là có dịch vụ đó thật, đó
+gọi là dịch vụ [_package forwarder_][package-forwarding]. Lo ngại đầu tiên của
+mình là về uy tín của các dịch vụ này. Nhưng sau tìm hiểu thì cũng thấy có
+trang cũng có vẻ uy tín, như [Stackery] là trang được đánh giá khá cao với
+nhiều review tốt. Nhưng lo ngại khác nữa là về bảo hành và các dịch vụ hỗ trợ
+khác. Nên cuối cùng mình cũng quyết không sử dụng dịch vụ này.
+
+[package-forwarding]: https://en.wikipedia.org/wiki/Package_forwarding
+[Stackery]: https://www.stackry.com/en
+
+Cuối cùng là mình đã bỏ cuộc :pray:. Có vẻ mẫu này có thể hoặc cũng có thể
+không xuất hiện tại Việt Nam. Sau 1 năm chắc mình sẽ tra lại. Nhưng đây chính
+là chiếc máy làm mình tốn thời gian tìm kiểm nhất, và mình phải chấp nhận
+_trắng tay_ sau cuộc tìm kiếm :sob:.
+
 [thinkpad-t14-gen3-amd-psref]: https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14_Gen_3_AMD
+[thinkpad-z16-gen2-psref]: https://psref.lenovo.com/Product/ThinkPad/ThinkPad_Z16_Gen_2
 [Neofetch]: https://github.com/dylanaraps/neofetch
 [wiki-image-persistence]: https://en.wikipedia.org/wiki/Image_persistence
